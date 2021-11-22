@@ -1,0 +1,9 @@
+C:\JobApplications\api-job-apps\EFCore\bin\Debug\netcoreapp3.1\EFCore.deps.json
+C:\JobApplications\api-job-apps\EFCore\bin\Debug\netcoreapp3.1\EFCore.dll
+C:\JobApplications\api-job-apps\EFCore\bin\Debug\netcoreapp3.1\EFCore.pdb
+C:\JobApplications\api-job-apps\EFCore\obj\Debug\netcoreapp3.1\EFCore.csproj.AssemblyReference.cache
+C:\JobApplications\api-job-apps\EFCore\obj\Debug\netcoreapp3.1\EFCore.AssemblyInfoInputs.cache
+C:\JobApplications\api-job-apps\EFCore\obj\Debug\netcoreapp3.1\EFCore.AssemblyInfo.cs
+C:\JobApplications\api-job-apps\EFCore\obj\Debug\netcoreapp3.1\EFCore.csproj.CoreCompileInputs.cache
+C:\JobApplications\api-job-apps\EFCore\obj\Debug\netcoreapp3.1\EFCore.dll
+C:\JobApplications\api-job-apps\EFCore\obj\Debug\netcoreapp3.1\EFCore.pdb
