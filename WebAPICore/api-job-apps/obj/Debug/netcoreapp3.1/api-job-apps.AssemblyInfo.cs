@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("914c525a-f479-4247-aa96-a30207a14042")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("api-job-apps")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
