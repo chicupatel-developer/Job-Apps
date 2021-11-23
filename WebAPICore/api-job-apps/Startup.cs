@@ -1,7 +1,9 @@
+using EFCore.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +28,23 @@ namespace api_job_apps
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            #region JobAppsDBContext
+            services.AddDbContext<JobAppsDBContext>(options =>
+                    options.UseSqlServer(
+                      Configuration.GetConnectionString("DefaultConnection"),
+                      b => b.MigrationsAssembly(typeof(JobAppsDBContext).Assembly.FullName)));
+            #endregion
+
+            #region cors
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +54,8 @@ namespace api_job_apps
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 

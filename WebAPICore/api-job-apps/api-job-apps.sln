@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api-job-apps", "api-job-apps.csproj", "{A412AD6B-8036-46FE-B4F8-F17F7B170359}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api-job-apps", "api-job-apps.csproj", "{A412AD6B-8036-46FE-B4F8-F17F7B170359}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCore", "..\EFCore\EFCore.csproj", "{6F2F0701-B327-4590-B21B-A17B4CD0E146}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore", "..\EFCore\EFCore.csproj", "{6F2F0701-B327-4590-B21B-A17B4CD0E146}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "..\Services\Services.csproj", "{0C65A26C-E8A0-468B-86E4-823BD68A8B8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6F2F0701-B327-4590-B21B-A17B4CD0E146}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F2F0701-B327-4590-B21B-A17B4CD0E146}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F2F0701-B327-4590-B21B-A17B4CD0E146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C65A26C-E8A0-468B-86E4-823BD68A8B8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C65A26C-E8A0-468B-86E4-823BD68A8B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C65A26C-E8A0-468B-86E4-823BD68A8B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C65A26C-E8A0-468B-86E4-823BD68A8B8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
