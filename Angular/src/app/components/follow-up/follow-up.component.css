@@ -1,4 +1,24 @@
-  .parent {height:100%;}
-    .left   {background-color: cyan; }
-    .middle   {background-color: lightgrey;}
-    .right  {background-color: yellow;}
+    .parent {height:100%;}
+    /*
+    .left {
+        
+    }
+    */
+    .middle   
+    {
+        background-color: lightgrey;
+    }
+   
+    .right {
+        background-color: yellow;
+    }
+
+
+    .mainContentLeft{
+        background-color: lightyellow;
+        padding: 10px;
+    }    
+    .mainContentRight{
+        background-color: lightsteelblue;
+        padding: 10px;
+    }
