@@ -1,19 +1,28 @@
-<div>
-    <p></p>
-    This is Home Page
-
-    <p></p>
-    <mat-card>
-        <button mat-raised-button>Cersie Lannister</button>
-        <button mat-raised-button color="primary">Jaime Lannister</button>
-        <button mat-raised-button color="accent">Tyrion Lannister</button>
-    </mat-card>
+<div class="example-container">
+    <div class="form-container">
+        <div fxLayout="row wrap" fxLayoutGap="16px">
+            <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let num of [1]">
+                <form [formGroup]="loginForm" (submit)="submit()">
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> E-mail
+                        </mat-label>
+                        <input matInput formControlName="email" required>
+                        <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
+                            <span *ngIf="loginForm.controls.email.errors.required">This field is mandatory.</span>
+                            <span *ngIf="loginForm.controls.email.errors.pattern">This field is invalid.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Password
+                        </mat-label>
+                        <input matInput formControlName="password" type="password">
+                        <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
+                            <span *ngIf="loginForm.controls.password.errors.required">This field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" type="submit">Log In</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
-
-
-
-
-
