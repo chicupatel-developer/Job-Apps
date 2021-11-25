@@ -1,0 +1,55 @@
+<div style="height: 100vh;">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>Job-Apps</span>
+            <span class="example-spacer"></span>
+            <div fxShow="true" fxHide.lt-md="true">
+                <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+                <a [routerLink]="['/home']" mat-button>
+                    <mat-icon>home</mat-icon>
+                    Home
+                </a>
+                <a [routerLink]="['/follow-up']" mat-button>
+                    <mat-icon>notifications</mat-icon>
+                    Follow-Up
+                </a>
+                <a [routerLink]="['/apply-to-job']" mat-button>
+                    <mat-icon>message</mat-icon>
+                    Apply-Job
+                </a>           
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-sidenav-container fxFlexFill>
+        <mat-sidenav #sidenav>
+            <mat-nav-list>
+                <a [routerLink]="['/home']" mat-button>
+                    <mat-icon>home</mat-icon>
+                    Home
+                </a>
+                <a [routerLink]="['/follow-up']" mat-button>
+                    <mat-icon>notifications</mat-icon>
+                    Follow-Up
+                </a>
+                <a [routerLink]="['/apply-to-job']" mat-button>
+                    <mat-icon>message</mat-icon>
+                    Apply-Job
+                </a>
+                <a (click)="sidenav.toggle()" mat-list-item>
+                    <mat-icon>close</mat-icon> Close
+                </a>
+            </mat-nav-list>
+        </mat-sidenav>
+       
+        <mat-sidenav-content fxFlexFill>            
+            <router-outlet>
+            </router-outlet>
+        </mat-sidenav-content>
+       
+    </mat-sidenav-container>
+</div>
+<p></p>
