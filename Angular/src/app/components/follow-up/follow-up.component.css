@@ -1,0 +1,4 @@
+  .parent {height:100%;}
+    .left   {background-color: cyan; }
+    .middle   {background-color: lightgrey;}
+    .right  {background-color: yellow;}

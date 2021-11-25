@@ -5,3 +5,8 @@
 .content > mat-card {
     width: 200px;
 }
+
+.mainContentArea{
+    padding: 20px;
+    margin: 10px;
+}
