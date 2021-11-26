@@ -1,0 +1,211 @@
+.content {
+    padding: 16px;
+}
+.content > mat-card {
+    width: 200px;
+}
+.mainContentArea{
+    padding: 20px;
+    margin: 10px;
+}
+-----------------
+<div class="content">  
+    <div class=mainContentArea>
+        <div 
+        fxLayout="row wrap" 
+        fxLayoutGap="16px">
+            <div 
+            fxFlex="100%"
+            fxFlex.xs="100%" 
+            fxFlex.sm="33%" 
+            *ngFor="let num of [1]">
+                <mat-grid-list 
+                [cols]="breakpoint"
+                rowHeight="2:0.5" 
+                (window:resize)="onResize($event)">
+                    <mat-grid-tile>1</mat-grid-tile>
+                    <mat-grid-tile>2</mat-grid-tile>
+                    <mat-grid-tile>3</mat-grid-tile>
+                    <mat-grid-tile>4</mat-grid-tile>
+                    <mat-grid-tile>5</mat-grid-tile>
+                    <mat-grid-tile>6</mat-grid-tile>
+                </mat-grid-list>
+            </div>       
+        </div>
+    </div>
+    <p></p>
+    <hr />
+    <p></p>
+    <div fxLayout="row wrap" fxLayoutGap="16px">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6,7]">
+            <mat-card class="mat-elevation-z4">
+                <mat-card-header>
+                    <mat-card-title>Himalayan Peaks</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        The Himalayas is a mountain range in Asia.
+                    </p>
+                </mat-card-content>              
+            </mat-card>
+        </div>
+    </div>
+</div>
+------------------------
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-apply-to-job',
+  templateUrl: './apply-to-job.component.html',
+  styleUrls: ['./apply-to-job.component.css']
+})
+export class ApplyToJobComponent implements OnInit {
+
+  breakpoint = 0;
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.breakpoint = (window.innerWidth <= 500) ? 1 : (window.innerWidth <= 1000 && window.innerWidth >= 501) ? 3 :  6;
+  }
+  onResize(event) {
+    this.breakpoint = (event.target.innerWidth <= 500) ? 1 : (event.target.innerWidth <= 1000 && event.target.innerWidth >= 501) ? 3 :  6;
+  }
+}
+
+--------------------------------------XXXXX------------------------
+    .parent {height:100%;}
+    /*
+    .left {
+        
+    }
+    */
+    .middle   
+    {
+        background-color: lightgrey;
+    }   
+    .right {
+        background-color: yellow;
+    }
+    .mainContentLeft{
+        background-color: lightyellow;
+        padding: 10px;
+    }    
+    .mainContentRight{
+        background-color: lightsteelblue;
+        padding: 10px;
+    }
+------------------------------------
+<div fxLayout="row wrap" 
+    class="parent"
+    fxLayout.lg="row "
+    fxLayout.md="row"
+    fxLayout.sm="column"
+    fxLayout.xs="column">
+   
+    <div fxFlex="10%" class="left">
+    </div>
+
+    <div fxFlex="80%" class="middle">
+        <div 
+            fxLayout="row" 
+            class="parent" 
+            fxLayout.sm="column" 
+            fxLayout.xs="column">
+
+            <div 
+            fxFlex="50%"
+            fxFlex.xs="100%" 
+            fxFlex.sm="100%"
+            fxFlex.md="100%"
+            class="mainContentLeft">
+                <mat-card class="mat-elevation-z4">
+                    <mat-card-header>
+                        <mat-card-title>Himalayan Peaks</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            The Himalayas is a mountain range in Asia.
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+                <p></p>
+                <mat-card class="mat-elevation-z4">
+                    <mat-card-header>
+                        <mat-card-title>Himalayan Peaks</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            The Himalayas is a mountain range in Asia.
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+                <p></p>
+                <mat-card class="mat-elevation-z4">
+                    <mat-card-header>
+                        <mat-card-title>Himalayan Peaks</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            The Himalayas is a mountain range in Asia.
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+                <p></p>
+            </div>
+           
+            <div 
+            fxFlex="50%"
+            fxFlex.xs="100%" 
+            fxFlex.sm="100%"
+            fxFlex.md="100%"
+            class="mainContentRight">
+                <mat-card class="mat-elevation-z4">
+                    <mat-card-header>
+                        <mat-card-title>Himalayan Peaks</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            The Himalayas is a mountain range in Asia.
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+                <p></p>
+                <mat-card class="mat-elevation-z4">
+                    <mat-card-header>
+                        <mat-card-title>Himalayan Peaks</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            The Himalayas is a mountain range in Asia.
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <div 
+    fxFlex="10%"   
+    class="right">
+      
+    </div>
+</div>
+------------------------------
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-follow-up',
+  templateUrl: './follow-up.component.html',
+  styleUrls: ['./follow-up.component.css']
+})
+export class FollowUpComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+}
+--------------------------------XXXXX----------------------
+
+

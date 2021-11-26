@@ -1,12 +1,21 @@
-.content {
-    padding: 16px;
-}
+    .parent {height:100%;}
+    /*
+    .left {
+        
+    }
+    */
+   
 
-.content > mat-card {
-    width: 200px;
-}
 
-.mainContentArea{
-    padding: 20px;
-    margin: 10px;
+    .mainContentLeft{
+    
+        padding: 10px;
+    }    
+    .mainContentRight{
+     
+        padding: 10px;
+    }
+
+    mat-form-field {
+  width: 100%;
 }
