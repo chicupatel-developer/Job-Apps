@@ -16,6 +16,9 @@ import { HomeComponent } from './components/home/home.component';
 import { ApplyToJobComponent } from './components/apply-to-job/apply-to-job.component';
 import { FollowUpComponent } from './components/follow-up/follow-up.component';
 
+////////services
+import { LocalDataService } from './services/local-data.service';
+
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
@@ -29,7 +32,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
 
 @NgModule({
   declarations: [
@@ -60,7 +62,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatInputModule,
     MatCheckboxModule
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule, LocalDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

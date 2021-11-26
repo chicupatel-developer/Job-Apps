@@ -1,26 +1,82 @@
-<div class="example-container">
+<div class="applyToJobForm-container">
     <div class="form-container">
         <div fxLayout="row wrap" fxLayoutGap="16px">
             <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let num of [1]">
-                <form [formGroup]="loginForm" (submit)="submit()">
+                <form [formGroup]="applyToJobForm" (submit)="submit()">
                     <mat-form-field class="form-field" appearance="outline">
-                        <mat-label> E-mail
+                        <mat-label> Company-Name
                         </mat-label>
-                        <input matInput formControlName="email" required>
-                        <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
-                            <span *ngIf="loginForm.controls.email.errors.required">This field is mandatory.</span>
-                            <span *ngIf="loginForm.controls.email.errors.pattern">This field is invalid.</span>
+                        <input matInput formControlName="companyName">                       
+                    </mat-form-field>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Agency-Name
+                        </mat-label>
+                        <input matInput formControlName="agencyName">
+                    </mat-form-field>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Web-URL
+                        </mat-label>
+                        <input matInput formControlName="webURL">
+                    </mat-form-field>                    
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Contact-Person's Name
+                        </mat-label>
+                        <input matInput formControlName="contactPersonName" required>
+                        <mat-error *ngIf="applyToJobForm.controls.contactPersonName.touched && applyToJobForm.controls.contactPersonName.invalid">
+                            <span *ngIf="applyToJobForm.controls.contactPersonName.errors.required">This field is mandatory.</span>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field class="form-field" appearance="outline">
-                        <mat-label> Password
+                        <mat-label> Contact-E-mail
                         </mat-label>
-                        <input matInput formControlName="password" type="password">
-                        <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
-                            <span *ngIf="loginForm.controls.password.errors.required">This field is mandatory.</span>
+                        <input matInput formControlName="contactEmail" required>
+                        <mat-error *ngIf="applyToJobForm.controls.contactEmail.touched && applyToJobForm.controls.contactEmail.invalid">
+                            <span *ngIf="applyToJobForm.controls.contactEmail.errors.required">This field is mandatory.</span>
+                            <span *ngIf="applyToJobForm.controls.contactEmail.errors.pattern">This field is invalid.</span>
                         </mat-error>
                     </mat-form-field>
-                    <button mat-raised-button color="primary" type="submit">Log In</button>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Phone Number
+                        </mat-label>
+                        <input                             
+                            matInput 
+                            formControlName="phoneNumber">
+                        <mat-error *ngIf="applyToJobForm.controls.phoneNumber.touched && applyToJobForm.controls.phoneNumber.invalid">                            
+                            <span *ngIf="applyToJobForm.controls.phoneNumber.errors.pattern">This field is invalid.</span>
+                        </mat-error>
+                    </mat-form-field>                        
+
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Province</mat-label>
+                        <select matNativeControl 
+                            (change)="changeProvince($event)"
+                            required 
+                            formControlName="province">
+                            <option value="">Choose Province</option>
+                            <option *ngFor="let p of provinceCollection">
+                                {{p}}
+                            </option>                        
+                        </select> 
+                        <mat-error *ngIf="applyToJobForm.controls.province.touched && applyToJobForm.controls.province.invalid">
+                            <span *ngIf="applyToJobForm.controls.province.errors.required">This field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>City</mat-label>
+                        <select matNativeControl 
+                            required 
+                            formControlName="city">
+                            <option value="">Choose City</option>
+                            <option *ngFor="let c of cityCollection">
+                                {{c}}
+                            </option>
+                        </select>
+                        <mat-error *ngIf="applyToJobForm.controls.city.touched && applyToJobForm.controls.city.invalid">
+                            <span *ngIf="applyToJobForm.controls.city.errors.required">This field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <button mat-raised-button color="primary" type="submit">Apply-To-Job</button>
                 </form>
             </div>
         </div>
