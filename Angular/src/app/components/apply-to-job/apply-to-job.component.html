@@ -3,17 +3,17 @@
     <div fxFlex="10%" class="left">
     </div>
 
-
-
-
     <div fxFlex="80%" class="middle">
-        <div fxLayout="row" class="parent" 
-            fxLayout.lg="row "
-            fxLayout.md="row"
-            fxLayout.sm="column" 
-            fxLayout.xs="column">
+        <div class="pageHeader">
+            Apply - Job
+        </div>
+        <form [formGroup]="applyToJobForm" (submit)="submit()">
+            <div fxLayout="row" class="parent" 
+                fxLayout.lg="row "
+                fxLayout.md="row"
+                fxLayout.sm="column" 
+                fxLayout.xs="column">
 
-            <form [formGroup]="applyToJobForm" (submit)="submit()">
                 <div fxFlex="50%" 
                     fxFlex.xs="100%" 
                     fxFlex.sm="100%" 
@@ -96,20 +96,21 @@
                                     <span *ngIf="applyToJobForm.controls.city.errors.required">This field is mandatory.</span>
                                 </mat-error>
                             </mat-form-field>
-                            
-                            <p></p>
-                            <button mat-raised-button color="primary" type="submit">Apply-To-Job</button>
+                          
                         </mat-card-content>
                     </mat-card>
-                </div>
-            </form>
-         
-        </div>
+                </div>   
+            </div>
+            <p></p>
+            <div class="centerDiv">
+                <button 
+                    class="apply-to-job-button"
+                    mat-raised-button 
+                    color="primary" 
+                    type="submit">Apply Now!</button>
+            </div>            
+        </form>
     </div>
 
-
-
-
-    <div fxFlex="10%" class="right">
-    </div>
+   
 </div>

@@ -2,10 +2,11 @@
     /*
     .left {
         
-    }
+    }   
+    .middle{
+        background-color: lightgoldenrodyellow;
+    } 
     */
-   
-
 
     .mainContentLeft{
     
@@ -17,5 +18,38 @@
     }
 
     mat-form-field {
-  width: 100%;
-}
+        width: 80%;
+    }
+
+    .apply-to-job-button {
+            text-align: center;
+            vertical-align: middle;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            border: 2px solid green;
+            border-radius: 10px;
+            background-color: lightskyblue;
+            width: 400px;
+            color:black;
+            font-size: x-large;
+    }
+    .centerDiv{
+        text-align: center;
+        vertical-align: middle;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+
+    .pageHeader{            
+            text-align: center;
+            vertical-align: middle;
+            margin-top: 20px;            
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border: 2px solid blueviolet;
+            border-radius: 10px;
+            background-color: lightseagreen;
+            color:black;
+            font-size: x-large;            
+    }
