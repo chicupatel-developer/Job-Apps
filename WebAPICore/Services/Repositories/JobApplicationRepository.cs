@@ -22,5 +22,14 @@ namespace Services.Repositories
             appDbContext.SaveChanges();
             return result.Entity;
         }
+
+        public IEnumerable<JobApplication> GetAllJobApps()
+        {
+            var jobApps = appDbContext.JobApplications;
+            if (jobApps != null)
+                return jobApps;
+            else
+                return new List<JobApplication>();
+        }
     }
 }

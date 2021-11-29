@@ -1,24 +1,33 @@
     .parent {height:100%;}
-    /*
-    .left {
-        
-    }
-    */
-    .middle   
-    {
-        background-color: lightgrey;
-    }
-   
-    .right {
-        background-color: yellow;
-    }
-
-
     .mainContentLeft{
-        background-color: lightyellow;
+    
         padding: 10px;
     }    
     .mainContentRight{
-        background-color: lightsteelblue;
+     
         padding: 10px;
+    } 
+    .centerDiv{
+        text-align: center;
+        vertical-align: middle;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+    .pageHeader{            
+            text-align: center;
+            vertical-align: middle;
+            margin-top: 20px;            
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border: 2px solid blueviolet;
+            border-radius: 10px;
+            background-color: lightseagreen;
+            color:black;
+            font-size: x-large;            
+    }
+
+    .mainContent-mat-card{
+        margin: 15px;
+        padding: 2px;
     }

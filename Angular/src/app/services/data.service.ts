@@ -18,4 +18,10 @@ export class DataService {
   addJobApp(jobAppData): Observable<any> {
     return this.http.post(this.JobApplication_API + '/addJobApplication', jobAppData)
   }
+
+  // follow-up
+  // get all jobApplications
+  getAllJobApps(): Observable<Array<any>> {
+    return this.http.get<Array<any>>(this.JobApplication_API + '/getAllJobApps');
+  }
 }

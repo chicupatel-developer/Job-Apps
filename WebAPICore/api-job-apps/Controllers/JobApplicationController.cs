@@ -67,5 +67,13 @@ namespace api_job_apps.Controllers
                 return Ok(_response);
             }
         }
+
+        [HttpGet]
+        [Route("getAllJobApps")]
+        public IActionResult GetAllJobApps()
+        {
+            var allJobApps = _jobAppRepo.GetAllJobApps();
+            return Ok(allJobApps);
+        }
     }
 }

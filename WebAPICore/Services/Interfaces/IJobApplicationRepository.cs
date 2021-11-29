@@ -8,5 +8,6 @@ namespace Services.Interfaces
     public interface IJobApplicationRepository
     {
         JobApplication AddJobApp(JobApplication jobApplication);
+        IEnumerable<JobApplication> GetAllJobApps();
     }
 }

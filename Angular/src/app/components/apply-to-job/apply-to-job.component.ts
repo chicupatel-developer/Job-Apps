@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { LocalDataService } from '../../services/local-data.service';
 import { DataService } from 'src/app/services/data.service';
-import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-apply-to-job',
