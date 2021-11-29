@@ -7,7 +7,23 @@
         <div class="pageHeader">
             Apply - Job
         </div>
-        <form [formGroup]="applyToJobForm" (submit)="submit()">
+        <div>
+            <h4 *ngIf="apiResponse">
+                <span [style.color]="responseColor">
+                    {{apiResponse}}
+                </span>
+                <hr />
+            </h4>
+            <h5 *ngIf="errors && errors.length>0">
+                <ul [style.color]="responseColor">
+                    <li *ngFor="let error of errors">
+                        {{ error }}
+                    </li>
+                </ul>
+                <hr />
+            </h5>
+        </div>
+        <form [formGroup]="applyToJobForm" >
             <div fxLayout="row" class="parent" 
                 fxLayout.lg="row "
                 fxLayout.md="row"
@@ -21,36 +37,39 @@
                     class="mainContentLeft">
                     <mat-card class="mat-elevation-z4">
                         <mat-card-content>
-                            <mat-form-field  class="form-field" appearance="outline">
+                            <mat-form-field [style.width.px]=327  class="form-field" appearance="outline">
                                 <mat-label> Company-Name
                                 </mat-label>
                                 <input matInput formControlName="companyName">
                             </mat-form-field>
-                          
-                            <mat-form-field class="form-field" appearance="outline">
+                            <p></p>
+                            <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
                                 <mat-label> Agency-Name
                                 </mat-label>
                                 <input matInput formControlName="agencyName">
                             </mat-form-field>
+                            <p></p>
                             <mat-form-field class="form-field" appearance="outline">
                                 <mat-label> Web-URL
                                 </mat-label>
                                 <input matInput formControlName="webURL">
                             </mat-form-field>
-                            <mat-form-field class="form-field" appearance="outline">
+                            <p></p>
+                            <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
                                 <mat-label> Contact-Person's Name
                                 </mat-label>
                                 <input matInput formControlName="contactPersonName" required>
                                 <mat-error
-                                    *ngIf="applyToJobForm.controls.contactPersonName.touched && applyToJobForm.controls.contactPersonName.invalid">
+                                    *ngIf="(applyToJobForm.controls.contactPersonName.touched || submitted ) && applyToJobForm.controls.contactPersonName.invalid">
                                     <span *ngIf="applyToJobForm.controls.contactPersonName.errors.required">This field is mandatory.</span>
                                 </mat-error>
                             </mat-form-field>
+                            <p></p>
                             <mat-form-field class="form-field" appearance="outline">
                                 <mat-label> Contact-E-mail
                                 </mat-label>
                                 <input matInput formControlName="contactEmail" required>
-                                <mat-error *ngIf="applyToJobForm.controls.contactEmail.touched && applyToJobForm.controls.contactEmail.invalid">
+                                <mat-error *ngIf="(applyToJobForm.controls.contactEmail.touched || submitted ) && applyToJobForm.controls.contactEmail.invalid">
                                     <span *ngIf="applyToJobForm.controls.contactEmail.errors.required">This field is mandatory.</span>
                                     <span *ngIf="applyToJobForm.controls.contactEmail.errors.pattern">This field is invalid.</span>
                                 </mat-error>
@@ -62,16 +81,16 @@
                 <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="mainContentRight">
                     <mat-card class="mat-elevation-z4">
                         <mat-card-content>
-                            <mat-form-field class="form-field small-form-field" appearance="outline">
+                            <mat-form-field [style.width.px]=200 class="form-field small-form-field" appearance="outline">
                                 <mat-label> Phone Number
                                 </mat-label>
                                 <input matInput formControlName="phoneNumber">
-                                <mat-error *ngIf="applyToJobForm.controls.phoneNumber.touched && applyToJobForm.controls.phoneNumber.invalid">
+                                <mat-error *ngIf="(applyToJobForm.controls.phoneNumber.touched || submitted ) && applyToJobForm.controls.phoneNumber.invalid">
                                     <span *ngIf="applyToJobForm.controls.phoneNumber.errors.pattern">This field is invalid.</span>
                                 </mat-error>
                             </mat-form-field>
-                         
-                            <mat-form-field class="form-field small-form-field" appearance="fill">
+                            <p></p>
+                            <mat-form-field [style.width.px]=200 class="form-field small-form-field" appearance="fill">
                                 <mat-label>Province</mat-label>
                                 <select matNativeControl (change)="changeProvince($event)" required formControlName="province">
                                     <option value="">Choose Province</option>
@@ -79,12 +98,12 @@
                                         {{p}}
                                     </option>
                                 </select>
-                                <mat-error *ngIf="applyToJobForm.controls.province.touched && applyToJobForm.controls.province.invalid">
+                                <mat-error *ngIf="(applyToJobForm.controls.province.touched || submitted ) && applyToJobForm.controls.province.invalid">
                                     <span *ngIf="applyToJobForm.controls.province.errors.required">This field is mandatory.</span>
                                 </mat-error>
                             </mat-form-field>
-                          
-                            <mat-form-field class="form-field small-form-field" appearance="fill">
+                            <p></p>
+                            <mat-form-field [style.width.px]=200 class="form-field small-form-field" appearance="fill">
                                 <mat-label>City</mat-label>
                                 <select matNativeControl required formControlName="city">
                                     <option value="">Choose City</option>
@@ -92,7 +111,7 @@
                                         {{c}}
                                     </option>
                                 </select>
-                                <mat-error *ngIf="applyToJobForm.controls.city.touched && applyToJobForm.controls.city.invalid">
+                                <mat-error *ngIf="(applyToJobForm.controls.city.touched || submitted ) && applyToJobForm.controls.city.invalid">
                                     <span *ngIf="applyToJobForm.controls.city.errors.required">This field is mandatory.</span>
                                 </mat-error>
                             </mat-form-field>
@@ -104,13 +123,12 @@
             <p></p>
             <div class="centerDiv">
                 <button 
+                    (click)="applyToJob()"
                     class="apply-to-job-button"
                     mat-raised-button 
                     color="primary" 
-                    type="submit">Apply Now!</button>
+                    type="button">Apply Now!</button>
             </div>            
         </form>
-    </div>
-
-   
+    </div>   
 </div>

@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Services.Interfaces;
+using Services.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,11 @@ namespace api_job_apps
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            #region Repositories
+            services.AddTransient<IJobApplicationRepository, JobApplicationRepository>();        
+            #endregion
+
 
             #region JobAppsDBContext
             services.AddDbContext<JobAppsDBContext>(options =>

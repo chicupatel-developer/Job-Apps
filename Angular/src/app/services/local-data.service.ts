@@ -28,4 +28,25 @@ export class LocalDataService {
     }    
     return cities;
   }
+
+  // 400
+  // error handler
+  display400andEx(error, componentName): string[] {
+    var errors = [];
+    if (error.status == 400) {
+      // console.log(error.error.error[0]);
+      if (error.error.error != null) {
+        for (var key in error.error.error) {
+          errors.push(error.error.error[key]);
+        }
+      } else {
+        errors.push('[' + componentName + '] Data Not Found ! / Bad Request !');
+      }
+    }
+    else {
+      console.log(error);
+    }
+    return errors;
+  }
+
 }
