@@ -31,3 +31,13 @@
         margin: 15px;
         padding: 2px;
     }
+
+    .filterDiv{        
+            vertical-align: middle;
+            padding:20px;
+            margin: 20px;   
+            border: 2px solid blue;
+            border-radius: 10px;
+            background-color: lightgrey;
+            color:black;                      
+    }

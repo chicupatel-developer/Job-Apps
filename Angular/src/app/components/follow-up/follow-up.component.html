@@ -8,6 +8,48 @@
             Follow - Up
         </div>    
 
+        <div class="filterDiv">
+            <h2>Filter</h2>
+            <form [formGroup]="filterForm">
+                <mat-form-field  
+                    class="form-field small-form-field" appearance="fill">
+                    <mat-label>Province</mat-label>
+                    <select matNativeControl (change)="changeProvince($event)" formControlName="province">
+                        <option value="">Choose Province</option>
+                        <option *ngFor="let p of provinceCollection">
+                            {{p}}
+                        </option>
+                    </select>                  
+                </mat-form-field>
+                <span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+                <mat-form-field class="form-field small-form-field" appearance="fill">
+                    <mat-label>City</mat-label>
+                    <select matNativeControl formControlName="city">
+                        <option value="">Choose City</option>
+                        <option *ngFor="let c of cityCollection">
+                            {{c}}
+                        </option>
+                    </select>                  
+                </mat-form-field>
+                <span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+                <mat-form-field class="form-field" appearance="outline">
+                    <mat-label> Contact-Person's Name
+                    </mat-label>
+                    <input matInput formControlName="contactPersonName">                  
+                </mat-form-field>
+                <p></p>
+                    <button (click)="filterNow()"                      
+                    mat-raised-button color="primary" 
+                    type="button">Filter Now!
+                </button>
+            </form>
+
+        </div>
+
         <div *ngIf="(jobApps?.length > 0)">
             <div *ngFor="let job of jobApps" class="mainContent-mat-card">
                 <mat-card class="mat-elevation-z4">
