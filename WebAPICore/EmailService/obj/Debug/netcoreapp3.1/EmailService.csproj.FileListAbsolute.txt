@@ -1,0 +1,9 @@
+C:\JobApps\WebAPICore\EmailService\bin\Debug\netcoreapp3.1\EmailService.deps.json
+C:\JobApps\WebAPICore\EmailService\bin\Debug\netcoreapp3.1\EmailService.dll
+C:\JobApps\WebAPICore\EmailService\bin\Debug\netcoreapp3.1\EmailService.pdb
+C:\JobApps\WebAPICore\EmailService\obj\Debug\netcoreapp3.1\EmailService.csproj.AssemblyReference.cache
+C:\JobApps\WebAPICore\EmailService\obj\Debug\netcoreapp3.1\EmailService.AssemblyInfoInputs.cache
+C:\JobApps\WebAPICore\EmailService\obj\Debug\netcoreapp3.1\EmailService.AssemblyInfo.cs
+C:\JobApps\WebAPICore\EmailService\obj\Debug\netcoreapp3.1\EmailService.csproj.CoreCompileInputs.cache
+C:\JobApps\WebAPICore\EmailService\obj\Debug\netcoreapp3.1\EmailService.dll
+C:\JobApps\WebAPICore\EmailService\obj\Debug\netcoreapp3.1\EmailService.pdb

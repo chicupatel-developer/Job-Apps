@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EFCore\EFCore.csproj" />
+    <ProjectReference Include="..\EmailService\EmailService.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
