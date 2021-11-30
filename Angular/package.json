@@ -31,6 +31,7 @@
     "directory-tree": "^2.2.9",
     "jquery": "^3.6.0",
     "list-files-in-dir": "^0.1.5",
+    "moment": "^2.29.1",
     "ngx-bootstrap": "^6.2.0",
     "ngx-bootstrap-navbar": "0.0.5",
     "rxjs": "~6.6.0",

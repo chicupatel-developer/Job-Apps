@@ -34,10 +34,16 @@
 
     .filterDiv{        
             vertical-align: middle;
-            padding:20px;
-            margin: 20px;   
-            border: 2px solid blue;
-            border-radius: 10px;
-            background-color: lightgrey;
-            color:black;                      
+            padding:10px;                     
+    }
+    .filter-mat-card{
+           border: 2px solid green;
+            border-radius: 40px;
+            padding: 30px;
+    }
+
+    .jobApps-mat-card{
+           border: 2px solid blue;
+            border-radius: 25px;
+            padding: 20px;
     }

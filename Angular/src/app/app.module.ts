@@ -19,19 +19,8 @@ import { FollowUpComponent } from './components/follow-up/follow-up.component';
 ////////services
 import { LocalDataService } from './services/local-data.service';
 
-
-import { MatSliderModule } from '@angular/material/slider';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+// angular-material
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -48,19 +37,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatSliderModule,
-    MatCardModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
     FlexLayoutModule,
-    MatGridListModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule
+    MaterialModule
   ],
   providers: [HttpClientModule, LocalDataService],
   bootstrap: [AppComponent]

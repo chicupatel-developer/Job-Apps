@@ -6,7 +6,16 @@ import { Observable } from 'rxjs';
 })
 export class LocalDataService {
 
+  private MyJobs;
+
   constructor() { }
+  
+  setMyJobs(val) {
+    this.MyJobs = val;
+  }
+  getMyJobs() {
+    return this.MyJobs;
+  }
 
   // return city collection as per province input
   getCities(province: string): Array<string> {

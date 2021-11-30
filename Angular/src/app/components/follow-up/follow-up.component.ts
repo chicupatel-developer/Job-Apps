@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { LocalDataService } from '../../services/local-data.service';
 import { DataService } from 'src/app/services/data.service';
 
+import * as moment from 'moment';
+
+
 @Component({
   selector: 'app-follow-up',
   templateUrl: './follow-up.component.html',
@@ -29,7 +32,8 @@ export class FollowUpComponent implements OnInit {
       this.filterForm = this.formBuilder.group({    
         city: [''],
         province: [''],
-        contactPersonName: ['']
+        contactPersonName: [''],
+        appliedOn: ['']
       });
     
     this.getAllJobApps();
@@ -51,10 +55,14 @@ export class FollowUpComponent implements OnInit {
 
   filterNow() {
    
+    var filterAppliedOn = this.filterForm.value["appliedOn"];  
     var filterProvince = this.filterForm.value["province"];
     var filterCity = this.filterForm.value["city"];
     var filterContactPersonName = this.filterForm.value["contactPersonName"];
-    var jobApps_ = this.jobApps;
+    
+    // var jobApps_ = this.jobApps;
+    var jobApps_ = this.localDataService.getMyJobs();
+
     if (this.filterForm.value["province"] != '') {
       jobApps_ = jobApps_.filter(function (job) {
         return job.province === filterProvince;
@@ -70,6 +78,11 @@ export class FollowUpComponent implements OnInit {
         return job.contactPersonName === filterContactPersonName;
       });
     }
+    if (this.filterForm.value["appliedOn"] != '') {
+      jobApps_ = jobApps_.filter(function (job) {
+        return moment(job.appliedOn).format("YYYY-MM-DD") === moment(filterAppliedOn).format("YYYY-MM-DD");
+      });
+    }
     this.jobApps = jobApps_;
     // console.log(jobApps_);
   }
@@ -80,6 +93,11 @@ export class FollowUpComponent implements OnInit {
         data => {
           this.jobApps = data;
           console.log(this.jobApps);
+
+          // store @ service to filter later on,,, 
+          // no need for api call
+          // no need to filter @ api
+          this.localDataService.setMyJobs(data);
         },
         error => {
           console.log(error);
