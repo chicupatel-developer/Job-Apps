@@ -21,6 +21,7 @@ import { LocalDataService } from './services/local-data.service';
 
 // angular-material
 import { MaterialModule } from './material.module';
+import { JobAppEditDialogComponent } from './components/job-app-edit-dialog/job-app-edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MaterialModule } from './material.module';
     HeaderComponent,
     HomeComponent,
     ApplyToJobComponent,
-    FollowUpComponent
+    FollowUpComponent,
+    JobAppEditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,5 +44,6 @@ import { MaterialModule } from './material.module';
   ],
   providers: [HttpClientModule, LocalDataService],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

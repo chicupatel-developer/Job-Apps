@@ -7,6 +7,10 @@ import { DataService } from 'src/app/services/data.service';
 
 import * as moment from 'moment';
 
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { JobAppEditDialogComponent } from '../job-app-edit-dialog/job-app-edit-dialog.component';
+
+
 
 @Component({
   selector: 'app-follow-up',
@@ -26,6 +30,7 @@ export class FollowUpComponent implements OnInit {
   appStatusTypesCollection: any[] = [];
 
   constructor(
+    private dialog: MatDialog,
     private router: Router,
     public dataService: DataService,
     private formBuilder: FormBuilder,
@@ -43,8 +48,31 @@ export class FollowUpComponent implements OnInit {
     
     this.getAllJobApps();
     this.getAppStatusTypes();
+
+    this.openDialog();
   }
   
+  // open dialog
+  openDialog() {
+    const dialogRef = this.dialog.open(JobAppEditDialogComponent, {
+      data: {
+        message: 'Are you sure want to delete?',
+        buttonText: {
+          ok: 'Save',
+          cancel: 'No'
+        }
+      }
+    });
+   
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        const a = document.createElement('a');
+        a.click();
+        a.remove();    
+      }
+    });
+  }
+
   getAppStatusTypes() {
     this.dataService.getAppStatusTypes()
       .subscribe(
