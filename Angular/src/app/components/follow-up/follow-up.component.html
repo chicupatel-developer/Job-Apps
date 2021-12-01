@@ -43,16 +43,22 @@
                         </mat-form-field>
                         <span>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </span>
-                        <input matInput 
-                            formControlName="appliedOn"
-                            [matDatepicker]="picker" 
-                            placeholder="Choose a date">
-                        <mat-datepicker-toggle 
-                            matSuffix [for]="picker">
-                        </mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
+                        </span>                     
 
+                        <mat-form-field appearance="fill">
+                            <mat-label>Enter a date range</mat-label>
+                            <mat-date-range-input [rangePicker]="picker">
+                                <input 
+                                    formControlName="appliedOnStart"
+                                    matStartDate placeholder="Start date">
+                                <input 
+                                    formControlName="appliedOnEnd"
+                                    matEndDate placeholder="End date">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                        </mat-form-field>
+                        
                         <p></p>
                         <button (click)="filterNow()" mat-raised-button color="primary" type="button">Filter Now!
                         </button>

@@ -33,7 +33,8 @@ export class FollowUpComponent implements OnInit {
         city: [''],
         province: [''],
         contactPersonName: [''],
-        appliedOn: ['']
+        appliedOnStart: [''],
+        appliedOnEnd: ['']
       });
     
     this.getAllJobApps();
@@ -53,9 +54,10 @@ export class FollowUpComponent implements OnInit {
     }
   }
 
-  filterNow() {
-   
-    var filterAppliedOn = this.filterForm.value["appliedOn"];  
+  filterNow() {   
+    var filterAppliedOnStart = this.filterForm.value["appliedOnStart"];
+    var filterAppliedOnEnd = this.filterForm.value["appliedOnEnd"];
+
     var filterProvince = this.filterForm.value["province"];
     var filterCity = this.filterForm.value["city"];
     var filterContactPersonName = this.filterForm.value["contactPersonName"];
@@ -77,11 +79,14 @@ export class FollowUpComponent implements OnInit {
       jobApps_ = jobApps_.filter(function (job) {
         return job.contactPersonName === filterContactPersonName;
       });
-    }
-    if (this.filterForm.value["appliedOn"] != '') {
-      jobApps_ = jobApps_.filter(function (job) {
-        return moment(job.appliedOn).format("YYYY-MM-DD") === moment(filterAppliedOn).format("YYYY-MM-DD");
-      });
+    }   
+    if (this.filterForm.value["appliedOnStart"] != '' && this.filterForm.value["appliedOnEnd"] ) {
+      if (filterAppliedOnStart != null && filterAppliedOnEnd != null) {
+        jobApps_ = jobApps_.filter(function (job) {
+          return moment(job.appliedOn).format("YYYY-MM-DD") <= moment(filterAppliedOnEnd).format("YYYY-MM-DD")
+            && moment(job.appliedOn).format("YYYY-MM-DD") >= moment(filterAppliedOnStart).format("YYYY-MM-DD");
+        });
+      }
     }
     this.jobApps = jobApps_;
     // console.log(jobApps_);
