@@ -15,6 +15,8 @@ namespace EFCore.Models
         public string PhoneNumber { get; set; }
         public string City { get; set; }
         public string Province { get; set; }
-        public DateTime AppliedOn { get; set; }        
+        public DateTime AppliedOn { get; set; }
+        public AppStatusType AppStatus { get; set; }
+        public string FollowUpNotes { get; set; }
     }
 }

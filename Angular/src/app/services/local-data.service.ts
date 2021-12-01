@@ -17,6 +17,35 @@ export class LocalDataService {
     return this.MyJobs;
   }
 
+
+  // convert [{string}]=>[{int,string}]
+  // string == appStatusType enum @ api
+  getAppStatusTypesCollection(appStatusTypesCollection: string[]): Array<any> {
+    var appStatusTypes = Array<any>();
+    var i = 0;
+    appStatusTypesCollection.forEach((element) => {
+      appStatusTypes.push({
+        indexValue: i,
+        appStatus: element
+      });
+      i++;
+    });
+    return appStatusTypes;
+  }
+  // return color as per appStatusType
+  getAppStatusTypeColor(appStatusType) {
+    if (appStatusType == 0)
+      return 'maroon';
+    else if (appStatusType == 1)
+      return 'blue';
+    else if (appStatusType == 2)
+      return 'green';
+    else if (appStatusType == 3)
+      return 'red';
+    else
+      return 'purple';
+  }
+
   // return city collection as per province input
   getCities(province: string): Array<string> {
     let cities: string[] = [];

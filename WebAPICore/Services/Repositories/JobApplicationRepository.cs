@@ -31,5 +31,15 @@ namespace Services.Repositories
             else
                 return new List<JobApplication>();
         }
+
+        public List<string> GetAppStatusTypes()
+        {
+            List<string> appStatusTypes = new List<string>();
+            foreach (string appStatusType in Enum.GetNames(typeof(AppStatusType)))
+            {
+                appStatusTypes.Add(appStatusType);
+            }
+            return appStatusTypes;
+        }
     }
 }

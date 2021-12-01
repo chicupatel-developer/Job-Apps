@@ -24,4 +24,9 @@ export class DataService {
   getAllJobApps(): Observable<Array<any>> {
     return this.http.get<Array<any>>(this.JobApplication_API + '/getAllJobApps');
   }
+  // follow-up
+  // get app-status-type
+  getAppStatusTypes(): Observable<Array<string>> {
+    return this.http.get<Array<string>>(this.JobApplication_API + '/getAppStatusTypes');
+  }
 }

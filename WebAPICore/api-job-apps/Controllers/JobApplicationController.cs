@@ -75,5 +75,13 @@ namespace api_job_apps.Controllers
             var allJobApps = _jobAppRepo.GetAllJobApps();
             return Ok(allJobApps);
         }
+
+        [HttpGet]
+        [Route("getAppStatusTypes")]
+        public IActionResult GetAppStatusTypes()
+        {
+            var appStatusTypes = _jobAppRepo.GetAppStatusTypes();
+            return Ok(appStatusTypes);
+        }
     }
 }

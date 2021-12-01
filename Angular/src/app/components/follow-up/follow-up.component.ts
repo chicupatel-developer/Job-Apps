@@ -21,6 +21,10 @@ export class FollowUpComponent implements OnInit {
   provinceCollection: any = ['MB', 'ON', 'AB'];
   cityCollection: string[] = [];
 
+  // app-status-types enum from api
+  appStatusTypes: string[] = [];
+  appStatusTypesCollection: any[] = [];
+
   constructor(
     private router: Router,
     public dataService: DataService,
@@ -38,8 +42,29 @@ export class FollowUpComponent implements OnInit {
       });
     
     this.getAllJobApps();
+    this.getAppStatusTypes();
   }
   
+  getAppStatusTypes() {
+    this.dataService.getAppStatusTypes()
+      .subscribe(
+        data => {
+          this.appStatusTypes = data;
+          this.appStatusTypesCollection = this.localDataService.getAppStatusTypesCollection(data);          
+        },
+        error => {
+          console.log(error);
+        });
+  }
+  displayAppStatusType(appStatus) {
+    if (this.appStatusTypes != null) {
+      return this.appStatusTypesCollection[appStatus].appStatus;
+    }
+    else {
+      return 'N/A';
+    }
+  }
+
   changeProvince(e) {
     // reset city, when province gets changed
     this.cityCollection = [];

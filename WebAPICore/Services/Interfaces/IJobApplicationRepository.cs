@@ -9,5 +9,6 @@ namespace Services.Interfaces
     {
         JobApplication AddJobApp(JobApplication jobApplication);
         IEnumerable<JobApplication> GetAllJobApps();
+        List<string> GetAppStatusTypes();
     }
 }
