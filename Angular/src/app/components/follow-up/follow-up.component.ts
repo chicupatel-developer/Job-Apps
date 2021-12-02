@@ -10,8 +10,6 @@ import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { JobAppEditDialogComponent } from '../job-app-edit-dialog/job-app-edit-dialog.component';
 
-
-
 @Component({
   selector: 'app-follow-up',
   templateUrl: './follow-up.component.html',
@@ -49,18 +47,25 @@ export class FollowUpComponent implements OnInit {
     this.getAllJobApps();
     this.getAppStatusTypes();
 
-    this.openDialog();
   }
   
   // open dialog
-  openDialog() {
+  openDialog(job) {
+    console.log(job);
     const dialogRef = this.dialog.open(JobAppEditDialogComponent, {
       data: {
-        message: 'Are you sure want to delete?',
-        buttonText: {
-          ok: 'Save',
-          cancel: 'No'
-        }
+        jobApplicationId: job.jobApplicationId,
+        companyName: job.companyName,
+        agencyName: job.agencyName,
+        webURL: job.webURL,
+        contactPersonName: job.contactPersonName,
+        contactEmail: job.contactEmail,
+        phoneNumber: job.phoneNumber,
+        city: job.city,
+        province: job.province,
+        appliedOn: job.appliedOn,
+        appStatus: job.appStatus,
+        followUpNotes: job.followUpNotes
       }
     });
    

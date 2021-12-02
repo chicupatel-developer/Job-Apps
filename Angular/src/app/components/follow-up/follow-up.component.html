@@ -69,7 +69,9 @@
 
         <div *ngIf="(jobApps?.length > 0)">
             <div *ngFor="let job of jobApps" class="mainContent-mat-card">
-                <mat-card class="mat-elevation-z4 jobApps-mat-card">
+                <mat-card 
+                    (click)="openDialog(job)"
+                    class="mat-elevation-z4 jobApps-mat-card">
                     <mat-card-header>
                         <mat-card-title 
                             [style.color]="localDataService.getAppStatusTypeColor(job.appStatus)"
