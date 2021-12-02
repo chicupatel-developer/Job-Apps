@@ -9,32 +9,38 @@ import * as moment from 'moment';
   styleUrls: ['./job-app-edit-dialog.component.css']
 })
 export class JobAppEditDialogComponent implements OnInit {
-
-  message: string = "Are you sure?"
-  confirmButtonText = "Yes"
-  cancelButtonText = "Cancel"
-
+ 
   form: FormGroup;
   description: string;
 
   constructor(
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<JobAppEditDialogComponent>) {
-    if (data) {
-      this.message = data.message || this.message;
-      if (data.buttonText) {
-        this.confirmButtonText = data.buttonText.ok || this.confirmButtonText;
-        this.cancelButtonText = data.buttonText.cancel || this.cancelButtonText;
-      }
-    }
+    private dialogRef: MatDialogRef<JobAppEditDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) { description, longDescription,
+      category }: any) {
+
+    this.description = description;
+
+
+    this.form = fb.group({
+      description: [description, Validators.required],
+      category: [category, Validators.required],
+      releasedAt: [moment(), Validators.required],
+      longDescription: [longDescription, Validators.required]
+    });
+
   }
 
   ngOnInit(): void {  
   }
 
-  onConfirmClick(): void {
-    this.dialogRef.close(true);
+  save() {
+    this.dialogRef.close(this.form.value);
+    console.log(this.form.value);
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 
 }
