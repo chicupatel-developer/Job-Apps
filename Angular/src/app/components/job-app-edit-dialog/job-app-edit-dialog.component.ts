@@ -19,6 +19,10 @@ export class JobAppEditDialogComponent implements OnInit {
   provinceCollection: any = ['MB', 'ON', 'AB'];
   cityCollection: string[] = [];
 
+  jobApplication = new JobApplication();
+  selectedProvince = '';
+  selectedCity = '';
+
   constructor(
     public localDataService: LocalDataService,
     private fb: FormBuilder,
@@ -36,7 +40,7 @@ export class JobAppEditDialogComponent implements OnInit {
       appliedOn,
       appStatus,
       followUpNotes
-    }: any) {
+    }: JobApplication) {
 
     this.form = fb.group({
       companyName: [''],
@@ -52,9 +56,56 @@ export class JobAppEditDialogComponent implements OnInit {
       followUpNotes: ['']
     });
 
+    this.jobApplication.jobApplicationId = jobApplicationId;
+    this.jobApplication.companyName = companyName;
+    this.jobApplication.agencyName = agencyName;
+    this.jobApplication.webURL = webURL;
+    this.jobApplication.contactPersonName = contactPersonName;
+    this.jobApplication.contactEmail = contactEmail;
+    this.jobApplication.phoneNumber = phoneNumber;
+    this.jobApplication.city = city;
+    this.jobApplication.province = province;
+    this.jobApplication.appliedOn = appliedOn;
+    this.jobApplication.appStatus = appStatus;
+    this.jobApplication.followUpNotes = followUpNotes;
+
+    this.selectedProvince = province;
+    this.selectedCity = city;
   }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
+    
+    // patch form values
+    /*
+    this.form.patchValue({
+      companyName: this.jobApplication.companyName,
+      agencyName: this.jobApplication.agencyName,
+      webURL: this.jobApplication.webURL,
+      contactPersonName: this.jobApplication.contactPersonName,
+      contactEmail: this.jobApplication.contactEmail,
+      phoneNumber: this.jobApplication.phoneNumber,
+      city: this.jobApplication.city,
+      province: this.jobApplication.province,
+      appliedOn: this.jobApplication.appliedOn,
+      appStatus: this.jobApplication.appStatus,
+      followUpNotes: this.jobApplication.followUpNotes
+    });
+    */
+
+    this.form.setValue({
+      companyName: this.jobApplication.companyName,
+      agencyName: this.jobApplication.agencyName,
+      webURL: this.jobApplication.webURL,
+      contactPersonName: this.jobApplication.contactPersonName,
+      contactEmail: this.jobApplication.contactEmail,
+      phoneNumber: this.jobApplication.phoneNumber,
+      city: this.jobApplication.city,
+      province: this.jobApplication.province,
+      appliedOn: this.jobApplication.appliedOn,
+      appStatus: this.jobApplication.appStatus,
+      followUpNotes: this.jobApplication.followUpNotes
+    });
+   
   }
 
 
@@ -63,17 +114,26 @@ export class JobAppEditDialogComponent implements OnInit {
     this.cityCollection = [];
     this.form.controls['city'].setValue('');
 
-    if (e.target.value == "") {
+    if (e.value == "") {
       return;
     }
     else {
-      var cities = this.localDataService.getCities(e.target.value);
+      var cities = this.localDataService.getCities(e.value);
       this.cityCollection = cities;
     }
   }
+
   save() {
-    this.dialogRef.close(this.form.value);
+    // this.dialogRef.close(this.form.value);
     console.log(this.form.value);
+
+    this.submitted = true;
+    
+    if (!this.form.valid) {
+      return;
+    }
+    this.dialogRef.close(this.form.value);
+
   }
 
   close() {
@@ -81,3 +141,19 @@ export class JobAppEditDialogComponent implements OnInit {
   }
 
 }
+
+class JobApplication
+{
+  jobApplicationId: number;
+  companyName: string;
+  agencyName: string;
+  webURL: string;
+  contactPersonName: string;
+  contactEmail: string;
+  phoneNumber: string;
+  city: string;
+  province: string;
+  appliedOn: Date;
+  appStatus: string;
+  followUpNotes: string;
+  }

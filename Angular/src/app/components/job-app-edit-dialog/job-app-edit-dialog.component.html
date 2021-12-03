@@ -57,16 +57,18 @@
                 </mat-error>
             </mat-form-field>
             <p></p>
-            <mat-form-field [style.width.px]=200 class="form-field small-form-field" appearance="fill">
-                <mat-label>Province</mat-label>
-                <select matNativeControl 
-                    (change)="changeProvince($event)" required 
+            <mat-form-field [style.width.px]=200 
+                class="form-field small-form-field" appearance="fill">
+                <mat-label>Province</mat-label>                 
+                <mat-select 
+                    (selectionChange)="changeProvince($event)" 
+                    required 
+                    [(value)]="selectedProvince"
                     formControlName="province">
-                    <option value="">Choose Province</option>
-                    <option *ngFor="let p of provinceCollection">
-                        {{p}}
-                    </option>
-                </select>
+                    <mat-option value="">Choose Province</mat-option>
+                    <mat-option *ngFor="let p of provinceCollection"
+                        value="{{p}}">{{p}}</mat-option>
+                </mat-select>  
                 <mat-error
                     *ngIf="(form.controls.province.touched || submitted ) && form.controls.province.invalid">
                     <span *ngIf="form.controls.province.errors.required">This field is mandatory.</span>
@@ -76,12 +78,16 @@
             <mat-form-field [style.width.px]=200 
                 class="form-field small-form-field" appearance="fill">
                 <mat-label>City</mat-label>
-                <select matNativeControl required formControlName="city">
-                    <option value="">Choose City</option>
-                    <option *ngFor="let c of cityCollection">
-                        {{c}}
-                    </option>
-                </select>
+                <mat-select 
+                    required 
+                    [(value)]="selectedCity" 
+                    formControlName="city">
+                    <mat-option value="">Choose City</mat-option>
+                    <mat-option 
+                        *ngFor="let c of cityCollection" 
+                        value="{{c}}">{{c}}
+                    </mat-option>
+                </mat-select>              
                 <mat-error *ngIf="(form.controls.city.touched || submitted ) && form.controls.city.invalid">
                     <span *ngIf="form.controls.city.errors.required">This field is mandatory.</span>
                 </mat-error>
