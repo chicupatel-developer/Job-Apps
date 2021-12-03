@@ -70,7 +70,10 @@ export class JobAppEditDialogComponent implements OnInit {
     this.jobApplication.followUpNotes = followUpNotes;
 
     this.selectedProvince = province;
+    var cities = this.localDataService.getCities(province);
+    this.cityCollection = cities;
     this.selectedCity = city;
+    
   }
 
   ngOnInit(): void {
@@ -123,17 +126,14 @@ export class JobAppEditDialogComponent implements OnInit {
     }
   }
 
-  save() {
-    // this.dialogRef.close(this.form.value);
-    console.log(this.form.value);
-
+  save() {  
     this.submitted = true;
     
     if (!this.form.valid) {
       return;
     }
     this.dialogRef.close(this.form.value);
-
+    console.log(this.form.value);
   }
 
   close() {
