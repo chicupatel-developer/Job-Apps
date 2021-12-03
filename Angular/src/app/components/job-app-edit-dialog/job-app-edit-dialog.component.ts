@@ -3,6 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import * as moment from 'moment';
 import { LocalDataService } from '../../services/local-data.service';
+import { DataService } from '../../services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-job-app-edit-dialog',
@@ -16,6 +18,10 @@ export class JobAppEditDialogComponent implements OnInit {
 
   form: FormGroup;
   submitted = false;
+  apiResponse = '';
+  responseColor = '';
+  errors: string[];
+
   provinceCollection: any = ['MB', 'ON', 'AB'];
   cityCollection: string[] = [];
 
@@ -24,6 +30,8 @@ export class JobAppEditDialogComponent implements OnInit {
   selectedCity = '';
 
   constructor(
+    private router: Router,
+    public dataService: DataService,
     public localDataService: LocalDataService,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<JobAppEditDialogComponent>,
@@ -72,8 +80,7 @@ export class JobAppEditDialogComponent implements OnInit {
     this.selectedProvince = province;
     var cities = this.localDataService.getCities(province);
     this.cityCollection = cities;
-    this.selectedCity = city;
-    
+    this.selectedCity = city;    
   }
 
   ngOnInit(): void {
@@ -132,8 +139,52 @@ export class JobAppEditDialogComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    this.dialogRef.close(this.form.value);
-    console.log(this.form.value);
+    
+    // prepare object for api call
+    var jobApplicationId = this.jobApplication.jobApplicationId;
+    this.jobApplication = this.form.value;
+    this.jobApplication.jobApplicationId = jobApplicationId;
+
+    // api call
+    this.dataService.editJobApp(this.jobApplication)
+      .subscribe(
+        response => {
+          if (response.responseCode == 0) {
+            // success    
+            this.apiResponse = response.responseMessage;
+            this.responseColor = 'green';
+
+            this.form.reset();
+            this.errors = [];
+            this.submitted = false;
+
+            setTimeout(() => {
+              this.router.navigate(['/follow-up']);
+              this.apiResponse = '';
+
+              // close dialog
+              this.dialogRef.close(this.form.value);
+            }, 3000);
+          }
+          else {
+            // server error
+            this.apiResponse = response.responseCode + ' : ' + response.responseMessage;
+            this.responseColor = 'red';
+
+            this.errors = [];
+          }
+        },
+        error => {
+          this.apiResponse = '';
+          this.responseColor = 'red';
+          this.errors = [];
+
+          if (error.status === 400) {
+            this.apiResponse = "Bad Request!";
+          }
+          this.errors = this.localDataService.display400andEx(error, 'Edit-Job-App');
+        }
+      );    
   }
 
   close() {

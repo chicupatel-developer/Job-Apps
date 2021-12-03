@@ -3,6 +3,7 @@ using EFCore.Models;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Services.Repositories
@@ -40,6 +41,31 @@ namespace Services.Repositories
                 appStatusTypes.Add(appStatusType);
             }
             return appStatusTypes;
+        }
+
+        public JobApplication EditJobApp(JobApplication jobApplication)
+        {
+            // check for catch exception @ angular
+            // throw new Exception();
+
+            var jobApp_ = appDbContext.JobApplications
+                            .Where(x => x.JobApplicationId == jobApplication.JobApplicationId).FirstOrDefault();
+            if (jobApp_ != null)
+            {
+                jobApp_.PhoneNumber = jobApplication.PhoneNumber;
+                jobApp_.Province = jobApplication.Province;
+                jobApp_.WebURL = jobApplication.WebURL;
+                jobApp_.FollowUpNotes = jobApplication.FollowUpNotes;
+                jobApp_.ContactPersonName = jobApplication.ContactPersonName;
+                jobApp_.ContactEmail = jobApplication.ContactEmail;
+                jobApp_.CompanyName = jobApplication.CompanyName;
+                jobApp_.City = jobApplication.City;
+                jobApp_.AppStatus = jobApplication.AppStatus;
+                jobApp_.AppliedOn = jobApplication.AppliedOn;
+                jobApp_.AgencyName = jobApplication.AgencyName;
+                appDbContext.SaveChanges();
+            }       
+            return jobApplication;
         }
     }
 }
