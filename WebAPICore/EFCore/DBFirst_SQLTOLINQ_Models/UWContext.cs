@@ -2,15 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace EFCore.GirmaModels
+namespace EFCore.DBFirst_SQLTOLINQ_Models
 {
-    public partial class UWContextContext : DbContext
+    public partial class UWContext : DbContext
     {
-        public UWContextContext()
+        public UWContext()
         {
         }
 
-        public UWContextContext(DbContextOptions<UWContextContext> options)
+        public UWContext(DbContextOptions<UWContext> options)
             : base(options)
         {
         }
@@ -18,7 +18,6 @@ namespace EFCore.GirmaModels
         public virtual DbSet<MigrationHistory> MigrationHistory { get; set; }
         public virtual DbSet<Uuga> Uuga { get; set; }
         public virtual DbSet<Uut> Uut { get; set; }
-        public virtual DbSet<Years> Years { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -79,14 +78,6 @@ namespace EFCore.GirmaModels
                 entity.Property(e => e.DebitGlNumber)
                     .HasColumnName("Debit_GL_Number")
                     .HasMaxLength(10);
-            });
-
-            modelBuilder.Entity<Years>(entity =>
-            {
-                entity.HasKey(e => e.YearId)
-                    .HasName("PK_dbo.Years");
-
-                entity.Property(e => e.YearId).HasColumnName("YearID");
             });
 
             OnModelCreatingPartial(modelBuilder);

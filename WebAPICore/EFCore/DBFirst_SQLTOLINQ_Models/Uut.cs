@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EFCore.GirmaModels
+namespace EFCore.DBFirst_SQLTOLINQ_Models
 {
     public partial class Uut
     {

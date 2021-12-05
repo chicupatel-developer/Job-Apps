@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EFCore.DBFirst_SQLTOLINQ_Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using EFCore.GirmaModels;
 
 namespace api_job_apps.Controllers
 {
@@ -39,11 +39,32 @@ namespace api_job_apps.Controllers
         }
 
 
-
         /// <summary>
-        /// Girma
+        /// SQL JOIN -TO- LINQ JOIN
         /// </summary>
-        private UWContextContext girmaContext = new UWContextContext();
+        /// Scaffold-DbContext "Server=CHICAAMBICA\SQLExpress;Database=UWContext;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DBFirst_SQLTOLINQ_Models
+        /*        
+            select T1.GL_Number,UUGA.Chrt_Acct_Desc, 
+            sum(T1.Debit_Amount) as Debit_Amount,
+            sum(T1.Credit_Amount) as Credit_Amount,
+            sum(T1.Debit_Amount)-sum(T1.Credit_Amount) as Net_Amount
+            from 
+            (
+	            select UUT.Debit_GL_Number as GL_Number, Sum(UUT.Debit_Amount) as Debit_Amount, 0 as Credit_Amount
+	            from UUT
+	            group by UUT.Debit_GL_Number
+	            Union All
+	            select UUT.Credit_GL_Number as GL_Number, 0 as Debit_Amount, Sum(UUT.Credit_Amount) as Credit_Amount
+	            from UUT
+	            group by UUT.Credit_GL_Number ) as T1
+
+            left join UUGA
+            on UUGA.Chrt_Acct_No = REPLACE(T1.GL_Number,'-','')
+
+            group by T1.GL_Number, UUGA.Chrt_Acct_Desc
+            order by T1.GL_Number
+        */
+        private UWContext uwContext = new UWContext();
         [HttpGet]
         [Route("getUutGrpByDebitCredit_GL_Number")]
         public IEnumerable<LeftJoin_Uut_Uuga> GetUutGrpByDebitCredit_GL_Number()
@@ -60,7 +81,7 @@ namespace api_job_apps.Controllers
 	            from UUT
 	            group by UUT.Debit_GL_Number
             */
-            var grpByDebitGlNumber = girmaContext.Uut.GroupBy(c => c.DebitGlNumber).
+            var grpByDebitGlNumber = uwContext.Uut.GroupBy(c => c.DebitGlNumber).
                   Select(g => new
                   {
                       GL_number = g.Key,
@@ -85,7 +106,7 @@ namespace api_job_apps.Controllers
 	            from UUT
 	            group by UUT.Credit_GL_Number 
             */
-            var grpByCreditGlNumber = girmaContext.Uut.GroupBy(c => c.CreditGlNumber).
+            var grpByCreditGlNumber = uwContext.Uut.GroupBy(c => c.CreditGlNumber).
                 Select(g => new
                 {
                     GL_number = g.Key,
@@ -126,7 +147,7 @@ namespace api_job_apps.Controllers
             // 4))
             // join and order by
             var result = from UUT in grpByGL_Number_Datas
-                         join UUGA in girmaContext.Uuga.ToList() 
+                         join UUGA in uwContext.Uuga.ToList() 
                          on UUT.GL_Number.Replace("-", string.Empty) equals UUGA.ChrtAcctNo.ToString()
                          orderby UUT.GL_Number
                          select new
@@ -150,16 +171,17 @@ namespace api_job_apps.Controllers
             }
 
             return joinDatas;          
-        }    
+        } 
 
     }
-    // Girma
+    // uwContext
     public class UutGrpByDebitCredit_GL_Number
     {
         public string GL_Number { get; set; }
         public int Debit_Amount { get; set; }
         public int Credit_Amount { get; set; }
     }
+    // uwContext
     public class LeftJoin_Uut_Uuga
     {
         public string GL_Number { get; set; }

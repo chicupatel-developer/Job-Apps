@@ -1,5 +1,5 @@
 using EFCore.Context;
-using EFCore.GirmaModels;
+using EFCore.DBFirst_SQLTOLINQ_Models;
 using EmailService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,11 +63,11 @@ namespace api_job_apps
                       b => b.MigrationsAssembly(typeof(JobAppsDBContext).Assembly.FullName)));
             #endregion
 
-            #region Girma Context
-            services.AddDbContext<UWContextContext>(options =>
+            #region UWContext DBFirstSQLTOLINQConnection
+            services.AddDbContext<UWContext>(options =>
                     options.UseSqlServer(
-                      Configuration.GetConnectionString("GirmaConnection"),
-                      b => b.MigrationsAssembly(typeof(UWContextContext).Assembly.FullName)));
+                      Configuration.GetConnectionString("DBFirstSQLTOLINQConnection"),
+                      b => b.MigrationsAssembly(typeof(UWContext).Assembly.FullName)));
             #endregion
 
 
