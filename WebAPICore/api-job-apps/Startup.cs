@@ -1,4 +1,5 @@
 using EFCore.Context;
+using EFCore.GirmaModels;
 using EmailService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -61,6 +62,14 @@ namespace api_job_apps
                       Configuration.GetConnectionString("DefaultConnection"),
                       b => b.MigrationsAssembly(typeof(JobAppsDBContext).Assembly.FullName)));
             #endregion
+
+            #region Girma Context
+            services.AddDbContext<UWContextContext>(options =>
+                    options.UseSqlServer(
+                      Configuration.GetConnectionString("GirmaConnection"),
+                      b => b.MigrationsAssembly(typeof(UWContextContext).Assembly.FullName)));
+            #endregion
+
 
             #region cors
             services.AddCors(options =>

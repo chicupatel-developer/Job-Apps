@@ -10,7 +10,6 @@ C:\JobApplications\api-job-apps\EFCore\obj\Debug\netcoreapp3.1\EFCore.pdb
 C:\JobApps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.deps.json
 C:\JobApps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.dll
 C:\JobApps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.pdb
-C:\JobApps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.csproj.AssemblyReference.cache
 C:\JobApps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.AssemblyInfoInputs.cache
 C:\JobApps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.AssemblyInfo.cs
 C:\JobApps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.csproj.CoreCompileInputs.cache
