@@ -7,3 +7,14 @@ textarea {
     height: 100px;
     resize: vertical;
 }
+
+.mat-dialog-container{
+    width: 600px;
+}
+
+.mat-dialog-header{    
+    color: blue;
+    font-size: xx-large;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}

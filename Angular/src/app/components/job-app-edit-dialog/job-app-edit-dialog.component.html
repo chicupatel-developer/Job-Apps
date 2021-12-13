@@ -15,8 +15,12 @@
     <hr />
 </div>
 <p></p>
-<mat-dialog-content [formGroup]="form">
 
+<div class="mat-dialog-header">
+    [EDIT] Apply - Job Details
+</div>
+<mat-dialog-content [formGroup]="form" 
+    class="mat-dialog-container">  
     <mat-card class="mat-elevation-z4">
         <mat-card-content>
             <mat-form-field [style.width.px]=327 class="form-field" 
@@ -124,15 +128,12 @@
             <p></p>
         </mat-card-content>
     </mat-card>
-
-  
-
 </mat-dialog-content>
 
 <mat-dialog-actions>
     <button class="mat-raised-button" (click)="close()">
         Close
-    </button>
+    </button>&nbsp;&nbsp;&nbsp;
     <button class="mat-raised-button mat-primary" (click)="save()">
         Save
     </button>
