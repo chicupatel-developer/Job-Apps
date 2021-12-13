@@ -46,7 +46,7 @@ namespace api_job_apps.Controllers
             order by T1.GL_Number
         */
         [HttpGet]
-        [Route("getUutGrpByDebitCredit_GL_Number")]
+        [Route("getUUTGrp_DebitCredit_GL_Number")]
         public IActionResult GetUutGrpByDebitCredit_GL_Number()
         {
             var data = _uwRepo.GetUutGrpByDebitCredit_GL_Number();

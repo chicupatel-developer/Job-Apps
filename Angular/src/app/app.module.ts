@@ -15,6 +15,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { ApplyToJobComponent } from './components/apply-to-job/apply-to-job.component';
 import { FollowUpComponent } from './components/follow-up/follow-up.component';
+import { UniversityWinnipegComponent } from './components/university-winnipeg/university-winnipeg.component';
 
 ////////services
 import { LocalDataService } from './services/local-data.service';
@@ -30,7 +31,8 @@ import { JobAppEditDialogComponent } from './components/job-app-edit-dialog/job-
     HomeComponent,
     ApplyToJobComponent,
     FollowUpComponent,
-    JobAppEditDialogComponent
+    JobAppEditDialogComponent,
+    UniversityWinnipegComponent
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,11 @@
                 <a [routerLink]="['/apply-to-job']" mat-button>
                     <mat-icon>message</mat-icon>
                     Apply-Job
-                </a>           
+                </a>       
+                <a [routerLink]="['/uw-work']" mat-button>
+                    <mat-icon>school</mat-icon>
+                    University
+                </a>    
             </div>
         </mat-toolbar-row>
     </mat-toolbar>
@@ -38,6 +42,10 @@
                 <a [routerLink]="['/apply-to-job']" mat-button>
                     <mat-icon>message</mat-icon>
                     Apply-Job
+                </a>
+                <a [routerLink]="['/uw-work']" mat-button>
+                    <mat-icon>school</mat-icon>
+                    University
                 </a>
                 <a (click)="sidenav.toggle()" mat-list-item>
                     <mat-icon>close</mat-icon> Close

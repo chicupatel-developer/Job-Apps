@@ -5,12 +5,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ApplyToJobComponent } from './components/apply-to-job/apply-to-job.component';
 import { FollowUpComponent } from './components/follow-up/follow-up.component';
+import { UniversityWinnipegComponent } from './components/university-winnipeg/university-winnipeg.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'apply-to-job', component: ApplyToJobComponent },
   { path: 'follow-up', component: FollowUpComponent },
+  { path: 'uw-work', component: UniversityWinnipegComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
