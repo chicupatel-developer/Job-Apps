@@ -1,1 +1,74 @@
-<p>university-winnipeg works!</p>
+<div>
+    <mat-tab-group>
+        <mat-tab label="SQL"> 
+            <div class="sqlTextContainer">
+                <div>
+                        <span>
+                                <pre>
+                                    select T1.GL_Number,UUGA.Chrt_Acct_Desc,
+                                    sum(T1.Debit_Amount) as Debit_Amount,
+                                    sum(T1.Credit_Amount) as Credit_Amount,
+                                    sum(T1.Debit_Amount)-sum(T1.Credit_Amount) as Net_Amount
+                                    from
+                                    (
+                                        select UUT.Debit_GL_Number as GL_Number, Sum(UUT.Debit_Amount) as Debit_Amount, 0 as Credit_Amount
+                                        from UUT
+                                        <b>group by</b> UUT.Debit_GL_Number
+                                        <b>Union All</b>
+                                        select UUT.Credit_GL_Number as GL_Number, 0 as Debit_Amount, Sum(UUT.Credit_Amount) as Credit_Amount
+                                        from UUT
+                                        <b>group by</b> UUT.Credit_GL_Number 
+                                    ) as T1                        
+                                    <b>left join </b> UUGA
+                                    <u>on UUGA.Chrt_Acct_No = REPLACE(T1.GL_Number,'-','') </u>
+                                    <b>group by</b> T1.GL_Number, UUGA.Chrt_Acct_Desc
+                                    <b>order by</b> T1.GL_Number
+                                </pre>
+                        </span>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="LINQ">
+            <div class="sqlTextContainer">
+                <div [innerHTML]="grp_By_Debit_GLNumber"></div>
+                <p></p>
+                <div [innerHTML]="grp_By_Credit_GLNumber"></div>
+                <p></p>
+                <div [innerHTML]="grp_By_GLNumber"></div>
+                <p></p>
+                <div [innerHTML]="result"></div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+<p></p>
+
+
+<p></p>
+<div class="mainContainer">
+<table mat-table [dataSource]="uutGrpByDebitCredit_GL_Number">
+    <ng-container matColumnDef="gL_Number">
+        <th mat-header-cell *matHeaderCellDef> GL Number </th>
+        <td mat-cell *matCellDef="let element"> {{element.gL_Number}} </td>
+    </ng-container>  
+    <ng-container matColumnDef="chrt_Acct_Desc">
+        <th mat-header-cell *matHeaderCellDef> Chrt A/C Desc </th>
+        <td mat-cell *matCellDef="let element"> {{element.chrt_Acct_Desc}} </td>
+    </ng-container>
+    <ng-container matColumnDef="debit_Amount">
+        <th mat-header-cell *matHeaderCellDef> Debit Amount </th>
+        <td mat-cell *matCellDef="let element"> {{element.debit_Amount}} </td>
+    </ng-container>
+    <ng-container matColumnDef="credit_Amount">
+        <th mat-header-cell *matHeaderCellDef> Credit Amount </th>
+        <td mat-cell *matCellDef="let element"> {{element.credit_Amount}} </td>
+    </ng-container>
+    <ng-container matColumnDef="net_Amount">
+        <th mat-header-cell *matHeaderCellDef> Net Amount </th>
+        <td mat-cell *matCellDef="let element"> {{element.net_Amount}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</div>
