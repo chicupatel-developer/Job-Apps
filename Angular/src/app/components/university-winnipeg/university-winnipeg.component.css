@@ -11,13 +11,15 @@ th.mat-header-cell {
 .mainContainer{
     padding: 20px;
 }
-
 .sqlTextContainer{
     padding: 40px;
 }
-
 .linqTextContainer{
     padding-left: 200px;
     padding-top:20px;
+}
+.tabContainer{
+    padding: 40px;
+    font-style: oblique;
 }
 

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service'
 import { MatTableDataSource } from "@angular/material/table";
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
@@ -9,13 +11,14 @@ import { MatTableDataSource } from "@angular/material/table";
   templateUrl: './university-winnipeg.component.html',
   styleUrls: ['./university-winnipeg.component.css']
 })
-export class UniversityWinnipegComponent implements OnInit {
+export class UniversityWinnipegComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['gL_Number', 'chrt_Acct_Desc', 'debit_Amount', 'credit_Amount','net_Amount'];
   uutGrpByDebitCredit_GL_Number = new MatTableDataSource<any>();
-
-  linqStatement: 'haha';
   
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(
     private router: Router,
     public dataService: DataService
@@ -23,6 +26,11 @@ export class UniversityWinnipegComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUutGrpByDebitCredit_GL_Number();
+  }
+
+  ngAfterViewInit(): void {
+    this.uutGrpByDebitCredit_GL_Number.paginator = this.paginator;
+    this.uutGrpByDebitCredit_GL_Number.sort = this.sort;
   }
   
   grp_By_Debit_GLNumber = '<div>var grpByDebitGlNumber = uwContext.Uut.GroupBy(c => c.DebitGlNumber) <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .Select(g => new {GL_number = g.Key, Debit_Amount = g.Sum(s => s.DebitAmount), Credit_Amount = 0 });</div>';
@@ -42,4 +50,9 @@ export class UniversityWinnipegComponent implements OnInit {
           console.log(error);
         });
   }
+
+  doFilter = (event) => {
+    this.uutGrpByDebitCredit_GL_Number.filter = event.target.value.trim().toLocaleLowerCase();
+  }
+
 }
