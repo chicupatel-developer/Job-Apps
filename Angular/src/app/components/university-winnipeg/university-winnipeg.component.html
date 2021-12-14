@@ -29,14 +29,35 @@
             </div>
         </mat-tab>
         <mat-tab label="LINQ">
-            <div class="sqlTextContainer">
-                <div [innerHTML]="grp_By_Debit_GLNumber"></div>
-                <p></p>
-                <div [innerHTML]="grp_By_Credit_GLNumber"></div>
-                <p></p>
-                <div [innerHTML]="grp_By_GLNumber"></div>
-                <p></p>
-                <div [innerHTML]="result"></div>
+            <div class="linqTextContainer">
+                <div>
+                    <span>
+                        <pre>
+                            <div [innerHTML]="grp_By_Debit_GLNumber"></div>
+                        </pre>
+                    </span>
+                </div>   
+                <div>
+                    <span>
+                        <pre>
+                            <div [innerHTML]="grp_By_Credit_GLNumber"></div>
+                        </pre>
+                    </span>
+                </div>   
+                <div>
+                    <span>
+                        <pre>
+                            <div [innerHTML]="grp_By_GLNumber"></div>
+                        </pre>
+                    </span>
+                </div>     
+                 <div>
+                    <span>
+                        <pre>
+                            <div [innerHTML]="result"></div>
+                        </pre>
+                    </span>
+                </div>                               
             </div>
         </mat-tab>
     </mat-tab-group>
