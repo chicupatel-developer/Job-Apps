@@ -1,4 +1,6 @@
-    .parent {height:100%;}
+    .parent {
+        height:100%;
+    }
     .mainContentLeft{
     
         padding: 10px;
@@ -46,4 +48,8 @@
            border: 2px solid blue;
             border-radius: 25px;
             padding: 20px;
+    }
+
+    .mat-icon {
+        vertical-align: middle;
     }

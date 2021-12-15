@@ -6,6 +6,8 @@ import { LocalDataService } from '../../services/local-data.service';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
 
+import JobApplication from '../../models/jobApplication';
+
 @Component({
   selector: 'app-job-app-edit-dialog',
   templateUrl: './job-app-edit-dialog.component.html',
@@ -192,19 +194,3 @@ export class JobAppEditDialogComponent implements OnInit {
   }
 
 }
-
-class JobApplication
-{
-  jobApplicationId: number;
-  companyName: string;
-  agencyName: string;
-  webURL: string;
-  contactPersonName: string;
-  contactEmail: string;
-  phoneNumber: string;
-  city: string;
-  province: string;
-  appliedOn: Date;
-  appStatus: string;
-  followUpNotes: string;
-  }

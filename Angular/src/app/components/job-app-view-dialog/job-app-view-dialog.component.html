@@ -1,0 +1,72 @@
+<div class="mat-dialog-header">
+    [ VIEW ] Apply - Job Details
+</div>
+
+<mat-dialog-content 
+    class="mat-dialog-container">
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <mat-label> Company-Name
+            </mat-label>
+            <mat-label>
+                {{jobApplication.companyName}}
+            </mat-label>
+            <p></p>
+            <mat-label> Agency-Name
+            </mat-label>
+            <mat-label>
+                {{jobApplication.agencyName}}
+            </mat-label>
+            <p></p>
+            <mat-label> Web URL
+            </mat-label>
+            <mat-label>
+                {{jobApplication.webURL}}
+            </mat-label>
+            <p></p>
+            <mat-label> Contact Person
+            </mat-label>
+            <mat-label>
+                {{jobApplication.contactPersonName}}
+            </mat-label>
+            <p></p>
+            <mat-label> Email
+            </mat-label>
+            <mat-label>
+                {{jobApplication.contactEmail}}
+            </mat-label>
+            <p></p>
+            <mat-label> Phone Number
+            </mat-label>
+            <mat-label>
+                {{jobApplication.phoneNumber}}
+            </mat-label>
+            <p></p>
+            <mat-label> Province
+            </mat-label>
+            <mat-label>
+                {{jobApplication.province}}
+            </mat-label>
+            <p></p>
+            <mat-label> City
+            </mat-label>
+            <mat-label>
+                {{jobApplication.city}}
+            </mat-label>
+            <p></p>
+            <mat-label> Applied On
+            </mat-label>
+            <mat-label>
+                {{jobApplication.appliedOn}}
+            </mat-label>
+            <p></p>
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button" 
+        (click)="close()">
+        Close
+    </button>&nbsp;&nbsp;&nbsp;
+</mat-dialog-actions>

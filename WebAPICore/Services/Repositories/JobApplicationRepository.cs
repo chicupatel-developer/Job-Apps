@@ -67,5 +67,15 @@ namespace Services.Repositories
             }       
             return jobApplication;
         }
+
+        public JobApplication ViewJobApp(int jobAppId)
+        {
+            JobApplication jobApplication = new JobApplication();
+
+            jobApplication = appDbContext.JobApplications
+                                .Where(x => x.JobApplicationId == jobAppId).FirstOrDefault();
+
+            return jobApplication;
+        }
     }
 }

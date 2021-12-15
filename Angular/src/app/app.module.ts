@@ -23,6 +23,7 @@ import { LocalDataService } from './services/local-data.service';
 // angular-material
 import { MaterialModule } from './material.module';
 import { JobAppEditDialogComponent } from './components/job-app-edit-dialog/job-app-edit-dialog.component';
+import { JobAppViewDialogComponent } from './components/job-app-view-dialog/job-app-view-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { JobAppEditDialogComponent } from './components/job-app-edit-dialog/job-
     ApplyToJobComponent,
     FollowUpComponent,
     JobAppEditDialogComponent,
-    UniversityWinnipegComponent
+    UniversityWinnipegComponent,
+    JobAppViewDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -126,5 +126,21 @@ namespace api_job_apps.Controllers
                 return Ok(_response);
             }
         }
+
+
+        [HttpGet]
+        [Route("viewJobApp/{jobAppId}")]
+        public IActionResult ViewJobApp(int jobAppId)
+        {
+            try
+            {
+                var jobApp = _jobAppRepo.ViewJobApp(jobAppId);
+                return Ok(jobApp);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("Bad Request!");
+            }          
+        }
     }
 }

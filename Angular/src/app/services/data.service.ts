@@ -30,6 +30,11 @@ export class DataService {
   getAppStatusTypes(): Observable<Array<string>> {
     return this.http.get<Array<string>>(this.JobApplication_API + '/getAppStatusTypes');
   }
+  // follow-up
+  // view jobApplication
+  viewJobApp(jobAppId): Observable<any> {
+    return this.http.get<any>(this.JobApplication_API + '/viewJobApp/'+jobAppId);
+  }
 
   // follow-up-->job-app-edit-dialog
   // edit jobApplication

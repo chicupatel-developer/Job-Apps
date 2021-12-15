@@ -11,5 +11,6 @@ namespace Services.Interfaces
         IEnumerable<JobApplication> GetAllJobApps();
         List<string> GetAppStatusTypes();
         JobApplication EditJobApp(JobApplication jobApplication);
+        JobApplication ViewJobApp(int jobAppId);
     }
 }

@@ -10,6 +10,9 @@ import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { JobAppEditDialogComponent } from '../job-app-edit-dialog/job-app-edit-dialog.component';
 
+import JobApplication  from '../../models/jobApplication';
+import { JobAppViewDialogComponent } from '../job-app-view-dialog/job-app-view-dialog.component';
+
 @Component({
   selector: 'app-follow-up',
   templateUrl: './follow-up.component.html',
@@ -27,8 +30,12 @@ export class FollowUpComponent implements OnInit {
   appStatusTypes: string[] = [];
   appStatusTypesCollection: any[] = [];
 
+  // view job details
+  jobApplication = new JobApplication();
+
   constructor(
     private dialog: MatDialog,
+    private dialogView: MatDialog,
     private router: Router,
     public dataService: DataService,
     private formBuilder: FormBuilder,
@@ -50,6 +57,7 @@ export class FollowUpComponent implements OnInit {
   }
   
   // open dialog
+  // edit
   openDialog(job) {
     console.log(job);
     const dialogRef = this.dialog.open(JobAppEditDialogComponent, {
@@ -167,4 +175,57 @@ export class FollowUpComponent implements OnInit {
         });
   }
 
+  // view job details
+  viewJobDetails(job) {
+    this.dataService.viewJobApp(Number(job.jobApplicationId))
+    // this.dataService.viewJobApp('badRequest')
+      .subscribe(
+        data => {
+          console.log(data);
+          this.openDialogView(data);
+        },
+        error => {          
+          if (error.status === 400) {
+            console.log('Bad Request!');
+          }
+          else {
+            console.log(error);
+          }
+        });
+  }
+  // open dialog
+  // view
+  openDialogView(job) {
+    console.log(job);
+    const dialogRef = this.dialog.open(JobAppViewDialogComponent, {
+      data: {
+        jobApplicationId: job.jobApplicationId,
+        companyName: job.companyName,
+        agencyName: job.agencyName,
+        webURL: job.webURL,
+        contactPersonName: job.contactPersonName,
+        contactEmail: job.contactEmail,
+        phoneNumber: job.phoneNumber,
+        city: job.city,
+        province: job.province,
+        appliedOn: job.appliedOn,
+        appStatus: job.appStatus,
+        followUpNotes: job.followUpNotes
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        const a = document.createElement('a');
+        a.click();
+        a.remove();
+      }
+    });
+  }
+
+
+  // delete job details
+  deleteJobDetails(job) {
+    console.log(job);
+  }
 }
