@@ -2,64 +2,84 @@
     [ VIEW ] Apply - Job Details
 </div>
 
-<mat-dialog-content 
-    class="mat-dialog-container">
+<mat-dialog-content>
     <mat-card class="mat-elevation-z4">
         <mat-card-content>
-            <mat-label> Company-Name
-            </mat-label>
-            <mat-label>
-                {{jobApplication.companyName}}
-            </mat-label>
-            <p></p>
-            <mat-label> Agency-Name
-            </mat-label>
-            <mat-label>
-                {{jobApplication.agencyName}}
-            </mat-label>
-            <p></p>
-            <mat-label> Web URL
-            </mat-label>
-            <mat-label>
-                {{jobApplication.webURL}}
-            </mat-label>
-            <p></p>
-            <mat-label> Contact Person
-            </mat-label>
-            <mat-label>
-                {{jobApplication.contactPersonName}}
-            </mat-label>
-            <p></p>
-            <mat-label> Email
-            </mat-label>
-            <mat-label>
-                {{jobApplication.contactEmail}}
-            </mat-label>
-            <p></p>
-            <mat-label> Phone Number
-            </mat-label>
-            <mat-label>
-                {{jobApplication.phoneNumber}}
-            </mat-label>
-            <p></p>
-            <mat-label> Province
-            </mat-label>
-            <mat-label>
-                {{jobApplication.province}}
-            </mat-label>
-            <p></p>
-            <mat-label> City
-            </mat-label>
-            <mat-label>
-                {{jobApplication.city}}
-            </mat-label>
-            <p></p>
-            <mat-label> Applied On
-            </mat-label>
-            <mat-label>
-                {{jobApplication.appliedOn}}
-            </mat-label>
-            <p></p>
+            <div fxLayout="row wrap" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                <div fxFlex="30%">
+                    <span>Company-Name : </span>
+                </div>
+                <div fxFlex="70%">
+                    <span *ngIf="jobApplication.companyName; else NA">{{jobApplication.companyName}}</span>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                <div fxFlex="30%">
+                    <span>Agency-Name : </span>
+                </div>
+                <div fxFlex="70%">
+                    <span *ngIf="jobApplication.agencyName; else NA">{{jobApplication.agencyName}}</span>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                <div fxFlex="30%">
+                    <span>Web URL : </span>
+                </div>
+                <div fxFlex="70%">
+                    <span *ngIf="jobApplication.webURL; else NA">{{jobApplication.webURL}}</span>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                <div fxFlex="30%">
+                    <span>Contact Person : </span>
+                </div>
+                <div fxFlex="70%">
+                    <span *ngIf="jobApplication.contactPersonName else NA">{{jobApplication.contactPersonName}}</span>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                <div fxFlex="30%">
+                    <span>Email : </span>
+                </div>
+                <div fxFlex="70%">
+                    <span *ngIf="jobApplication.contactEmail; else NA">{{jobApplication.contactEmail}}</span>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                <div fxFlex="30%">
+                    <span>Phone Number : </span>
+                </div>
+                <div fxFlex="70%">
+                    <span *ngIf="jobApplication.phoneNumber; else NA">{{jobApplication.phoneNumber}}</span>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                <div fxFlex="30%">
+                    <span>Province : </span>
+                </div>
+                <div fxFlex="70%">
+                    <span *ngIf="jobApplication.province; else NA">{{jobApplication.province}}</span>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                <div fxFlex="30%">
+                    <span>City : </span>
+                </div>
+                <div fxFlex="70%">
+                    <span *ngIf="jobApplication.city; else NA">{{jobApplication.city}}</span>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                <div fxFlex="30%">
+                    <span>Applied On : </span>
+                </div>
+                <div fxFlex="70%">
+                    <span *ngIf="jobApplication.appliedOn else NA">{{jobApplication.appliedOn | date : "MMM dd, yyyy"}}</span>
+                </div>
+            </div>      
+            <ng-template #NA>
+                N/A
+            </ng-template>
         </mat-card-content>
     </mat-card>
 </mat-dialog-content>

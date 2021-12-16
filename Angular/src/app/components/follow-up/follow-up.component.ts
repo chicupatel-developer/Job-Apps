@@ -35,7 +35,6 @@ export class FollowUpComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private dialogView: MatDialog,
     private router: Router,
     public dataService: DataService,
     private formBuilder: FormBuilder,
@@ -198,6 +197,9 @@ export class FollowUpComponent implements OnInit {
   openDialogView(job) {
     console.log(job);
     const dialogRef = this.dialog.open(JobAppViewDialogComponent, {
+      width: '50%',
+      minHeight: '75%',
+      height: '75%',
       data: {
         jobApplicationId: job.jobApplicationId,
         companyName: job.companyName,
