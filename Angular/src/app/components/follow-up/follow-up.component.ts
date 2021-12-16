@@ -12,6 +12,7 @@ import { JobAppEditDialogComponent } from '../job-app-edit-dialog/job-app-edit-d
 
 import JobApplication  from '../../models/jobApplication';
 import { JobAppViewDialogComponent } from '../job-app-view-dialog/job-app-view-dialog.component';
+import { JobAppDeleteDialogComponent } from '../job-app-delete-dialog/job-app-delete-dialog.component';
 
 @Component({
   selector: 'app-follow-up',
@@ -229,5 +230,25 @@ export class FollowUpComponent implements OnInit {
   // delete job details
   deleteJobDetails(job) {
     console.log(job);
+    this.openDialogDelete(job);
+  }
+  // open dialog
+  // delete
+  openDialogDelete(job) {
+    const dialogRef = this.dialog.open(JobAppDeleteDialogComponent, {
+      data: {
+        message: 'Are you sure want to delete?',
+        buttonText: {
+          ok: 'Yes',
+          cancel: 'No'
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.jobApps = this.jobApps.filter(item => item.jobApplicationId !== job.jobApplicationId);
+      }
+    });
   }
 }

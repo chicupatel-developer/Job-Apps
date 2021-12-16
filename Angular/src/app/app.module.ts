@@ -24,6 +24,7 @@ import { LocalDataService } from './services/local-data.service';
 import { MaterialModule } from './material.module';
 import { JobAppEditDialogComponent } from './components/job-app-edit-dialog/job-app-edit-dialog.component';
 import { JobAppViewDialogComponent } from './components/job-app-view-dialog/job-app-view-dialog.component';
+import { JobAppDeleteDialogComponent } from './components/job-app-delete-dialog/job-app-delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { JobAppViewDialogComponent } from './components/job-app-view-dialog/job-
     FollowUpComponent,
     JobAppEditDialogComponent,
     UniversityWinnipegComponent,
-    JobAppViewDialogComponent
+    JobAppViewDialogComponent,
+    JobAppDeleteDialogComponent
   ],
   imports: [
     BrowserModule,
