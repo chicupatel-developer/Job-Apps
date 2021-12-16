@@ -12,5 +12,6 @@ namespace Services.Interfaces
         List<string> GetAppStatusTypes();
         JobApplication EditJobApp(JobApplication jobApplication);
         JobApplication ViewJobApp(int jobAppId);
+        bool DeleteJobApp(JobApplication jobApplication);
     }
 }

@@ -14,6 +14,9 @@ import JobApplication  from '../../models/jobApplication';
 import { JobAppViewDialogComponent } from '../job-app-view-dialog/job-app-view-dialog.component';
 import { JobAppDeleteDialogComponent } from '../job-app-delete-dialog/job-app-delete-dialog.component';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+
 @Component({
   selector: 'app-follow-up',
   templateUrl: './follow-up.component.html',
@@ -35,6 +38,7 @@ export class FollowUpComponent implements OnInit {
   jobApplication = new JobApplication();
 
   constructor(
+    private _snackBar: MatSnackBar,
     private dialog: MatDialog,
     private router: Router,
     public dataService: DataService,
@@ -246,8 +250,26 @@ export class FollowUpComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        this.jobApps = this.jobApps.filter(item => item.jobApplicationId !== job.jobApplicationId);
+      if (confirmed) {     
+        // api call
+        // delete on api side
+        console.log(job);
+        this.dataService.deleteJobApp(job)
+          .subscribe(
+            response => {
+              console.log(response);
+
+              // delete on angular side
+              this.jobApps = this.jobApps.filter(item => item.jobApplicationId !== job.jobApplicationId);
+
+              this._snackBar.open(response.responseMessage, '', {
+                duration: 3000
+              });
+            },
+            error => {
+              console.log(error);
+            }
+          );
       }
     });
   }

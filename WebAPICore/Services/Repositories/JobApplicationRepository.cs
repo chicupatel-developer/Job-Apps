@@ -77,5 +77,19 @@ namespace Services.Repositories
 
             return jobApplication;
         }
+
+        public bool DeleteJobApp(JobApplication jobApplication)
+        {
+            try
+            {
+                appDbContext.JobApplications.RemoveRange(appDbContext.JobApplications.Where(x => x.JobApplicationId == jobApplication.JobApplicationId).ToList());
+                appDbContext.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }         
+        }
     }
 }

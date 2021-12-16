@@ -30,7 +30,7 @@ export class DataService {
   getAppStatusTypes(): Observable<Array<string>> {
     return this.http.get<Array<string>>(this.JobApplication_API + '/getAppStatusTypes');
   }
-  // follow-up
+  // follow-up-->job-app-view-dialog
   // view jobApplication
   viewJobApp(jobAppId): Observable<any> {
     return this.http.get<any>(this.JobApplication_API + '/viewJobApp/'+jobAppId);
@@ -40,6 +40,12 @@ export class DataService {
   // edit jobApplication
   editJobApp(jobAppData): Observable<any> {
     return this.http.post(this.JobApplication_API + '/editJobApplication', jobAppData)
+  }
+  
+  // follow-up-->job-app-delete-dialog
+  // delete jobApplication
+  deleteJobApp(jobAppData): Observable<any> {
+    return this.http.post(this.JobApplication_API + '/deleteJobApplication', jobAppData)
   }
 
   // UW

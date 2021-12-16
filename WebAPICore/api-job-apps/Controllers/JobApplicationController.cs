@@ -142,5 +142,32 @@ namespace api_job_apps.Controllers
                 return BadRequest("Bad Request!");
             }          
         }
+
+        [HttpPost]
+        [Route("deleteJobApplication")]
+        public IActionResult DeleteJobApplication(JobApplication jobAppData)
+        {
+            _response = new APIResponse();
+            try
+            {
+                if (jobAppData == null)
+                {
+                    return BadRequest("Bad Request!");
+                }
+
+                if(_jobAppRepo.DeleteJobApp(jobAppData)) {
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Delete Success!";
+                    return Ok(_response);
+                }
+                else
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Server Error!");
+            }
+            catch (Exception ex)
+            {             
+                return BadRequest("Bad Request!");
+            }
+        }
+
     }
 }
