@@ -13,10 +13,12 @@ namespace EFCore.Context
         }
 
         public DbSet<JobApplication> JobApplications { get; set; }
+        public DbSet<JobResume> JobResumes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new JobApplicationConfiguration());
+            modelBuilder.ApplyConfiguration(new JobResumeConfiguration());
         }
     }
 }
