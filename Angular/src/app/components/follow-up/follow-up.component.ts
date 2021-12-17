@@ -81,13 +81,19 @@ export class FollowUpComponent implements OnInit {
       }
     });
    
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        const a = document.createElement('a');
-        a.click();
-        a.remove();    
+    dialogRef.afterClosed().subscribe(
+      data => {
+        if (data === undefined)
+          console.log('Edit Operation Cancelled!');
+        else {
+          console.log("Dialog output:", data);
+          // update jobApps[] to reflect back edit
+          let x = this.jobApps.find(x=>x.jobApplicationId===data.jobApplicationId);
+          let index = this.jobApps.indexOf(x);
+          this.jobApps[index] = data;
+        }        
       }
-    });
+    );
   }
 
   getAppStatusTypes() {

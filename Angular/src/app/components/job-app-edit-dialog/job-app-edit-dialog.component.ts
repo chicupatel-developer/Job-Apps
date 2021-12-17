@@ -165,7 +165,8 @@ export class JobAppEditDialogComponent implements OnInit {
               this.apiResponse = '';
 
               // close dialog
-              this.dialogRef.close(this.form.value);
+              // and return just edited jobApplication object to caller component
+              this.dialogRef.close(this.jobApplication);
             }, 3000);
           }
           else {
