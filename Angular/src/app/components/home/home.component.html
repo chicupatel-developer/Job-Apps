@@ -1,17 +1,34 @@
-<div class="applyToJobForm-container">
-    <div class="form-container">
-        <div fxLayout="row wrap" fxLayoutGap="16px">
-            <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let num of [1]">
-                <h1>Home</h1>
-                <div>
-                    <ul>
-                        <li>User can Apply-To-Job</li>
-                        <li>User can Filter Applied Jobs on various criterias</li>
-                        <li>User can Follow-Up Applied Jobs</li>
-                        <li>Edit any details when Follow-Up Applied Jobs</li>
-                    </ul>
-                </div>
-            </div>
+<div class="mainContainer">
+    <mat-toolbar *ngIf="currentFile" class="progress-bar">
+        <mat-progress-bar 
+            color="blue" 
+            [value]="progress">
+        </mat-progress-bar>
+        <span class="progress">{{ progress }}%</span>
+    </mat-toolbar>
+
+    <mat-form-field>
+        <div>
+            <mat-toolbar>
+                <input matInput [value]="fileName" />
+
+                <button mat-flat-button color="primary" 
+                    [disabled]="!currentFile" 
+                    (click)="upload()">
+                    Upload
+                </button>
+            </mat-toolbar>
+
+            <input 
+                type="file" 
+                id="fileInput" 
+                (change)="selectFile($event)" 
+                name="fileInput" />
         </div>
+    </mat-form-field>
+
+    <div *ngIf="message" class="message">
+        {{ message }}
     </div>
 </div>
+

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalDataService } from '../services/local-data.service';
 
@@ -11,6 +11,9 @@ export class DataService {
   public API = 'https://localhost:44301';
   public JobApplication_API = `${this.API}/api/JobApplication`;
   public UW_API = `${this.API}/api/UW`;
+
+  // file-upload
+  private baseUrl = 'https://localhost:44301/api/JobApplication';
 
   constructor(private http: HttpClient, public localDataService: LocalDataService) { }
 
@@ -51,5 +54,16 @@ export class DataService {
   // UW
   getUutGrpByDebitCredit_GL_Number(): Observable<Array<any>> {
     return this.http.get<Array<any>>(this.UW_API + '/getUUTGrp_DebitCredit_GL_Number');    
+  }
+
+  // file-upload
+  upload(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
   }
 }

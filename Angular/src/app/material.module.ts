@@ -21,6 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -46,7 +47,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatPaginatorModule,
         MatTabsModule,
         MatSortModule,
-        MatSnackBarModule 
+        MatSnackBarModule ,
+        MatProgressBarModule
     ],
     exports: [
         MatSliderModule,
@@ -69,7 +71,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatPaginatorModule,
         MatTabsModule,
         MatSortModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatProgressBarModule
     ]
 })
 export class MaterialModule { }
