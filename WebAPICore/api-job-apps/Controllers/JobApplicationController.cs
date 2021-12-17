@@ -139,7 +139,7 @@ namespace api_job_apps.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest("Bad Request!");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Service Not Available!");
             }          
         }
 
@@ -150,6 +150,12 @@ namespace api_job_apps.Controllers
             _response = new APIResponse();
             try
             {
+                // check for null
+                // jobAppData = null;
+
+                // check for exception
+                // throw new Exception();
+
                 if (jobAppData == null)
                 {
                     return BadRequest("Bad Request!");

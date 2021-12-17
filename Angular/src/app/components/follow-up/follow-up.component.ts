@@ -194,13 +194,11 @@ export class FollowUpComponent implements OnInit {
           console.log(data);
           this.openDialogView(data);
         },
-        error => {          
-          if (error.status === 400) {
-            console.log('Bad Request!');
-          }
-          else {
-            console.log(error);
-          }
+        error => {
+          console.log(error);
+          this._snackBar.open(error.status + ' : ' + error.error, '', {
+            duration: 3000
+          });      
         });
   }
   // open dialog
@@ -229,9 +227,7 @@ export class FollowUpComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        const a = document.createElement('a');
-        a.click();
-        a.remove();
+    
       }
     });
   }
@@ -273,7 +269,10 @@ export class FollowUpComponent implements OnInit {
               });
             },
             error => {
-              console.log(error);
+              console.log(error);            
+              this._snackBar.open(error.status + ' : ' + error.error, '', {
+                duration: 3000
+              });              
             }
           );
       }

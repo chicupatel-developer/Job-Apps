@@ -70,6 +70,9 @@ namespace Services.Repositories
 
         public JobApplication ViewJobApp(int jobAppId)
         {
+            // check for exception
+            // throw new Exception();
+
             JobApplication jobApplication = new JobApplication();
 
             jobApplication = appDbContext.JobApplications
@@ -82,6 +85,9 @@ namespace Services.Repositories
         {
             try
             {
+                // check for exception
+                // throw new Exception();
+
                 appDbContext.JobApplications.RemoveRange(appDbContext.JobApplications.Where(x => x.JobApplicationId == jobApplication.JobApplicationId).ToList());
                 appDbContext.SaveChanges();
                 return true;
