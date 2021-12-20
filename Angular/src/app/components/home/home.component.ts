@@ -44,11 +44,13 @@ export class HomeComponent implements OnInit {
           if (event.type === HttpEventType.UploadProgress) {
             this.progress = Math.round(100 * event.loaded / event.total);
           } else if (event instanceof HttpResponse) {
-            this.message = event.body.responseMessage;
-
             
-            console.log(event.body);
-
+            // file-upload success
+            if (event.body.responseCode === 0)
+              this.message = event.body.responseMessage;
+            
+              // reset fileName
+            this.fileName = 'Select File';
           }
         },
         (err: any) => {
@@ -56,13 +58,22 @@ export class HomeComponent implements OnInit {
           this.progress = 0;
 
           if (err.error != null) {
-            this.message = err.error;
+            if (err.error.responseCode < 0) {
+              // Database Error!
+              this.message = err.error.responseMessage;
+            }
+            else {
+              this.message = err.error;
+            }            
           }
           else {
             this.message = 'Could not upload the file!';
           }        
 
           this.currentFile = undefined;
+
+          // reset fileName
+          this.fileName = 'Select File';
         });
     }
 

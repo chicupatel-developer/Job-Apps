@@ -53,6 +53,7 @@ namespace api_job_apps
 
             #region Repositories
             services.AddTransient<IJobApplicationRepository, JobApplicationRepository>();
+            services.AddTransient<IJobResumeRepository, JobResumeRepository>();
             services.AddTransient<IUWRepository, UWRepository>();
             #endregion
 

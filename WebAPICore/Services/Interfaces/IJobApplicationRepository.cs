@@ -13,6 +13,5 @@ namespace Services.Interfaces
         JobApplication EditJobApp(JobApplication jobApplication);
         JobApplication ViewJobApp(int jobAppId);
         bool DeleteJobApp(JobApplication jobApplication);
-        bool StoreResumeFile(JobResume jobResume);
     }
 }

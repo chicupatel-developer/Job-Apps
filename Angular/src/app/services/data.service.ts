@@ -10,10 +10,8 @@ export class DataService {
 
   public API = 'https://localhost:44301';
   public JobApplication_API = `${this.API}/api/JobApplication`;
+  public JobResume_API = `${this.API}/api/JobResume`;
   public UW_API = `${this.API}/api/UW`;
-
-  // file-upload
-  private baseUrl = 'https://localhost:44301/api/JobApplication';
 
   constructor(private http: HttpClient, public localDataService: LocalDataService) { }
 
@@ -60,7 +58,7 @@ export class DataService {
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+    const req = new HttpRequest('POST', `${this.JobResume_API}/upload`, formData, {
       reportProgress: true,
       responseType: 'json'
     });

@@ -85,9 +85,24 @@ namespace EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("JobApplicationId")
+                        .HasColumnType("int");
+
                     b.HasKey("JobResumeId");
 
+                    b.HasIndex("JobApplicationId")
+                        .IsUnique();
+
                     b.ToTable("JobResumes");
+                });
+
+            modelBuilder.Entity("EFCore.Models.JobResume", b =>
+                {
+                    b.HasOne("EFCore.Models.JobApplication", "JobApplication")
+                        .WithOne("JobResume")
+                        .HasForeignKey("EFCore.Models.JobResume", "JobApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
