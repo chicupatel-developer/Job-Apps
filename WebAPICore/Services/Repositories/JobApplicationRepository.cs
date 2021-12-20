@@ -97,5 +97,19 @@ namespace Services.Repositories
                 return false;
             }         
         }
+   
+        public bool StoreResumeFile(JobResume jobResume)
+        {
+            try
+            {
+                var result = appDbContext.JobResumes.Add(jobResume);
+                appDbContext.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }            
+        }
     }
 }

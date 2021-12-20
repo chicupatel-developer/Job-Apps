@@ -19,6 +19,10 @@ namespace EFCore.Context
         {
             modelBuilder.ApplyConfiguration(new JobApplicationConfiguration());
             modelBuilder.ApplyConfiguration(new JobResumeConfiguration());
+
+            modelBuilder.Entity<JobApplication>()
+             .HasOne<JobResume>(p => p.JobResume)
+             .WithOne(s => s.JobApplication);
         }
     }
 }

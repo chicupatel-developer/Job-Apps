@@ -18,5 +18,8 @@ namespace EFCore.Models
         public DateTime AppliedOn { get; set; }
         public AppStatusType AppStatus { get; set; }
         public string FollowUpNotes { get; set; }
+
+        public int JobResumeId { get; set; }
+        public JobResume JobResume { get; set; }
     }
 }

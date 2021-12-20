@@ -211,13 +211,30 @@ namespace api_job_apps.Controllers
                     var fileName = inRangeValue + "_" + ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                     var fullPath = Path.Combine(pathToSave, fileName);
 
+                    // file-system store
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
                     }
-                    _response.ResponseCode = 0;
-                    _response.ResponseMessage = "Resume Upload Success!";
-                    return Ok(_response);
+
+                    // db store
+                    JobResume jobResume = new JobResume()
+                    {
+                         FileName = fileName,
+                         FilePath = pathToSave
+                    };
+                    if (_jobAppRepo.StoreResumeFile(jobResume))
+                    {
+                        _response.ResponseCode = 0;
+                        _response.ResponseMessage = "Resume Upload Success!";
+                        return Ok(_response);
+                    }
+                    else
+                    {
+                        _response.ResponseCode = -1;
+                        _response.ResponseMessage = "Database Error!";
+                        return BadRequest(_response);
+                    }
                 }
                 else
                 {

@@ -45,7 +45,10 @@ export class HomeComponent implements OnInit {
             this.progress = Math.round(100 * event.loaded / event.total);
           } else if (event instanceof HttpResponse) {
             this.message = event.body.responseMessage;
+
+            
             console.log(event.body);
+
           }
         },
         (err: any) => {
