@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { DataService } from '../../services/data.service';
 import { LocalDataService } from '../../services/local-data.service';
 import { Router } from '@angular/router';
+import ResumeUpload from 'src/app/models/resumeUpload';
 
 @Component({
   selector: 'app-job-resume-upload',
@@ -20,7 +21,9 @@ export class JobResumeUploadComponent implements OnInit {
   fileInfos?: Observable<any>;
 
   // selected job from service
-  JobApp : any;
+  JobApp: any;
+  
+  resumeUpload  = new ResumeUpload();
 
   constructor(
     private router: Router,
@@ -57,7 +60,14 @@ export class JobResumeUploadComponent implements OnInit {
     this.message = "";
 
     if (this.currentFile) {
-      this.dataService.upload(this.currentFile).subscribe(
+
+
+      this.resumeUpload.jobApplicationId = this.JobApp.jobApplicationId;
+      this.resumeUpload.resumeFile = this.currentFile;
+
+
+      this.dataService.upload(this.resumeUpload).subscribe(
+      // this.dataService.upload(this.currentFile).subscribe(
         (event: any) => {
           if (event.type === HttpEventType.UploadProgress) {
             this.progress = Math.round(100 * event.loaded / event.total);

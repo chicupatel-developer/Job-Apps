@@ -33,11 +33,19 @@ namespace api_job_apps.Controllers
         // file-upload
         [HttpPost, DisableRequestSizeLimit]
         [Route("upload")]
-        public IActionResult Upload()
+        public IActionResult Upload([FromForm] ResumeUploadDTO resumeUpload)
         {
             _response = new APIResponse();
             try
             {
+
+                var jobApplicationId = resumeUpload.JobApplicationId;
+                var file_ = resumeUpload.ResumeFile;
+
+
+
+
+
                 string resumeStoragePath = _configuration.GetSection("ResumeUploadLocation").GetSection("Path").Value;
 
                 // unique random number to edit file name
@@ -46,7 +54,7 @@ namespace api_job_apps.Controllers
                 var rawValue = BitConverter.ToInt64(bytes, 0);
                 var inRangeValue = Math.Abs(rawValue) % DateTime.MaxValue.Ticks;
 
-
+              
                 var file = Request.Form.Files[0];
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), resumeStoragePath);
 

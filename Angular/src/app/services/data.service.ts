@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalDataService } from '../services/local-data.service';
+import ResumeUpload from '../models/resumeUpload';
 
 @Injectable({
   providedIn: 'root'
@@ -55,9 +56,21 @@ export class DataService {
   }
 
   // file-upload
+  /*
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
+    const req = new HttpRequest('POST', `${this.JobResume_API}/upload`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
+  }
+  */
+  upload(resumeUpload: ResumeUpload): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', resumeUpload.resumeFile);
+    formData.append('jobApplicationId', resumeUpload.jobApplicationId.toString());
     const req = new HttpRequest('POST', `${this.JobResume_API}/upload`, formData, {
       reportProgress: true,
       responseType: 'json'
