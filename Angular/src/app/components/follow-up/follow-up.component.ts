@@ -278,4 +278,14 @@ export class FollowUpComponent implements OnInit {
       }
     });
   }
+
+  // resume-upload
+  resumeUpload(job) {
+    // store selected job for whicu user wants to upload resume, 
+    // to local-data-service and,,,
+    this.localDataService.setJobApp(job);
+
+    // redirect to job-resume-upload component
+    this.router.navigate(['/job-resume-upload']);
+  }
 }

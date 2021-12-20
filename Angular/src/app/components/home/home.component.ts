@@ -9,73 +9,11 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  
-  currentFile?: File;
-  progress = 0;
-  message = '';
-
-  fileName = 'Select File';
-  fileInfos?: Observable<any>;
 
   constructor(
     private dataService: DataService
   ) { }
 
   ngOnInit() { 
-  }
-  
-  selectFile(event: any): void {
-    if (event.target.files && event.target.files[0]) {
-      const file: File = event.target.files[0];
-      this.currentFile = file;
-      this.fileName = this.currentFile.name;
-    } else {
-      this.fileName = 'Select File';
-    }
-  }
-
-  upload(): void {
-    this.progress = 0;
-    this.message = "";
-
-    if (this.currentFile) {
-      this.dataService.upload(this.currentFile).subscribe(
-        (event: any) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.progress = Math.round(100 * event.loaded / event.total);
-          } else if (event instanceof HttpResponse) {
-            
-            // file-upload success
-            if (event.body.responseCode === 0)
-              this.message = event.body.responseMessage;
-            
-              // reset fileName
-            this.fileName = 'Select File';
-          }
-        },
-        (err: any) => {
-          console.log(err);
-          this.progress = 0;
-
-          if (err.error != null) {
-            if (err.error.responseCode < 0) {
-              // Database Error!
-              this.message = err.error.responseMessage;
-            }
-            else {
-              this.message = err.error;
-            }            
-          }
-          else {
-            this.message = 'Could not upload the file!';
-          }        
-
-          this.currentFile = undefined;
-
-          // reset fileName
-          this.fileName = 'Select File';
-        });
-    }
-
-  }
+  } 
 }

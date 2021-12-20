@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 export class LocalDataService {
 
   private MyJobs;
+  private JobApp;
 
   constructor() { }
   
@@ -17,6 +18,13 @@ export class LocalDataService {
     return this.MyJobs;
   }
 
+
+  setJobApp(val) {
+    this.JobApp = val;
+  }
+  getJobApp() {
+    return this.JobApp;
+  }
 
   // convert [{string}]=>[{int,string}]
   // string == appStatusType enum @ api

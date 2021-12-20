@@ -16,15 +16,16 @@ import { HomeComponent } from './components/home/home.component';
 import { ApplyToJobComponent } from './components/apply-to-job/apply-to-job.component';
 import { FollowUpComponent } from './components/follow-up/follow-up.component';
 import { UniversityWinnipegComponent } from './components/university-winnipeg/university-winnipeg.component';
+import { JobAppEditDialogComponent } from './components/job-app-edit-dialog/job-app-edit-dialog.component';
+import { JobAppViewDialogComponent } from './components/job-app-view-dialog/job-app-view-dialog.component';
+import { JobAppDeleteDialogComponent } from './components/job-app-delete-dialog/job-app-delete-dialog.component';
+import { JobResumeUploadComponent } from './components/job-resume-upload/job-resume-upload.component';
 
 ////////services
 import { LocalDataService } from './services/local-data.service';
 
 // angular-material
 import { MaterialModule } from './material.module';
-import { JobAppEditDialogComponent } from './components/job-app-edit-dialog/job-app-edit-dialog.component';
-import { JobAppViewDialogComponent } from './components/job-app-view-dialog/job-app-view-dialog.component';
-import { JobAppDeleteDialogComponent } from './components/job-app-delete-dialog/job-app-delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { JobAppDeleteDialogComponent } from './components/job-app-delete-dialog/
     JobAppEditDialogComponent,
     UniversityWinnipegComponent,
     JobAppViewDialogComponent,
-    JobAppDeleteDialogComponent
+    JobAppDeleteDialogComponent,
+    JobResumeUploadComponent
   ],
   imports: [
     BrowserModule,
