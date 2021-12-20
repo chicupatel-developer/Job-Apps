@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace api_job_apps.DTO
 {
-    public class ResumeUploadDTO
+    public class ResumeUpload
     {
-        public int JobApplicationId { get; set; }
+        public string JobApplicationId { get; set; }
         public IFormFile ResumeFile { get; set; }
     }
 }

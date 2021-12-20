@@ -55,22 +55,13 @@ export class DataService {
     return this.http.get<Array<any>>(this.UW_API + '/getUUTGrp_DebitCredit_GL_Number');    
   }
 
-  // file-upload
-  /*
-  upload(file: File): Observable<HttpEvent<any>> {
-    const formData: FormData = new FormData();
-    formData.append('file', file);
-    const req = new HttpRequest('POST', `${this.JobResume_API}/upload`, formData, {
-      reportProgress: true,
-      responseType: 'json'
-    });
-    return this.http.request(req);
-  }
-  */
+  // file-upload  
   upload(resumeUpload: ResumeUpload): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
-    formData.append('file', resumeUpload.resumeFile);
+    // formData.append('file', resumeUpload.resumeFile);
+    formData.append('resumeFile', resumeUpload.resumeFile);
     formData.append('jobApplicationId', resumeUpload.jobApplicationId.toString());
+    // formData.append('jobApplicationId', "invalid-object-property");
     const req = new HttpRequest('POST', `${this.JobResume_API}/upload`, formData, {
       reportProgress: true,
       responseType: 'json'

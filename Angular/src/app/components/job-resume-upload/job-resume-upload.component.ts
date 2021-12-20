@@ -23,7 +23,9 @@ export class JobResumeUploadComponent implements OnInit {
   // selected job from service
   JobApp: any;
   
-  resumeUpload  = new ResumeUpload();
+  resumeUpload = new ResumeUpload();
+  
+  apiResponse = '';
 
   constructor(
     private router: Router,
@@ -61,10 +63,8 @@ export class JobResumeUploadComponent implements OnInit {
 
     if (this.currentFile) {
 
-
       this.resumeUpload.jobApplicationId = this.JobApp.jobApplicationId;
       this.resumeUpload.resumeFile = this.currentFile;
-
 
       this.dataService.upload(this.resumeUpload).subscribe(
       // this.dataService.upload(this.currentFile).subscribe(
@@ -74,8 +74,23 @@ export class JobResumeUploadComponent implements OnInit {
           } else if (event instanceof HttpResponse) {
 
             // file-upload success
-            if (event.body.responseCode === 0)
+            if (event.body.responseCode === 0) {
               this.message = event.body.responseMessage;
+              this.apiResponse = "success";
+           
+              // redirect to follow-up component              
+              setTimeout(() => {
+
+                // reset JobApp @ local-data-service
+                this.JobApp = null;
+                this.localDataService.setJobApp(this.JobApp);
+
+                this.router.navigate(['/follow-up']);
+              }, 3000);
+            }
+            else {
+              this.apiResponse = "fail";
+            }
 
             // reset fileName
             this.fileName = 'Select File';
@@ -83,6 +98,7 @@ export class JobResumeUploadComponent implements OnInit {
         },
         (err: any) => {
           console.log(err);
+          this.apiResponse = "fail";
           this.progress = 0;
 
           if (err.error != null) {

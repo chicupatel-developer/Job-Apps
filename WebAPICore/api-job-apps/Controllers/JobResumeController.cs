@@ -33,18 +33,27 @@ namespace api_job_apps.Controllers
         // file-upload
         [HttpPost, DisableRequestSizeLimit]
         [Route("upload")]
-        public IActionResult Upload([FromForm] ResumeUploadDTO resumeUpload)
+        public IActionResult Upload([FromForm] ResumeUpload resumeUpload)
         {
             _response = new APIResponse();
             try
-            {
+            {                
+                if(resumeUpload==null)
+                {
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Object Null Error!";
+                    return BadRequest(_response);
+                }
+                if (resumeUpload.JobApplicationId == null)
+                {
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Job-Application Object Null Error!";
+                    return BadRequest(_response);
+                }              
 
-                var jobApplicationId = resumeUpload.JobApplicationId;
-                var file_ = resumeUpload.ResumeFile;
-
-
-
-
+                int jobApplicationId = Int32.Parse(resumeUpload.JobApplicationId);
+                // var file = Request.Form.Files[0];
+                var file = resumeUpload.ResumeFile;
 
                 string resumeStoragePath = _configuration.GetSection("ResumeUploadLocation").GetSection("Path").Value;
 
@@ -54,8 +63,6 @@ namespace api_job_apps.Controllers
                 var rawValue = BitConverter.ToInt64(bytes, 0);
                 var inRangeValue = Math.Abs(rawValue) % DateTime.MaxValue.Ticks;
 
-              
-                var file = Request.Form.Files[0];
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), resumeStoragePath);
 
                 // check for 500
@@ -77,7 +84,7 @@ namespace api_job_apps.Controllers
                     {
                         FileName = fileName,
                         FilePath = pathToSave,
-                        JobApplicationId = 18
+                        JobApplicationId = jobApplicationId
                     };
                     if (_jobResumeRepo.StoreResumeFile(jobResume))
                     {
@@ -96,6 +103,12 @@ namespace api_job_apps.Controllers
                 {
                     return BadRequest("Nothing To Upload!");
                 }
+            }
+            catch (FormatException)
+            {
+                _response.ResponseCode = -1;
+                _response.ResponseMessage = "Bad Job-Application Object!";
+                return BadRequest(_response);
             }
             catch (Exception ex)
             {
