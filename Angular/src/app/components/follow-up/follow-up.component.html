@@ -123,6 +123,11 @@
                                         <mat-icon>cloud_download</mat-icon>
                                         Resume
                                     </button>
+                                    <span *ngIf="downloadStatus && selectedJob==job" [style.color]="downloadClass">
+                                        <p>
+                                            {{downloadStatus}}
+                                        </p>
+                                    </span>
                                 </p>
                             </div>
                             <div fxFlex="50%">
@@ -135,10 +140,7 @@
                                 <p>
                                     URL : <span *ngIf="job.webURL; else notAv">{{job.webURL}}</span>
                                 </p>
-                            </div>
-                            <p>
-                                Resume : 
-                            </p>
+                            </div>                          
                         </div>                     
                     </mat-card-content>
                 </mat-card>

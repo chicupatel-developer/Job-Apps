@@ -37,6 +37,12 @@ export class FollowUpComponent implements OnInit {
 
   // view job details
   jobApplication = new JobApplication();
+
+  // resume-download
+  selectedJob: any;
+  // check if file exists or not
+  downloadStatus: string;
+  downloadClass: string;
  
   constructor(
     private _snackBar: MatSnackBar,
@@ -303,9 +309,13 @@ export class FollowUpComponent implements OnInit {
 
   // resume-download
   resumeDownload(job) {
+    this.selectedJob = job;
     console.log(job);
     this.dataService.download(job.jobApplicationId)
       .subscribe(blob => {
+
+        // file exists and downloading
+        this.setFileDownload('Downloading!', 'green');
 
         console.log(blob);
 
@@ -317,13 +327,24 @@ export class FollowUpComponent implements OnInit {
       }, error => {
         if (error.status === 400) {
           console.log('Resume Not Found on Server!');
+          this.setFileDownload('Resume Not Found on Server!', 'red');
         }
         else if (error.status === 500) {
           console.log('Server Error!');
+          this.setFileDownload('Server Error!', 'red');
         }
         else {       
           console.log("Error while downloading Resume!");
+          this.setFileDownload('Error while downloading Resume!', 'red');
         }
       });    
+  }
+  resetAfterFileDownload() {
+    this.downloadStatus = '';
+    this.downloadClass = '';
+  }
+  setFileDownload(downloadStatus, downloadClass) {
+    this.downloadStatus = downloadStatus;
+    this.downloadClass = downloadClass;
   }
 }
