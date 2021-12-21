@@ -10,3 +10,6 @@ C:\JobApps\WebAPICore\Services\obj\Debug\netcoreapp3.1\Services.csproj.CoreCompi
 C:\JobApps\WebAPICore\Services\obj\Debug\netcoreapp3.1\Services.csproj.CopyComplete
 C:\JobApps\WebAPICore\Services\obj\Debug\netcoreapp3.1\Services.dll
 C:\JobApps\WebAPICore\Services\obj\Debug\netcoreapp3.1\Services.pdb
+C:\JobApps\WebAPICore\Services\bin\Debug\netcoreapp3.1\Services.runtimeconfig.json
+C:\JobApps\WebAPICore\Services\bin\Debug\netcoreapp3.1\Services.runtimeconfig.dev.json
+C:\JobApps\WebAPICore\Services\obj\Debug\netcoreapp3.1\Services.genruntimeconfig.cache

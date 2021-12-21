@@ -26,10 +26,17 @@ export class JobAppEditDialogComponent implements OnInit {
 
   provinceCollection: any = ['MB', 'ON', 'AB'];
   cityCollection: string[] = [];
-
+  
   jobApplication = new JobApplication();
   selectedProvince = '';
   selectedCity = '';
+
+  appStatusTypesName: string[] = [];
+  appStatusTypesCollection: any[] = [];
+  // holds either 0 or 1 or ,,,
+  selectedAppStatus = '';
+  // holds either Applied or FollowUp or ,,,
+  selectedAppStatusDisplay = '';
 
   constructor(
     private router: Router,
@@ -49,6 +56,7 @@ export class JobAppEditDialogComponent implements OnInit {
       province,
       appliedOn,
       appStatus,
+      appStatusDisplay,
       followUpNotes
     }: JobApplication) {
 
@@ -62,7 +70,8 @@ export class JobAppEditDialogComponent implements OnInit {
       city: ['', Validators.required],
       province: ['', Validators.required],
       appliedOn: [''],
-      appStatus: [''],
+      // appStatus: ['', Validators.required],
+      appStatusDisplay: ['', Validators.required],
       followUpNotes: ['']
     });
 
@@ -77,12 +86,15 @@ export class JobAppEditDialogComponent implements OnInit {
     this.jobApplication.province = province;
     this.jobApplication.appliedOn = appliedOn;
     this.jobApplication.appStatus = appStatus;
+    this.jobApplication.appStatusDisplay = appStatusDisplay;
     this.jobApplication.followUpNotes = followUpNotes;
 
     this.selectedProvince = province;
     var cities = this.localDataService.getCities(province);
     this.cityCollection = cities;
-    this.selectedCity = city;    
+    this.selectedCity = city;
+    this.selectedAppStatus = appStatus;
+    this.selectedAppStatusDisplay = appStatusDisplay;
   }
 
   ngOnInit(): void {
@@ -114,13 +126,58 @@ export class JobAppEditDialogComponent implements OnInit {
       city: this.jobApplication.city,
       province: this.jobApplication.province,
       appliedOn: this.jobApplication.appliedOn,
-      appStatus: this.jobApplication.appStatus,
+      // appStatus: this.jobApplication.appStatus,
+      appStatusDisplay: this.jobApplication.appStatusDisplay,
       followUpNotes: this.jobApplication.followUpNotes
     });
    
+    this.getAppStatusTypes();
   }
 
+  getAppStatusTypes() {
+    this.dataService.getAppStatusTypes()
+      .subscribe(
+        data => {
+          console.log(data);
+          this.appStatusTypesName = data;
 
+          // appStatusTypesName = data = ['Applied','FollowUp',,,]
+          // appStatusTypesCollection = [{0,'Applied'},{1,'FollowUp'},,,]
+          this.appStatusTypesCollection = this.localDataService.getAppStatusTypesCollection(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }  
+  // convert string into int
+  // returns 0 for Applied
+  // returns 1 for FollowUp
+  // ,,,
+  convertAppStatusType(appStatusType) {
+    var filterByAppStatusTypeName = this.appStatusTypesCollection.filter(xx => xx.appStatus == appStatusType);
+    if (filterByAppStatusTypeName != null) {
+      return filterByAppStatusTypeName[0].indexValue;
+    }
+    else {
+      return -1;
+    }
+  }
+  // convert int into string
+  // returns Applied for 0
+  // returns FollowUp for 1
+  // ,,,
+  /*
+  convertAppStatusTypeToFormControl(appStatusType) {
+    var filterByAppStatusType = this.appStatusTypesCollection.filter(xx => xx.indexValue == appStatusType);
+    if (filterByAppStatusType != null) {
+      return filterByAppStatusType[0].appStatus;
+    }
+    else {
+      return -1;
+    }
+  }
+  */
+  
   changeProvince(e) {
     // reset city, when province gets changed
     this.cityCollection = [];
@@ -146,6 +203,7 @@ export class JobAppEditDialogComponent implements OnInit {
     var jobApplicationId = this.jobApplication.jobApplicationId;
     this.jobApplication = this.form.value;
     this.jobApplication.jobApplicationId = jobApplicationId;
+    this.jobApplication.appStatus = this.convertAppStatusType(this.selectedAppStatusDisplay);
 
     // api call
     this.dataService.editJobApp(this.jobApplication)

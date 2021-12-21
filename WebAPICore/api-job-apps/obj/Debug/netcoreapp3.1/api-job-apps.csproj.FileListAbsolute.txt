@@ -74,3 +74,9 @@ C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\NETCore.MailKit.dll
 C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\EmailService.dll
 C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\EmailService.pdb
+C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
+C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\EntityFramework.dll
+C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\System.CodeDom.dll

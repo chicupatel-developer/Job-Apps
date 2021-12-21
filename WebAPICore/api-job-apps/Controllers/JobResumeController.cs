@@ -10,6 +10,8 @@ using api_job_apps.DTO;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Net.Http.Headers;
+using System.Data.SqlClient;
+using System.Data.Entity.Core;
 
 namespace api_job_apps.Controllers
 {
@@ -109,7 +111,7 @@ namespace api_job_apps.Controllers
                 _response.ResponseCode = -1;
                 _response.ResponseMessage = "Bad Job-Application Object!";
                 return BadRequest(_response);
-            }
+            }       
             catch (Exception ex)
             {
                 return StatusCode(500, "Server Error!");

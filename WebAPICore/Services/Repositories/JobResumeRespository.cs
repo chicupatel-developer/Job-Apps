@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using Services.Interfaces;
 using EFCore.Models;
+using System.Data.SqlClient;
+using System.Data.Entity.Core;
 
 namespace Services.Repositories
 {
@@ -23,7 +25,7 @@ namespace Services.Repositories
                 var result = appDbContext.JobResumes.Add(jobResume);
                 appDbContext.SaveChanges();
                 return true;
-            }
+            }        
             catch (Exception ex)
             {
                 return false;

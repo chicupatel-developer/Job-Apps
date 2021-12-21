@@ -15,6 +15,7 @@ import { JobAppViewDialogComponent } from '../job-app-view-dialog/job-app-view-d
 import { JobAppDeleteDialogComponent } from '../job-app-delete-dialog/job-app-delete-dialog.component';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import AppStatusType from 'src/app/models/appStatusType';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class FollowUpComponent implements OnInit {
 
   // view job details
   jobApplication = new JobApplication();
-
+ 
   constructor(
     private _snackBar: MatSnackBar,
     private dialog: MatDialog,
@@ -77,6 +78,7 @@ export class FollowUpComponent implements OnInit {
         province: job.province,
         appliedOn: job.appliedOn,
         appStatus: job.appStatus,
+        appStatusDisplay: this.displayAppStatusType(job.appStatus),
         followUpNotes: job.followUpNotes
       }
     });
@@ -100,7 +102,11 @@ export class FollowUpComponent implements OnInit {
     this.dataService.getAppStatusTypes()
       .subscribe(
         data => {
+          console.log(data);
           this.appStatusTypes = data;
+
+          // appStatusTypes = data = ['Applied','FollowUp',,,]
+          // appStatusTypesCollection = [{0,'Applied'},{1,'FollowUp'},,,]
           this.appStatusTypesCollection = this.localDataService.getAppStatusTypesCollection(data);          
         },
         error => {
@@ -108,7 +114,12 @@ export class FollowUpComponent implements OnInit {
         });
   }
   displayAppStatusType(appStatus) {
+    // ip appStatus=0,1,,,
     if (this.appStatusTypes != null) {
+
+      // returns Applied for ip appStatus==0
+      // returns FollowUp for ip appStatus==1
+      // ,,,
       return this.appStatusTypesCollection[appStatus].appStatus;
     }
     else {

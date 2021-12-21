@@ -10,5 +10,6 @@ export default class JobApplication{
     province: string;
     appliedOn: Date;
     appStatus: string;
+    appStatusDisplay: string;
     followUpNotes: string;
 }

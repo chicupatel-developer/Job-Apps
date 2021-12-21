@@ -7,10 +7,10 @@ namespace EFCore.Models
     public enum AppStatusType
     {
         Applied,
-        FollowUp,
-        ClientResponse,
-        InterviewSetup,
-        InterviewDone,
-        ClientFinalResponse
+        Follow_Up,
+        Client_Response,
+        Interview_Setup,
+        Interview_Done,
+        Client_Final_Response
     }
 }
