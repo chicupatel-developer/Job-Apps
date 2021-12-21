@@ -18,4 +18,3 @@ C:\JobApps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.pdb
 C:\JobApps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.runtimeconfig.json
 C:\JobApps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.runtimeconfig.dev.json
 C:\JobApps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.genruntimeconfig.cache
-C:\JobApps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.csproj.AssemblyReference.cache

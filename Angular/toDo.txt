@@ -1,0 +1,5 @@
+- display view resume link @ follow-up component
+
+- delete jobresume record when user delete jobapplication record
+
+

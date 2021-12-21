@@ -300,4 +300,9 @@ export class FollowUpComponent implements OnInit {
     // redirect to job-resume-upload component
     this.router.navigate(['/job-resume-upload']);
   }
+
+  // resume-download
+  resumeDownload(job) {
+    console.log(job);
+  }
 }

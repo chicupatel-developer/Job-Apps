@@ -94,6 +94,7 @@
                             <button class="mat-raised-button mat-warn" 
                                 (click)="resumeUpload(job)">
                                 <mat-icon>file_upload</mat-icon>
+                                Resume
                             </button>
                             <span>&nbsp;&nbsp;&nbsp;</span>
 
@@ -115,6 +116,14 @@
                                 <p>
                                     Phone : <span *ngIf="job.phoneNumber; else notAv">{{job.phoneNumber}}</span>
                                 </p>
+                                <p>
+                                    <button 
+                                        class="mat-raised-button mat-Basic" 
+                                        (click)="resumeDownload(job)">                                        
+                                        <mat-icon>cloud_download</mat-icon>
+                                        Resume
+                                    </button>
+                                </p>
                             </div>
                             <div fxFlex="50%">
                                 <p>
@@ -127,6 +136,9 @@
                                     URL : <span *ngIf="job.webURL; else notAv">{{job.webURL}}</span>
                                 </p>
                             </div>
+                            <p>
+                                Resume : 
+                            </p>
                         </div>                     
                     </mat-card-content>
                 </mat-card>
@@ -137,4 +149,8 @@
 
 <ng-template #notAv>
     N/A
+</ng-template>
+
+<ng-template #resumeNotAv>
+    Resume Not Uploaded Yet!
 </ng-template>
