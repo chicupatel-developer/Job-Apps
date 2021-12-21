@@ -8,9 +8,11 @@ textarea {
     resize: vertical;
 }
 
+/*
 .mat-dialog-container{
-    width: 600px;
+     width: 800px; 
 }
+*/
 
 .mat-dialog-header{    
     color: blue;
@@ -22,3 +24,13 @@ textarea {
      font-size: 20px;
      background-color: lightyellow;
 }
+
+.mainContentLeft{    
+    padding: 10px;
+    margin: 5px;
+}
+.mainContentRight{     
+    padding: 10px;
+    margin: 5px;
+}
+.parent {height:100%;}
