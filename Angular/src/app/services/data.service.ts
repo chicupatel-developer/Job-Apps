@@ -68,4 +68,10 @@ export class DataService {
     });
     return this.http.request(req);
   }
+
+  // file-download
+  download(jobApplicationId: number): Observable<Blob> {
+    return this.http.get<Blob>(this.JobResume_API + '/download/'+jobApplicationId,
+      { responseType: 'blob' as 'json' });
+  }
 }

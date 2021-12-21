@@ -31,7 +31,6 @@ namespace api_job_apps.Controllers
             _configuration = configuration;
         }
 
-        // ok
         // file-upload
         [HttpPost, DisableRequestSizeLimit]
         [Route("upload")]
@@ -39,20 +38,24 @@ namespace api_job_apps.Controllers
         {
             _response = new APIResponse();
             try
-            {                
+            {
+                // resumeUpload = null;
                 if(resumeUpload==null)
                 {
                     _response.ResponseCode = -1;
                     _response.ResponseMessage = "Object Null Error!";
                     return BadRequest(_response);
                 }
+
+                // resumeUpload.JobApplicationId = null;
                 if (resumeUpload.JobApplicationId == null)
                 {
                     _response.ResponseCode = -1;
                     _response.ResponseMessage = "Job-Application Object Null Error!";
                     return BadRequest(_response);
-                }              
+                }
 
+                // resumeUpload.JobApplicationId = "Bad Job-Application Object";
                 int jobApplicationId = Int32.Parse(resumeUpload.JobApplicationId);
                 // var file = Request.Form.Files[0];
                 var file = resumeUpload.ResumeFile;
@@ -118,5 +121,68 @@ namespace api_job_apps.Controllers
             }
         }
 
+
+        // file-download
+        [HttpGet, DisableRequestSizeLimit]
+        [Route("download/{jobApplicationId}")]
+        public async Task<IActionResult> Download(int jobApplicationId)
+        {
+            try
+            {
+                // check for exception
+                // throw new Exception();
+
+                // check if file exist @ database
+                string fileName = _jobResumeRepo.GetResumeFile(jobApplicationId);
+                if (fileName == null)
+                {
+                    return BadRequest();
+                }
+              
+                string resumeStoragePath = _configuration.GetSection("ResumeUploadLocation").GetSection("Path").Value;
+                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                currentDirectory = currentDirectory + "\\"+ resumeStoragePath;
+                var file = Path.Combine(currentDirectory, fileName);
+
+                // check if file exists @ file-system
+                if (System.IO.File.Exists(file))
+                {
+                    var memory = new MemoryStream();
+                    using (var stream = new FileStream(file, FileMode.Open))
+                    {
+                        await stream.CopyToAsync(memory);
+                    }
+
+                    memory.Position = 0;
+                    return File(memory, GetMimeType(file), fileName);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, "Server Error!");
+            }
+        }
+        private string GetMimeType(string file)
+        {
+            string extension = Path.GetExtension(file).ToLowerInvariant();
+            switch (extension)
+            {
+                case ".txt": return "text/plain";
+                case ".pdf": return "application/pdf";
+                case ".doc": return "application/vnd.ms-word";
+                case ".docx": return "application/vnd.ms-word";
+                case ".xls": return "application/vnd.ms-excel";
+                case ".png": return "image/png";
+                case ".jpg": return "image/jpeg";
+                case ".jpeg": return "image/jpeg";
+                case ".gif": return "image/gif";
+                case ".csv": return "text/csv";
+                default: return "";
+            }
+        }
     }
 }

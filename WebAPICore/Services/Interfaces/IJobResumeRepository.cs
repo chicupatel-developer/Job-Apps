@@ -8,5 +8,6 @@ namespace Services.Interfaces
     public interface IJobResumeRepository
     {     
         bool StoreResumeFile(JobResume jobResume);
+        string GetResumeFile(int jobApplicationId);
     }
 }

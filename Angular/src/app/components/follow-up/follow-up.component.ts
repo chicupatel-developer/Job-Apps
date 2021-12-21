@@ -304,5 +304,26 @@ export class FollowUpComponent implements OnInit {
   // resume-download
   resumeDownload(job) {
     console.log(job);
+    this.dataService.download(job.jobApplicationId)
+      .subscribe(blob => {
+
+        console.log(blob);
+
+        // const myFile = new Blob([blob], { type: 'text/csv' });
+        const myFile = new Blob([blob], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(myFile);
+        window.open(url);
+
+      }, error => {
+        if (error.status === 400) {
+          console.log('Resume Not Found on Server!');
+        }
+        else if (error.status === 500) {
+          console.log('Server Error!');
+        }
+        else {       
+          console.log("Error while downloading Resume!");
+        }
+      });    
   }
 }

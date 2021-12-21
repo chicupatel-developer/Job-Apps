@@ -6,6 +6,7 @@ using Services.Interfaces;
 using EFCore.Models;
 using System.Data.SqlClient;
 using System.Data.Entity.Core;
+using System.Linq;
 
 namespace Services.Repositories
 {
@@ -22,7 +23,28 @@ namespace Services.Repositories
         {
             try
             {
-                var result = appDbContext.JobResumes.Add(jobResume);
+
+                // check for exception
+                // throw new Exception();
+
+                // key(column) : JobApplicationId 
+                // Table : JobResumes
+                // if record exist then overwrite record
+                // else just add record
+
+                var jobResume_ = appDbContext.JobResumes
+                                    .Where(x => x.JobApplicationId == jobResume.JobApplicationId).FirstOrDefault();
+                if (jobResume_ != null)
+                {
+                    // overwrite
+                    jobResume_.FileName = jobResume.FileName;
+                    jobResume_.FilePath = jobResume.FilePath;
+                }
+                else
+                {
+                    // add
+                    var result = appDbContext.JobResumes.Add(jobResume);
+                }             
                 appDbContext.SaveChanges();
                 return true;
             }        
@@ -30,6 +52,18 @@ namespace Services.Repositories
             {
                 return false;
             }
+        }
+
+        public string GetResumeFile(int jobApplicationId)
+        {
+            string resumeFileName = null;
+
+            var jobResume = appDbContext.JobResumes
+                                .Where(x => x.JobApplicationId == jobApplicationId).FirstOrDefault();
+            if(jobResume!=null)
+                resumeFileName = jobResume.FileName;
+
+            return resumeFileName;
         }
     }
 }
