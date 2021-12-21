@@ -232,6 +232,7 @@ export class FollowUpComponent implements OnInit {
         province: job.province,
         appliedOn: job.appliedOn,
         appStatus: job.appStatus,
+        appStatusDisplay: this.displayAppStatusType(job.appStatus),
         followUpNotes: job.followUpNotes
       }
     });

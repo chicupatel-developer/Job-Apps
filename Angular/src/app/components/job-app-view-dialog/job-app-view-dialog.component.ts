@@ -34,6 +34,7 @@ export class JobAppViewDialogComponent implements OnInit {
       province,
       appliedOn,
       appStatus,
+      appStatusDisplay,
       followUpNotes
     }: JobApplication) {  
 
@@ -48,6 +49,7 @@ export class JobAppViewDialogComponent implements OnInit {
     this.jobApplication.province = province;
     this.jobApplication.appliedOn = appliedOn;
     this.jobApplication.appStatus = appStatus;
+    this.jobApplication.appStatusDisplay = appStatusDisplay;
     this.jobApplication.followUpNotes = followUpNotes;
   }
 
