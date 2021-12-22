@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api-job-apps", "api-job-app
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore", "..\EFCore\EFCore.csproj", "{6F2F0701-B327-4590-B21B-A17B4CD0E146}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "..\Services\Services.csproj", "{0C65A26C-E8A0-468B-86E4-823BD68A8B8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "..\Services\Services.csproj", "{0C65A26C-E8A0-468B-86E4-823BD68A8B8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "..\EmailService\EmailService.csproj", "{7A8DCF30-5051-43BB-9CC6-BF333543369C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService", "..\EmailService\EmailService.csproj", "{7A8DCF30-5051-43BB-9CC6-BF333543369C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

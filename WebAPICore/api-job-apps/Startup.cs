@@ -48,12 +48,15 @@ namespace api_job_apps
             });
             #endregion
 
+            #region Pdf converter          
+         
+            #endregion
 
             services.AddControllers();
 
             #region Repositories
             services.AddTransient<IJobApplicationRepository, JobApplicationRepository>();
-            services.AddTransient<IJobResumeRepository, JobResumeRepository>();
+            services.AddTransient<IJobResumeRepository, JobResumeRepository>();            
             services.AddTransient<IUWRepository, UWRepository>();
             #endregion
 

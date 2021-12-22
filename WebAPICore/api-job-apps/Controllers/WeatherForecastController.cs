@@ -1,6 +1,7 @@
 ﻿using EFCore.DBFirst_SQLTOLINQ_Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SelectPdf;
 using Services.DTO;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,25 @@ namespace api_job_apps.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+
+        [HttpGet]
+        [Route("htmltopdf")]
+        public IActionResult HtmlToPdf()
+        {
+            // instantiate a html to pdf converter object
+            HtmlToPdf converter = new HtmlToPdf();
+
+            // set converter options
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            converter.Options.WebPageWidth = 600;
+            converter.Options.WebPageHeight = 1024;
+
+            var pdf = converter.ConvertUrl("https://www.roundthecode.com/");
+            var pdfBytes = pdf.Save();
+            return File(pdfBytes, "application/pdf");
         }
 
     }
