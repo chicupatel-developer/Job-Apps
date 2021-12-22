@@ -28,9 +28,11 @@
 }
 .messageFail {
   color: red;
+  font-size: larger;
 }
 .messageSuccess {
   color: green;
+  font-size: larger;
 }
 .message {
   background-color: #ddd;

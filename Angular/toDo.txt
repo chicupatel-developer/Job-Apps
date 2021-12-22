@@ -1,2 +1,0 @@
-- display response from api when download resume file
-

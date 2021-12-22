@@ -43,6 +43,10 @@ export class FollowUpComponent implements OnInit {
   // check if file exists or not
   downloadStatus: string;
   downloadClass: string;
+
+  // FollowUpNotes
+  // expansion panel
+  panelOpenState = false;
  
   constructor(
     private _snackBar: MatSnackBar,
@@ -324,6 +328,10 @@ export class FollowUpComponent implements OnInit {
         const url = window.URL.createObjectURL(myFile);
         window.open(url);
 
+        setTimeout(() => {
+          this.resetAfterFileDownload();
+        }, 3000);
+
       }, error => {
         if (error.status === 400) {
           console.log('Resume Not Found on Server!');
@@ -337,7 +345,12 @@ export class FollowUpComponent implements OnInit {
           console.log("Error while downloading Resume!");
           this.setFileDownload('Error while downloading Resume!', 'red');
         }
-      });    
+
+        setTimeout(() => {
+          this.resetAfterFileDownload();
+        }, 3000);
+      }
+    );
   }
   resetAfterFileDownload() {
     this.downloadStatus = '';

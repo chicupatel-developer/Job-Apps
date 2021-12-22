@@ -122,12 +122,14 @@
                                         (click)="resumeDownload(job)">                                        
                                         <mat-icon>cloud_download</mat-icon>
                                         Resume
+                                        &nbsp;&nbsp;&nbsp;
+                                        <span *ngIf="downloadStatus && selectedJob==job" [style.color]="downloadClass">
+                                            <p>
+                                                {{downloadStatus}}
+                                            </p>
+                                        </span>
                                     </button>
-                                    <span *ngIf="downloadStatus && selectedJob==job" [style.color]="downloadClass">
-                                        <p>
-                                            {{downloadStatus}}
-                                        </p>
-                                    </span>
+                                  
                                 </p>
                             </div>
                             <div fxFlex="50%">
@@ -140,6 +142,18 @@
                                 <p>
                                     URL : <span *ngIf="job.webURL; else notAv">{{job.webURL}}</span>
                                 </p>
+                                <div class="notesDiv">
+                                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Follow-Up-Notes!
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <p *ngIf="job.followUpNotes; else notesNotAv">
+                                            {{job.followUpNotes}}
+                                        </p>
+                                    </mat-expansion-panel>
+                                </div>
                             </div>                          
                         </div>                     
                     </mat-card-content>
@@ -153,6 +167,6 @@
     N/A
 </ng-template>
 
-<ng-template #resumeNotAv>
-    Resume Not Uploaded Yet!
+<ng-template #notesNotAv>
+    Notes N/A
 </ng-template>
