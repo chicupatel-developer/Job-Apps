@@ -7,6 +7,7 @@ import { ApplyToJobComponent } from './components/apply-to-job/apply-to-job.comp
 import { FollowUpComponent } from './components/follow-up/follow-up.component';
 import { UniversityWinnipegComponent } from './components/university-winnipeg/university-winnipeg.component';
 import { JobResumeUploadComponent } from './components/job-resume-upload/job-resume-upload.component';
+import { ResumeCreatorComponent } from './components/resume-creator/resume-creator.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'follow-up', component: FollowUpComponent },
   { path: 'uw-work', component: UniversityWinnipegComponent },
   { path: 'job-resume-upload', component: JobResumeUploadComponent },
+  { path: 'resume-creator', component: ResumeCreatorComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

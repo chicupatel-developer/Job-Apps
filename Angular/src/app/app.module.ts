@@ -20,12 +20,14 @@ import { JobAppEditDialogComponent } from './components/job-app-edit-dialog/job-
 import { JobAppViewDialogComponent } from './components/job-app-view-dialog/job-app-view-dialog.component';
 import { JobAppDeleteDialogComponent } from './components/job-app-delete-dialog/job-app-delete-dialog.component';
 import { JobResumeUploadComponent } from './components/job-resume-upload/job-resume-upload.component';
+import { ResumeCreatorComponent } from './components/resume-creator/resume-creator.component';
 
 ////////services
 import { LocalDataService } from './services/local-data.service';
 
 // angular-material
 import { MaterialModule } from './material.module';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { MaterialModule } from './material.module';
     UniversityWinnipegComponent,
     JobAppViewDialogComponent,
     JobAppDeleteDialogComponent,
-    JobResumeUploadComponent
+    JobResumeUploadComponent,
+    ResumeCreatorComponent
   ],
   imports: [
     BrowserModule,

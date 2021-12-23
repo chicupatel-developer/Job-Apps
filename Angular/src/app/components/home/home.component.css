@@ -11,3 +11,25 @@
             color:black;
             font-size: x-large;            
     }
+
+   
+th.mat-header-cell {
+  text-align: left;
+  max-width: 300px;
+}
+.mainContainer{
+    padding: 20px;
+}
+.personalContainer{
+    padding: 40px;
+}
+.skillsContainer{
+    padding: 40px;
+}
+.tabContainer{
+    padding-left: 20px;
+    padding-right: 20px;
+    font-style: oblique;
+}
+
+

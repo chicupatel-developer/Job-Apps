@@ -10,6 +10,7 @@ import { DataService } from '../../services/data.service';
 })
 export class HomeComponent implements OnInit {
 
+
   constructor(
     private dataService: DataService
   ) { }

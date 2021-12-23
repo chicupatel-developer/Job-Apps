@@ -44,6 +44,9 @@ namespace ResumeService
                                         tr.spaceUnder>td {
                                             padding-bottom: 10px;
                                         }
+                                        .skillSpan{
+                                            font-size: 25; 
+                                        }
                                         table, th, td {
                                           padding-right: 30px;
                                         }
@@ -131,12 +134,12 @@ namespace ResumeService
                 if (counter == 1)
                 {
                     counter = 2;
-                    skillsString.Append(@"<tr class='spaceUnder'><td><b>- </b>" + skill + @"</td>");
+                    skillsString.Append(@"<tr class='spaceUnder'><td class='skillSpan'><b>- </b>" + skill + @"</td>");
                 }
                 else
                 {
                     counter = 1;
-                    skillsString.Append(@"<td><b>- </b>" + skill + @"</td></tr>");
+                    skillsString.Append(@"<td class='skillSpan'><b>- </b>" + skill + @"</td></tr>");
                 }
             }
             skillsString.Append(@"</table></div>");
