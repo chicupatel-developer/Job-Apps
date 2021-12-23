@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "..\Services\Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService", "..\EmailService\EmailService.csproj", "{7A8DCF30-5051-43BB-9CC6-BF333543369C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumeService", "..\ResumeService\ResumeService.csproj", "{3FE7747E-6E7A-4887-B493-FF170DE8977E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7A8DCF30-5051-43BB-9CC6-BF333543369C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A8DCF30-5051-43BB-9CC6-BF333543369C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A8DCF30-5051-43BB-9CC6-BF333543369C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FE7747E-6E7A-4887-B493-FF170DE8977E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FE7747E-6E7A-4887-B493-FF170DE8977E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FE7747E-6E7A-4887-B493-FF170DE8977E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FE7747E-6E7A-4887-B493-FF170DE8977E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

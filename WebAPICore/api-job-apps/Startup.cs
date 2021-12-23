@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ResumeService;
 using Services.Interfaces;
 using Services.Repositories;
 using System;
@@ -32,6 +33,10 @@ namespace api_job_apps
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region resume-creator
+            services.AddScoped<IResumeCreator, ResumeCreator>();
+            #endregion
+
             #region email-service
             var emailConfig = Configuration
                             .GetSection("EmailConfiguration")
@@ -46,11 +51,7 @@ namespace api_job_apps
                 o.MultipartBodyLengthLimit = int.MaxValue;
                 o.MemoryBufferThreshold = int.MaxValue;
             });
-            #endregion
-
-            #region Pdf converter          
-         
-            #endregion
+            #endregion      
 
             services.AddControllers();
 

@@ -1,276 +1,138 @@
-.content {
-    padding: 16px;
-}
-.content > mat-card {
-    width: 200px;
-}
-.mainContentArea{
-    padding: 20px;
-    margin: 10px;
-}
------------------
-<div class="content">  
-    <div class=mainContentArea>
-        <div 
-        fxLayout="row wrap" 
-        fxLayoutGap="16px">
-            <div 
-            fxFlex="100%"
-            fxFlex.xs="100%" 
-            fxFlex.sm="33%" 
-            *ngFor="let num of [1]">
-                <mat-grid-list 
-                [cols]="breakpoint"
-                rowHeight="2:0.5" 
-                (window:resize)="onResize($event)">
-                    <mat-grid-tile>1</mat-grid-tile>
-                    <mat-grid-tile>2</mat-grid-tile>
-                    <mat-grid-tile>3</mat-grid-tile>
-                    <mat-grid-tile>4</mat-grid-tile>
-                    <mat-grid-tile>5</mat-grid-tile>
-                    <mat-grid-tile>6</mat-grid-tile>
-                </mat-grid-list>
-            </div>       
-        </div>
-    </div>
-    <p></p>
-    <hr />
-    <p></p>
-    <div fxLayout="row wrap" fxLayoutGap="16px">
-        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6,7]">
-            <mat-card class="mat-elevation-z4">
-                <mat-card-header>
-                    <mat-card-title>Himalayan Peaks</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <p>
-                        The Himalayas is a mountain range in Asia.
-                    </p>
-                </mat-card-content>              
-            </mat-card>
-        </div>
-    </div>
-</div>
-------------------------
-import { Component, OnInit } from '@angular/core';
+using EFCore.DBFirst_SQLTOLINQ_Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using SelectPdf;
+using Services.DTO;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
-@Component({
-  selector: 'app-apply-to-job',
-  templateUrl: './apply-to-job.component.html',
-  styleUrls: ['./apply-to-job.component.css']
-})
-export class ApplyToJobComponent implements OnInit {
 
-  breakpoint = 0;
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.breakpoint = (window.innerWidth <= 500) ? 1 : (window.innerWidth <= 1000 && window.innerWidth >= 501) ? 3 :  6;
-  }
-  onResize(event) {
-    this.breakpoint = (event.target.innerWidth <= 500) ? 1 : (event.target.innerWidth <= 1000 && event.target.innerWidth >= 501) ? 3 :  6;
-  }
-}
-
---------------------------------------XXXXX------------------------
-    .parent {height:100%;}
-    /*
-    .left {
-        
-    }
-    */
-    .middle   
+namespace api_job_apps.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    public class WeatherForecastController : ControllerBase
     {
-        background-color: lightgrey;
-    }   
-    .right {
-        background-color: yellow;
-    }
-    .mainContentLeft{
-        background-color: lightyellow;
-        padding: 10px;
-    }    
-    .mainContentRight{
-        background-color: lightsteelblue;
-        padding: 10px;
-    }
-------------------------------------
-<div fxLayout="row wrap" 
-    class="parent"
-    fxLayout.lg="row "
-    fxLayout.md="row"
-    fxLayout.sm="column"
-    fxLayout.xs="column">
-   
-    <div fxFlex="10%" class="left">
-    </div>
+        private static readonly string[] Summaries = new[]
+        {
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        };
 
-    <div fxFlex="80%" class="middle">
-        <div 
-            fxLayout="row" 
-            class="parent" 
-            fxLayout.sm="column" 
-            fxLayout.xs="column">
+        private readonly ILogger<WeatherForecastController> _logger;
 
-            <div 
-            fxFlex="50%"
-            fxFlex.xs="100%" 
-            fxFlex.sm="100%"
-            fxFlex.md="100%"
-            class="mainContentLeft">
-                <mat-card class="mat-elevation-z4">
-                    <mat-card-header>
-                        <mat-card-title>Himalayan Peaks</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <p>
-                            The Himalayas is a mountain range in Asia.
-                        </p>
-                    </mat-card-content>
-                </mat-card>
-                <p></p>
-                <mat-card class="mat-elevation-z4">
-                    <mat-card-header>
-                        <mat-card-title>Himalayan Peaks</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <p>
-                            The Himalayas is a mountain range in Asia.
-                        </p>
-                    </mat-card-content>
-                </mat-card>
-                <p></p>
-                <mat-card class="mat-elevation-z4">
-                    <mat-card-header>
-                        <mat-card-title>Himalayan Peaks</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <p>
-                            The Himalayas is a mountain range in Asia.
-                        </p>
-                    </mat-card-content>
-                </mat-card>
-                <p></p>
-            </div>
-           
-            <div 
-            fxFlex="50%"
-            fxFlex.xs="100%" 
-            fxFlex.sm="100%"
-            fxFlex.md="100%"
-            class="mainContentRight">
-                <mat-card class="mat-elevation-z4">
-                    <mat-card-header>
-                        <mat-card-title>Himalayan Peaks</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <p>
-                            The Himalayas is a mountain range in Asia.
-                        </p>
-                    </mat-card-content>
-                </mat-card>
-                <p></p>
-                <mat-card class="mat-elevation-z4">
-                    <mat-card-header>
-                        <mat-card-title>Himalayan Peaks</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <p>
-                            The Himalayas is a mountain range in Asia.
-                        </p>
-                    </mat-card-content>
-                </mat-card>
-                <p></p>
-            </div>
-        </div>
-    </div>
-    <div 
-    fxFlex="10%"   
-    class="right">
-      
-    </div>
-</div>
-------------------------------
-import { Component, OnInit } from '@angular/core';
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        {
+            _logger = logger;
+        }
 
-@Component({
-  selector: 'app-follow-up',
-  templateUrl: './follow-up.component.html',
-  styleUrls: ['./follow-up.component.css']
-})
-export class FollowUpComponent implements OnInit {
+        [HttpGet]
+        public IEnumerable<WeatherForecast> Get()
+        {
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            })
+            .ToArray();
+        }
 
-  constructor() { }
 
-  ngOnInit(): void {
-  }
+        [HttpGet]
+        [Route("htmltopdf")]
+        public IActionResult HtmlToPdf()
+        {
+            // prepare data for resume
+            UserProfile user = new UserProfile();        
+
+            // instantiate a html to pdf converter object
+            HtmlToPdf converter = new HtmlToPdf();
+
+            // set converter options
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            converter.Options.WebPageWidth = 1000;
+            converter.Options.WebPageHeight = 1414;
+            var content = @"<html>
+                             <head> 
+                                <style>
+                                    body {
+    
 }
---------------------------------XXXXX----------------------
 
-<h2 mat-dialog-title>{{description}}</h2>
+.nameDiv{
+            text-align: center;
+            vertical-align: middle;
+            padding: 5px;
+            border: 1px solid blueviolet;
+            border-radius: 10px;
+            background-color: lightseagreen;
+            color:black;
+            font-size: x-large;  
+            width: 300px;
+}
+                                </style>
+                             </head>
+                             <body>
+                                <div class='nameDiv'>
+                                    Ankit Patel
+                                </div>
+                             </body>
+                            </html>
+                            ";
 
-<mat-dialog-content [formGroup]="form">
+            // var pdf = converter.ConvertUrl("https://www.roundthecode.com/");           
+            // var pdf = converter.ConvertHtmlString(content);
+            
+            var pdf = converter.ConvertHtmlString(user.GetResume());
+            
+            var pdfBytes = pdf.Save();
+            return File(pdfBytes, "application/pdf");
+        }
+    }  
 
-    <h2>
-        {{message}}
-    </h2>
-    <p></p>
+    class UserProfile
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
-    <mat-form-field>
+        public string GetResume()
+        {
+            FirstName = "Ankit";
+            LastName = "Patel";
 
-        <input matInput placeholder="Course Description" formControlName="description">
+            string content = @"<html>
+                             <head> 
+                                <style>
+                                    body {   
+                                    }
+                                    .nameDiv{
+                                                text-align: center;
+                                                vertical-align: middle;
+                                                padding: 5px;
+                                                border: 1px solid blueviolet;
+                                                border-radius: 10px;
+                                                background-color: lightseagreen;
+                                                color:black;
+                                                font-size: x-large;  
+                                                width: 300px;
+                                    }
+                                </style>
+                             </head>
+                             <body>
+                                <div class='nameDiv'>"+
+                                    FirstName + LastName + 
+                                    @"                                    
+                                </div>
+                             </body>
+                            </html>
+                            ";
 
-    </mat-form-field>
-
-    <mat-form-field>
-
-        <mat-select placeholder="Select category" formControlName="category">
-
-            <mat-option value="BEGINNER">
-                Beginner</mat-option>
-            <mat-option value="INTERMEDIATE">
-                Intermediate</mat-option>
-            <mat-option value="ADVANCED">
-                Advanced</mat-option>
-
-        </mat-select>
-
-    </mat-form-field>
-
-    <mat-form-field>
-
-        <input matInput [matDatepicker]="myDatepicker" formControlName="releasedAt">
-
-        <mat-datepicker-toggle matSuffix [for]="myDatepicker">
-
-        </mat-datepicker-toggle>
-
-        <mat-datepicker #myDatepicker></mat-datepicker>
-
-    </mat-form-field>
-
-    <mat-form-field>
-
-        <textarea matInput placeholder="Description" formControlName="longDescription">
-
-        </textarea>
-
-    </mat-form-field>
-
-
-</mat-dialog-content>
-
-<mat-dialog-actions>
-
-    <button class="mat-raised-button" (click)="close()">
-        Close
-    </button>
-
-    <button class="mat-raised-button mat-primary" (click)="save()">
-        Save
-    </button>
-
-</mat-dialog-actions>
-
------------------------------------XXXXX--------------------------
+            return content;
+        }
+    }
+}

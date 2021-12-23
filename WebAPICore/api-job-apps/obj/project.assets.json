@@ -795,11 +795,10 @@
           "lib/netstandard2.0/Select.HtmlToPdf.dll": {}
         },
         "contentFiles": {
-          "contentFiles/any/any/Select.Html.dep": {
-            "buildAction": "Content",
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
             "codeLanguage": "any",
-            "copyToOutput": true,
-            "outputPath": "Select.Html.dep"
+            "copyToOutput": false
           }
         }
       },
@@ -2392,6 +2391,19 @@
         },
         "runtime": {
           "bin/placeholder/EmailService.dll": {}
+        }
+      },
+      "ResumeService/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Select.HtmlToPdf.NetCore": "21.2.0"
+        },
+        "compile": {
+          "bin/placeholder/ResumeService.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ResumeService.dll": {}
         }
       },
       "Services/1.0.0": {
@@ -8158,6 +8170,11 @@
       "path": "../EmailService/EmailService.csproj",
       "msbuildProject": "../EmailService/EmailService.csproj"
     },
+    "ResumeService/1.0.0": {
+      "type": "project",
+      "path": "../ResumeService/ResumeService.csproj",
+      "msbuildProject": "../ResumeService/ResumeService.csproj"
+    },
     "Services/1.0.0": {
       "type": "project",
       "path": "../Services/Services.csproj",
@@ -8174,7 +8191,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 3.1.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.0",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.0",
-      "Select.HtmlToPdf.NetCore >= 21.2.0",
+      "ResumeService >= 1.0.0",
       "Services >= 1.0.0",
       "System.Data.SqlClient >= 4.8.3"
     ]
@@ -8215,6 +8232,9 @@
             },
             "C:\\JobApps\\WebAPICore\\EmailService\\EmailService.csproj": {
               "projectPath": "C:\\JobApps\\WebAPICore\\EmailService\\EmailService.csproj"
+            },
+            "C:\\JobApps\\WebAPICore\\ResumeService\\ResumeService.csproj": {
+              "projectPath": "C:\\JobApps\\WebAPICore\\ResumeService\\ResumeService.csproj"
             },
             "C:\\JobApps\\WebAPICore\\Services\\Services.csproj": {
               "projectPath": "C:\\JobApps\\WebAPICore\\Services\\Services.csproj"
@@ -8259,10 +8279,6 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[3.1.0, )"
-          },
-          "Select.HtmlToPdf.NetCore": {
-            "target": "Package",
-            "version": "[21.2.0, )"
           },
           "System.Data.SqlClient": {
             "target": "Package",

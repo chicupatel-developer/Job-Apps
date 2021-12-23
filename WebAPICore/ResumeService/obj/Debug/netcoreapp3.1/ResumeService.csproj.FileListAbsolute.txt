@@ -1,0 +1,10 @@
+C:\JobApps\WebAPICore\ResumeService\bin\Debug\netcoreapp3.1\Select.Html.dep
+C:\JobApps\WebAPICore\ResumeService\bin\Debug\netcoreapp3.1\ResumeService.deps.json
+C:\JobApps\WebAPICore\ResumeService\bin\Debug\netcoreapp3.1\ResumeService.dll
+C:\JobApps\WebAPICore\ResumeService\bin\Debug\netcoreapp3.1\ResumeService.pdb
+C:\JobApps\WebAPICore\ResumeService\obj\Debug\netcoreapp3.1\ResumeService.AssemblyInfoInputs.cache
+C:\JobApps\WebAPICore\ResumeService\obj\Debug\netcoreapp3.1\ResumeService.AssemblyInfo.cs
+C:\JobApps\WebAPICore\ResumeService\obj\Debug\netcoreapp3.1\ResumeService.csproj.CoreCompileInputs.cache
+C:\JobApps\WebAPICore\ResumeService\obj\Debug\netcoreapp3.1\ResumeService.dll
+C:\JobApps\WebAPICore\ResumeService\obj\Debug\netcoreapp3.1\ResumeService.pdb
+C:\JobApps\WebAPICore\ResumeService\obj\Debug\netcoreapp3.1\ResumeService.csproj.AssemblyReference.cache

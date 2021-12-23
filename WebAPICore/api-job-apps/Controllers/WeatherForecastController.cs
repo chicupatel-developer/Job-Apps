@@ -1,6 +1,8 @@
 ﻿using EFCore.DBFirst_SQLTOLINQ_Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ResumeService;
+using ResumeService.Models;
 using SelectPdf;
 using Services.DTO;
 using System;
@@ -22,9 +24,11 @@ namespace api_job_apps.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IResumeCreator _resumeCreator;           
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IResumeCreator resumeCreator, ILogger<WeatherForecastController> logger)
         {
+            _resumeCreator = resumeCreator;
             _logger = logger;
         }
 
@@ -46,9 +50,6 @@ namespace api_job_apps.Controllers
         [Route("htmltopdf")]
         public IActionResult HtmlToPdf()
         {
-            // prepare data for resume
-            UserProfile user = new UserProfile();        
-
             // instantiate a html to pdf converter object
             HtmlToPdf converter = new HtmlToPdf();
 
@@ -57,82 +58,15 @@ namespace api_job_apps.Controllers
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
             converter.Options.WebPageWidth = 1000;
             converter.Options.WebPageHeight = 1414;
-            var content = @"<html>
-                             <head> 
-                                <style>
-                                    body {
-    
-}
 
-.nameDiv{
-            text-align: center;
-            vertical-align: middle;
-            padding: 5px;
-            border: 1px solid blueviolet;
-            border-radius: 10px;
-            background-color: lightseagreen;
-            color:black;
-            font-size: x-large;  
-            width: 300px;
-}
-                                </style>
-                             </head>
-                             <body>
-                                <div class='nameDiv'>
-                                    Ankit Patel
-                                </div>
-                             </body>
-                            </html>
-                            ";
+            Header header = _resumeCreator.GetHeader();
+            var content = _resumeCreator.GetPageHeader() + _resumeCreator.GetHeaderString(header) + _resumeCreator.GetPageFooter();
 
-            // var pdf = converter.ConvertUrl("https://www.roundthecode.com/");           
-            // var pdf = converter.ConvertHtmlString(content);
-            
-            var pdf = converter.ConvertHtmlString(user.GetResume());
-            
+            // create pdf and display @ browser
+            var pdf = converter.ConvertHtmlString(content);
             var pdfBytes = pdf.Save();
             return File(pdfBytes, "application/pdf");
         }
     }  
 
-    class UserProfile
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-
-        public string GetResume()
-        {
-            FirstName = "Ankit";
-            LastName = "Patel";
-
-            string content = @"<html>
-                             <head> 
-                                <style>
-                                    body {   
-                                    }
-                                    .nameDiv{
-                                                text-align: center;
-                                                vertical-align: middle;
-                                                padding: 5px;
-                                                border: 1px solid blueviolet;
-                                                border-radius: 10px;
-                                                background-color: lightseagreen;
-                                                color:black;
-                                                font-size: x-large;  
-                                                width: 300px;
-                                    }
-                                </style>
-                             </head>
-                             <body>
-                                <div class='nameDiv'>"+
-                                    FirstName + LastName + 
-                                    @"                                    
-                                </div>
-                             </body>
-                            </html>
-                            ";
-
-            return content;
-        }
-    }
 }
