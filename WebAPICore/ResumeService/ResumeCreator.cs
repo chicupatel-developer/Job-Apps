@@ -28,6 +28,22 @@ namespace ResumeService
                                         .nameDiv{                                               
                                             font-size: 30px;      
                                         }
+                                        .anyContent{
+                                            padding-left: 50px;
+                                            padding-top: 30px;
+                                        }
+                                        .sectionHeader{
+                                            font-size: 30;   
+                                            margin-bottom: 10px;
+                                        }
+                                        .skillsContent{
+                                            font-size: 20; 
+                                            padding-top:30px;
+                                            padding-left:30px;
+                                        }
+                                       tr.spaceUnder>td {
+                                            padding-bottom: 1em;
+                                        }
                                     </style>
                                  </head>
                              <body>";
@@ -40,18 +56,7 @@ namespace ResumeService
                                 ";
             return pageFooter;
               
-        }
-        public Header GetHeader()
-        {
-            Header header = new Header()
-            {
-                 EmailAddress = "haha @haha.com",
-                  FirstName = "Ankit",
-                   LastName = "Patel",
-                    PhoneNumber = "1234567890"
-            };
-            return header;
-        }
+        }     
         public string GetHeaderString(Header header)
         {
             string headerString = null;
@@ -71,6 +76,44 @@ namespace ResumeService
                             ";
 
             return headerString;
+        }
+
+
+        /*
+        public string GetCoreSkillsString(List<string> skills)
+        {
+            StringBuilder skillsString = new StringBuilder();
+            skillsString.Append(@"<div class='anyContent'>
+                                    <u class='sectionHeader'>Technical Skills: </u>
+                                    <br />
+                                    <ul>"
+                                );
+
+            foreach (var skill in skills)
+            {
+                skillsString.Append(@"<li class='skillsContent'>" + skill+@"</li>");
+            }
+
+            skillsString.Append(@"</ul></div>");
+            return skillsString.ToString();
+        }
+        */
+        public string GetCoreSkillsString(List<string> skills)
+        {
+            StringBuilder skillsString = new StringBuilder();
+            skillsString.Append(@"<div class='anyContent'>
+                                    <u class='sectionHeader'>Technical Skills: </u>
+                                    <br />
+                                    <table class='skillsContent'>"
+                                );
+
+            foreach (var skill in skills)
+            {
+                skillsString.Append(@"<tr class='spaceUnder'><td>" + skill + @"</td></tr>");
+            }
+
+            skillsString.Append(@"</table></div>");
+            return skillsString.ToString();
         }
     }
 }

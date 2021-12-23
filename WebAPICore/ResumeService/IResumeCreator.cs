@@ -8,8 +8,8 @@ namespace ResumeService
     public interface IResumeCreator
     {
         string GetPageHeader();
-        Header GetHeader();
         string GetHeaderString(Header header);
+        string GetCoreSkillsString(List<string> skills);
         string GetPageFooter();
 
     }

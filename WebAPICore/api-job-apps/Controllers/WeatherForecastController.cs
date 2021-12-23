@@ -24,11 +24,9 @@ namespace api_job_apps.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IResumeCreator _resumeCreator;           
-
-        public WeatherForecastController(IResumeCreator resumeCreator, ILogger<WeatherForecastController> logger)
+     
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
-            _resumeCreator = resumeCreator;
             _logger = logger;
         }
 
@@ -45,28 +43,6 @@ namespace api_job_apps.Controllers
             .ToArray();
         }
 
-
-        [HttpGet]
-        [Route("htmltopdf")]
-        public IActionResult HtmlToPdf()
-        {
-            // instantiate a html to pdf converter object
-            HtmlToPdf converter = new HtmlToPdf();
-
-            // set converter options
-            converter.Options.PdfPageSize = PdfPageSize.A4;
-            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
-            converter.Options.WebPageWidth = 1000;
-            converter.Options.WebPageHeight = 1414;
-
-            Header header = _resumeCreator.GetHeader();
-            var content = _resumeCreator.GetPageHeader() + _resumeCreator.GetHeaderString(header) + _resumeCreator.GetPageFooter();
-
-            // create pdf and display @ browser
-            var pdf = converter.ConvertHtmlString(content);
-            var pdfBytes = pdf.Save();
-            return File(pdfBytes, "application/pdf");
-        }
     }  
 
 }
