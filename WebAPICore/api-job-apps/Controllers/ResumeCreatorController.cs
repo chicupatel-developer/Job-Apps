@@ -47,6 +47,7 @@ namespace api_job_apps.Controllers
                 LastName = "Patel",
                 PhoneNumber = "1234567890"
             };
+
             // Core Technical Skills List<string>
             List<string> skills = new List<string>();
             skills.Add("C#");
@@ -61,10 +62,39 @@ namespace api_job_apps.Controllers
             skills.Add("Node JS, Express");
             skills.Add("JSON, Html, CSS, JavaScript, JQuery");
 
+            // WorkExperience
+            List<string> jobDetails = new List<string>();
+            jobDetails.Add("User can add / edit / view Department");
+            jobDetails.Add("User can remove Department");
+            jobDetails.Add("Faculty, Course and Assignment are depending on Department");
+            jobDetails.Add("before User can remove Department, system displays all possible dependencies");
+            jobDetails.Add("when User execute remove Department action, system safely remove first all possible dependencies and finally remove Department itself");
+            jobDetails.Add("after un-successful operation, error message is displayed");
 
+            List<WorkExperience> workExps = new List<WorkExperience>();
+            workExps.Add(new WorkExperience()
+            {
+                EmployerName = "CTD Group Of Companies",
+                City = "Winnipeg",
+                Province = "MB",
+                StartDate = "Aug, 2017",
+                EndDate = "May, 2020",
+                JobDetails = jobDetails
+            });
+            workExps.Add(new WorkExperience()
+            {
+                EmployerName = "Git Hub",
+                City = "Winnipeg",
+                Province = "MB",
+                StartDate = "Feb, 2021",
+                EndDate = "Till - Date",
+                JobDetails = jobDetails
+            });
+        
             var content = _resumeCreator.GetPageHeader() + 
                             _resumeCreator.GetHeaderString(header) + 
                             _resumeCreator.GetCoreSkillsString(skills) +
+                            _resumeCreator.GetWorkExperienceString(workExps) +
                             _resumeCreator.GetPageFooter();
 
             // create pdf and display @ browser

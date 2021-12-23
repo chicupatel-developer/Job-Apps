@@ -11,6 +11,7 @@ namespace ResumeService
         string GetHeaderString(Header header);
         string GetCoreSkillsString(List<string> skills);
         string GetPageFooter();
+        string GetWorkExperienceString(List<WorkExperience> workExperience);
 
     }
 }

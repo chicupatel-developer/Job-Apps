@@ -41,8 +41,27 @@ namespace ResumeService
                                             padding-top:30px;
                                             padding-left:30px;
                                         }
-                                       tr.spaceUnder>td {
-                                            padding-bottom: 1em;
+                                        tr.spaceUnder>td {
+                                            padding-bottom: 10px;
+                                        }
+                                        table, th, td {
+                                          padding-right: 30px;
+                                        }
+                                        .wexpContent{
+                                            font-size: 20; 
+                                            padding-top:20px;
+                                            padding-left:30px;
+                                        }   
+                                        .wexpDiv{
+                                            padding-bottom:10px;
+                                            padding-top:10px;
+                                            font-size: 25;
+                                        }
+                                        .jobResLi{
+                                            margin-bottom: 7px;
+                                        }
+                                        .jobResUi{
+                                            padding-bottom: 30px;
                                         }
                                     </style>
                                  </head>
@@ -106,14 +125,55 @@ namespace ResumeService
                                     <br />
                                     <table class='skillsContent'>"
                                 );
-
+            int counter = 1;
             foreach (var skill in skills)
             {
-                skillsString.Append(@"<tr class='spaceUnder'><td>" + skill + @"</td></tr>");
+                if (counter == 1)
+                {
+                    counter = 2;
+                    skillsString.Append(@"<tr class='spaceUnder'><td><b>- </b>" + skill + @"</td>");
+                }
+                else
+                {
+                    counter = 1;
+                    skillsString.Append(@"<td><b>- </b>" + skill + @"</td></tr>");
+                }
             }
-
             skillsString.Append(@"</table></div>");
             return skillsString.ToString();
+        }
+  
+    
+        public string GetWorkExperienceString(List<WorkExperience> workExperiences)
+        {
+            StringBuilder woExpString = new StringBuilder();
+
+            woExpString.Append(@"<div class='anyContent'>
+                                    <u class='sectionHeader'>Work Experience: </u>
+                                    <br />
+                                    <div class='wexpContent'>
+                                        <div class='wexpDiv'>"
+                                );
+
+            foreach(var workExperience in workExperiences)
+            {
+                woExpString.Append(@"<b>Client: " + workExperience.EmployerName + "  -  " + workExperience.City + ", " + workExperience.Province + "</b></div>");
+                woExpString.Append(@"<span>");
+                woExpString.Append(@"Duration: " + workExperience.StartDate + " - " + workExperience.EndDate + "</span>");
+                woExpString.Append(@"<br /><div class='wexpDiv'>");
+                woExpString.Append(@"Job Responsibilities: <ul class='jobResUi'>");
+
+                foreach (var jobRes in workExperience.JobDetails)
+                {
+                    woExpString.Append("<li class='jobResLi'>" + jobRes + "</li>");
+                }
+                woExpString.Append("</ul>");
+            }
+
+           
+            woExpString.Append("</div></div></div>");
+
+            return woExpString.ToString();
         }
     }
 }
