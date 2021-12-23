@@ -31,6 +31,24 @@ namespace api_job_apps.Controllers
             // instantiate a html to pdf converter object
             HtmlToPdf converter = new HtmlToPdf();
 
+            // header settings
+            converter.Options.DisplayHeader = true;
+            converter.Header.DisplayOnFirstPage = true;
+            converter.Header.DisplayOnOddPages = true;
+            converter.Header.DisplayOnEvenPages = true;
+            converter.Header.Height = 50;
+
+            // footer settings
+            converter.Options.DisplayFooter = true;
+            converter.Footer.DisplayOnFirstPage = true;
+            converter.Footer.DisplayOnOddPages = true;
+            converter.Footer.DisplayOnEvenPages = true;
+            converter.Footer.Height = 75;
+
+            // left and right side margin
+            converter.Options.MarginLeft = 50;
+            converter.Options.MarginRight = 50;
+
             // set converter options
             converter.Options.PdfPageSize = PdfPageSize.A4;
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;

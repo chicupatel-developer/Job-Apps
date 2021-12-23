@@ -29,8 +29,8 @@ namespace ResumeService
                                             font-size: 30px;      
                                         }
                                         .anyContent{
-                                            padding-left: 50px;
-                                            padding-top: 30px;
+                                            padding-left: 10px;
+                                            padding-top: 10px;
                                         }
                                         .sectionHeader{
                                             font-size: 30;   
