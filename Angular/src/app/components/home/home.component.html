@@ -104,7 +104,18 @@
                 <mat-tab label="Technical Skills">
                     <div class="skillsContainer">
                         <div>
-                            Enter your Technical Skills
+                            <mat-form-field class="example-chip-list">
+                                <mat-chip-list #chipList>
+                                    <mat-chip *ngFor="let country of countries" [selectable]="selectable" [removable]="removable"
+                                        (removed)="remove(country)">
+                                        {{country.name}}
+                                        <mat-icon matChipRemove *ngIf="removable">X</mat-icon>
+                                    </mat-chip>
+                                    <input placeholder="New Country..." [matChipInputFor]="chipList"
+                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                                        (matChipInputTokenEnd)="add($event)">
+                                </mat-chip-list>
+                            </mat-form-field>
                         </div>                      
                     </div>
                 </mat-tab>

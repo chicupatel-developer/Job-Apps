@@ -6,7 +6,15 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { LocalDataService } from 'src/app/services/local-data.service';
 import PersonalInfo from 'src/app/models/personalInfo';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ElementRef, ViewChild } from '@angular/core';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { map, startWith } from 'rxjs/operators';
 
+export interface Country {
+  name: string;
+}
 
 @Component({
   selector: 'home',
@@ -26,15 +34,26 @@ export class HomeComponent implements OnInit {
 
   personalInfo = new PersonalInfo();
 
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  countries: Country[] = [
+    { name: "India" },
+    { name: "USA" },
+    { name: "Apple" }
+  ];
+ 
   constructor(
     private router: Router,
     public dataService: DataService,
     private formBuilder: FormBuilder,
     public localDataService: LocalDataService
-  ) { }
+  ) {   
+   }
 
-  ngOnInit() {
-    
+  ngOnInit() {    
     this.personalInfoForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -81,7 +100,30 @@ export class HomeComponent implements OnInit {
     this.personalInfo = personalInfoData;
     this.localDataService.setPersonalInfo(this.personalInfo);
 
-    console.log(this.localDataService.getPersonalInfo());
-   
+    console.log(this.localDataService.getPersonalInfo());   
   }
+
+
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    if ((value || "").trim()) {
+      this.countries.push({ name: value.trim() });
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = "";
+    }
+  }
+  remove(country: Country): void {
+    const index = this.countries.indexOf(country);
+
+    if (index >= 0) {
+      this.countries.splice(index, 1);
+    }
+  }
+  
 }

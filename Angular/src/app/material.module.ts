@@ -24,7 +24,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
-
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
     imports: [
@@ -51,7 +51,8 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatSnackBarModule ,
         MatProgressBarModule,
         MatExpansionModule,
-        MatStepperModule
+        MatStepperModule,
+        MatChipsModule
     ],
     exports: [
         MatSliderModule,
@@ -77,7 +78,8 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatSnackBarModule,
         MatProgressBarModule,
         MatExpansionModule,
-        MatStepperModule
+        MatStepperModule,
+        MatChipsModule
     ]
 })
 export class MaterialModule { }
