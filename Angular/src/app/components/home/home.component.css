@@ -10,9 +10,7 @@
             background-color: lightseagreen;
             color:black;
             font-size: x-large;            
-    }
-
-   
+    }   
 th.mat-header-cell {
   text-align: left;
   max-width: 300px;
@@ -30,6 +28,21 @@ th.mat-header-cell {
     padding-left: 20px;
     padding-right: 20px;
     font-style: oblique;
+}
+    .parent {height:100%;}
+    .mainContentLeft{
+    
+        padding: 10px;
+    }    
+    .mainContentRight{
+     
+        padding: 10px;
+    }
+    mat-form-field {
+        width: 80%;
+    }
+.saveButton{
+    padding-bottom:30px;
 }
 
 

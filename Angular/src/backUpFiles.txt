@@ -1,138 +1,114 @@
-using EFCore.DBFirst_SQLTOLINQ_Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SelectPdf;
-using Services.DTO;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+<div fxLayout="row wrap"  fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
 
+    <div fxFlex="10%">
+    </div>
+    <div fxFlex="80%">
+        <div class="pageHeader">
+            Home
+        </div>
+        <p></p>
 
-namespace api_job_apps.Controllers
-{
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
-    {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
-
-
-        [HttpGet]
-        [Route("htmltopdf")]
-        public IActionResult HtmlToPdf()
-        {
-            // prepare data for resume
-            UserProfile user = new UserProfile();        
-
-            // instantiate a html to pdf converter object
-            HtmlToPdf converter = new HtmlToPdf();
-
-            // set converter options
-            converter.Options.PdfPageSize = PdfPageSize.A4;
-            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
-            converter.Options.WebPageWidth = 1000;
-            converter.Options.WebPageHeight = 1414;
-            var content = @"<html>
-                             <head> 
-                                <style>
-                                    body {
-    
-}
-
-.nameDiv{
-            text-align: center;
-            vertical-align: middle;
-            padding: 5px;
-            border: 1px solid blueviolet;
-            border-radius: 10px;
-            background-color: lightseagreen;
-            color:black;
-            font-size: x-large;  
-            width: 300px;
-}
-                                </style>
-                             </head>
-                             <body>
-                                <div class='nameDiv'>
-                                    Ankit Patel
+        <div>
+            <mat-tab-group>
+                <mat-tab label="Personal Info">
+                    <div class="personalContainer">
+                        <div>
+                            <form [formGroup]="personalInfoForm">
+                                <div fxLayout="row" class="parent" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                                    <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="mainContentLeft">
+                                        <mat-card class="mat-elevation-z4">
+                                            <mat-card-content>
+                                                <mat-form-field 
+                                                    [style.width.px]=327 
+                                                    class="form-field" 
+                                                    appearance="outline">
+                                                    <mat-label> First-Name
+                                                    </mat-label>
+                                                    <input matInput formControlName="firstName">
+                                                </mat-form-field>
+                                                <p></p>
+                                                <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
+                                                    <mat-label> Last-Name
+                                                    </mat-label>
+                                                    <input matInput formControlName="lastName">
+                                                </mat-form-field>
+                                                <p></p>
+                                                <mat-form-field class="form-field" appearance="outline">
+                                                    <mat-label> E-mail
+                                                    </mat-label>
+                                                    <input matInput formControlName="emailAddress" required>
+                                                    <mat-error
+                                                        *ngIf="(personalInfoForm.controls.emailAddress.touched || submitted ) && personalInfoForm.controls.emailAddress.invalid">
+                                                        <span *ngIf="personalInfoForm.controls.emailAddress.errors.required">This field is mandatory.</span>
+                                                        <span *ngIf="personalInfoForm.controls.emailAddress.errors.pattern">This field is invalid.</span>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                                <p></p>                                              
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="mainContentLeft">
+                                        <mat-card class="mat-elevation-z4">
+                                            <mat-card-content>
+                                                <mat-form-field [style.width.px]=200 class="form-field small-form-field" appearance="outline">
+                                                    <mat-label> Phone Number
+                                                    </mat-label>
+                                                    <input matInput formControlName="phoneNumber">
+                                                    <mat-error
+                                                        *ngIf="(personalInfoForm.controls.phoneNumber.touched || submitted ) && personalInfoForm.controls.phoneNumber.invalid">
+                                                        <span *ngIf="personalInfoForm.controls.phoneNumber.errors.pattern">This field is invalid.</span>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                                <p></p>
+                                                <mat-form-field [style.width.px]=200 class="form-field small-form-field" appearance="fill">
+                                                    <mat-label>Province</mat-label>
+                                                    <select matNativeControl (change)="changeProvince($event)" required formControlName="province">
+                                                        <option value="">Choose Province</option>
+                                                        <option *ngFor="let p of provinceCollection">
+                                                            {{p}}
+                                                        </option>
+                                                    </select>
+                                                    <mat-error
+                                                        *ngIf="(personalInfoForm.controls.province.touched || submitted ) && personalInfoForm.controls.province.invalid">
+                                                        <span *ngIf="personalInfoForm.controls.province.errors.required">This field is mandatory.</span>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                                <p></p>
+                                                <mat-form-field [style.width.px]=200 class="form-field small-form-field" appearance="fill">
+                                                    <mat-label>City</mat-label>
+                                                    <select matNativeControl required formControlName="city">
+                                                        <option value="">Choose City</option>
+                                                        <option *ngFor="let c of cityCollection">
+                                                            {{c}}
+                                                        </option>
+                                                    </select>
+                                                    <mat-error *ngIf="(personalInfoForm.controls.city.touched || submitted ) && personalInfoForm.controls.city.invalid">
+                                                        <span *ngIf="personalInfoForm.controls.city.errors.required">This field is mandatory.</span>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                                <p></p>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
                                 </div>
-                             </body>
-                            </html>
-                            ";
-
-            // var pdf = converter.ConvertUrl("https://www.roundthecode.com/");           
-            // var pdf = converter.ConvertHtmlString(content);
-            
-            var pdf = converter.ConvertHtmlString(user.GetResume());
-            
-            var pdfBytes = pdf.Save();
-            return File(pdfBytes, "application/pdf");
-        }
-    }  
-
-    class UserProfile
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-
-        public string GetResume()
-        {
-            FirstName = "Ankit";
-            LastName = "Patel";
-
-            string content = @"<html>
-                             <head> 
-                                <style>
-                                    body {   
-                                    }
-                                    .nameDiv{
-                                                text-align: center;
-                                                vertical-align: middle;
-                                                padding: 5px;
-                                                border: 1px solid blueviolet;
-                                                border-radius: 10px;
-                                                background-color: lightseagreen;
-                                                color:black;
-                                                font-size: x-large;  
-                                                width: 300px;
-                                    }
-                                </style>
-                             </head>
-                             <body>
-                                <div class='nameDiv'>"+
-                                    FirstName + LastName + 
-                                    @"                                    
+                                <div>
+                                    <button (click)="savePersonalInfo()" 
+                                        mat-raised-button color="primary" type="button">
+                                        Save Personal Info !
+                                    </button>
                                 </div>
-                             </body>
-                            </html>
-                            ";
-
-            return content;
-        }
-    }
-}
+                            </form>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Technical Skills">
+                    <div class="skillsContainer">
+                        <div>
+                            Enter your Technical Skills
+                        </div>                      
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
