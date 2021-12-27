@@ -27,6 +27,8 @@ import { LocalDataService } from './services/local-data.service';
 
 // angular-material
 import { MaterialModule } from './material.module';
+import { PersonalInfoCreateComponent } from './components/child-components/personal-info-create/personal-info-create.component';
+import { TechnicalSkillCreateComponent } from './components/child-components/technical-skill-create/technical-skill-create.component';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { MaterialModule } from './material.module';
     JobAppViewDialogComponent,
     JobAppDeleteDialogComponent,
     JobResumeUploadComponent,
-    ResumeCreatorComponent
+    ResumeCreatorComponent,
+    PersonalInfoCreateComponent,
+    TechnicalSkillCreateComponent
   ],
   imports: [
     BrowserModule,
