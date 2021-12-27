@@ -12,8 +12,7 @@
             <mat-tab-group>
                 <mat-tab label="Personal Info">
                     <div class="personalContainer">
-                        <div>
-                          
+                        <div>                          
                             <form [formGroup]="personalInfoForm">
                                 <div class="saveButton">
                                     <button (click)="savePersonalInfo()" mat-raised-button color="primary" type="button">
@@ -103,16 +102,31 @@
                 </mat-tab>
                 <mat-tab label="Technical Skills">
                     <div class="skillsContainer">
+                        <div class="saveButton">
+                            <button 
+                                (click)="saveSkills()" 
+                                mat-raised-button color="primary" 
+                                type="button">
+                                <mat-icon>save</mat-icon>
+                                &nbsp;&nbsp;Technical Skills
+                            </button>
+                        </div>
                         <div>
-                            <mat-form-field class="example-chip-list">
+                            <mat-form-field>
                                 <mat-chip-list #chipList>
-                                    <mat-chip *ngFor="let country of countries" [selectable]="selectable" [removable]="removable"
-                                        (removed)="remove(country)">
-                                        {{country.name}}
-                                        <mat-icon matChipRemove *ngIf="removable">X</mat-icon>
+                                    <mat-chip 
+                                        *ngFor="let skill of skills" 
+                                        [selectable]="selectable" 
+                                        [removable]="removable"
+                                        (removed)="remove(skill)">
+                                        {{skill.name}}
+                                        <mat-icon matChipRemove 
+                                            *ngIf="removable">X</mat-icon>
                                     </mat-chip>
-                                    <input placeholder="New Country..." [matChipInputFor]="chipList"
-                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                                    <input placeholder="Enter Technical Skill..."
+                                        [matChipInputFor]="chipList"
+                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
+                                        [matChipInputAddOnBlur]="addOnBlur"
                                         (matChipInputTokenEnd)="add($event)">
                                 </mat-chip-list>
                             </mat-form-field>

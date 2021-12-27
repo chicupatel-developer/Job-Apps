@@ -12,7 +12,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { map, startWith } from 'rxjs/operators';
 
-export interface Country {
+export interface Skill {
   name: string;
 }
 
@@ -31,18 +31,18 @@ export class HomeComponent implements OnInit {
   cityCollection: string[] = [];
 
   submitted = false;
-
   personalInfo = new PersonalInfo();
 
   visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  countries: Country[] = [
-    { name: "India" },
-    { name: "USA" },
-    { name: "Apple" }
+  // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER];
+  skills: Skill[] = [
+    { name: "C#" },
+    { name: "MVC" },
+    { name: "Web API" }
   ];
  
   constructor(
@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
       this.cityCollection = cities;
     }
   }
-
+  // save personal-info to local-data-service
   savePersonalInfo() {
     this.submitted = true;
 
@@ -103,14 +103,15 @@ export class HomeComponent implements OnInit {
     console.log(this.localDataService.getPersonalInfo());   
   }
 
-
-
+  // prevent duplicate skill
+  // add skill
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
     if ((value || "").trim()) {
-      this.countries.push({ name: value.trim() });
+      if (!this.skills.find(t => t.name === value))
+        this.skills.push({ name: value.trim() });
     }
 
     // Reset the input value
@@ -118,12 +119,17 @@ export class HomeComponent implements OnInit {
       input.value = "";
     }
   }
-  remove(country: Country): void {
-    const index = this.countries.indexOf(country);
+  // remove skill
+  remove(skill: Skill): void {
+    const index = this.skills.indexOf(skill);
 
     if (index >= 0) {
-      this.countries.splice(index, 1);
+      this.skills.splice(index, 1);
     }
   }
-  
+  // save skills to local-data-service
+  saveSkills() {
+    this.localDataService.setSkills(this.skills);
+    console.log(this.localDataService.getSkills());
+  }
 }

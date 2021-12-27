@@ -9,9 +9,17 @@ export class LocalDataService {
   private MyJobs;
   private JobApp;
   private PersonalInfo;
+  private Skills;
 
   constructor() { }
-  
+ 
+  setSkills(val) {
+    this.Skills = val;
+  }
+  getSkills() {
+    return this.Skills;
+  }
+
   setPersonalInfo(val) {
     this.PersonalInfo = val;
   }
