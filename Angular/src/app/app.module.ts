@@ -29,6 +29,7 @@ import { LocalDataService } from './services/local-data.service';
 import { MaterialModule } from './material.module';
 import { PersonalInfoCreateComponent } from './components/child-components/personal-info-create/personal-info-create.component';
 import { TechnicalSkillCreateComponent } from './components/child-components/technical-skill-create/technical-skill-create.component';
+import { WorkExperienceCreateComponent } from './components/child-components/work-experience-create/work-experience-create.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { TechnicalSkillCreateComponent } from './components/child-components/tec
     JobResumeUploadComponent,
     ResumeCreatorComponent,
     PersonalInfoCreateComponent,
-    TechnicalSkillCreateComponent
+    TechnicalSkillCreateComponent,
+    WorkExperienceCreateComponent
   ],
   imports: [
     BrowserModule,

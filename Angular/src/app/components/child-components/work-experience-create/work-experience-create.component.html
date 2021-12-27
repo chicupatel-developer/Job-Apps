@@ -1,0 +1,89 @@
+<div class="personalContainer">
+    <div>
+        <h2>{{pageHeader}}</h2>
+    </div>
+    <div>
+        <form [formGroup]="workExpForm">
+            <div class="saveButton">
+                <button 
+                    (click)="saveWorkExperience()" 
+                    mat-raised-button color="primary" type="button">
+                    <mat-icon>save</mat-icon>
+                    &nbsp;&nbsp;Work Expeience
+                </button>
+            </div>
+
+            <div fxLayout="row" class="parent" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column"
+                fxLayout.xs="column">
+                <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="mainContentLeft">
+                    <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
+                        <mat-label> Employer Name
+                        </mat-label>
+                        <input matInput 
+                            formControlName="employerName" required>
+                        <mat-error
+                            *ngIf="(workExpForm.controls.employerName.touched || submitted ) && workExpForm.controls.employerName.invalid">
+                            <span *ngIf="workExpForm.controls.employerName.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>   
+                    <mat-form-field [style.width.px]=200 class="form-field small-form-field" appearance="fill">
+                        <mat-label>Province</mat-label>
+                        <select matNativeControl (change)="changeProvince($event)" required formControlName="province">
+                            <option value="">Choose Province</option>
+                            <option *ngFor="let p of provinceCollection">
+                                {{p}}
+                            </option>
+                        </select>
+                        <mat-error
+                            *ngIf="(workExpForm.controls.province.touched || submitted ) && workExpForm.controls.province.invalid">
+                            <span *ngIf="workExpForm.controls.province.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>
+                    <mat-form-field [style.width.px]=200 class="form-field small-form-field" appearance="fill">
+                        <mat-label>City</mat-label>
+                        <select matNativeControl required formControlName="city">
+                            <option value="">Choose City</option>
+                            <option *ngFor="let c of cityCollection">
+                                {{c}}
+                            </option>
+                        </select>
+                        <mat-error *ngIf="(workExpForm.controls.city.touched || submitted ) && workExpForm.controls.city.invalid">
+                            <span *ngIf="workExpForm.controls.city.errors.required">This field
+                                is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div> 
+                
+                <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="mainContentLeft">                   
+                    <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
+                        <mat-label> Start Date
+                        </mat-label>
+                        <input matInput formControlName="startDate" required>
+                        <mat-error
+                            *ngIf="(workExpForm.controls.startDate.touched || submitted ) && workExpForm.controls.startDate.invalid">
+                            <span *ngIf="workExpForm.controls.startDate.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>
+                    <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
+                        <mat-label> End Date
+                        </mat-label>
+                        <input matInput formControlName="endDate">
+                        <mat-error *ngIf="(workExpForm.controls.endDate.touched || submitted ) && workExpForm.controls.endDate.invalid">
+                            <span *ngIf="workExpForm.controls.endDate.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>
+
+
+                </div> 
+            </div>
+        </form>
+    </div>
+</div>
