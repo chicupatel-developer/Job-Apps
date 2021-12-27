@@ -30,6 +30,7 @@ export class WorkExperienceCreateComponent {
   submitted = false;
   workExp = new WorkExperience();
   workExps: WorkExperience[] = [];
+  jobDetailsForWE: string[] = [];
   
   constructor(
     private router: Router,
@@ -43,7 +44,7 @@ export class WorkExperienceCreateComponent {
       province: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: [''],
-      // jobDetails: ['', Validators.required]
+      jobDetails: ['', Validators.required]
     });
   }
 
@@ -76,7 +77,8 @@ export class WorkExperienceCreateComponent {
       province: this.workExpForm.value["province"],
       startDate: this.workExpForm.value["startDate"],
       endDate: this.workExpForm.value["endDate"],
-      jobDetails: this.workExpForm.value["jobDetails"]
+      // jobDetails: this.workExpForm.value["jobDetails"]
+      jobDetails: this.jobDetailsForWE
     };
 
     console.log(workExp);
@@ -85,4 +87,12 @@ export class WorkExperienceCreateComponent {
    
   }
 
+  // add job-Details to work-experience
+  addJobDetails() {
+    if (!(this.workExpForm.value["jobDetails"] == '' || this.workExpForm.value["jobDetails"] == 'Add Job Details Here!' )) {
+      this.jobDetailsForWE.push((this.workExpForm.value["jobDetails"]).trim());
+      this.workExpForm.controls['jobDetails'].setValue('Add Job Details Here!');      
+    }
+    
+  }
 }

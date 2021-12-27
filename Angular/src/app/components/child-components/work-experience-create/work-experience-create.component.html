@@ -80,7 +80,27 @@
                         </mat-error>
                     </mat-form-field>
                     <p></p>
-
+                    <mat-form-field [style.width.px]=327 
+                        class="form-field" appearance="outline">
+                        <mat-label> Job Details
+                        </mat-label>                     
+                        <textarea matInput 
+                            formControlName="jobDetails" required>
+                        </textarea>
+                        <p></p>
+                        <p></p>
+                        <button (click)="addJobDetails()" 
+                            mat-raised-button 
+                            color="primary" 
+                            type="button">
+                            <mat-icon>note_add</mat-icon>
+                        </button>
+                        <mat-error
+                            *ngIf="(workExpForm.controls.jobDetails.touched || submitted ) && workExpForm.controls.jobDetails.invalid">
+                            <span *ngIf="workExpForm.controls.jobDetails.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
 
                 </div> 
             </div>
