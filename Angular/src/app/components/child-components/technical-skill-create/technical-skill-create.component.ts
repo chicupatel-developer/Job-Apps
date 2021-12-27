@@ -31,18 +31,25 @@ export class TechnicalSkillCreateComponent {
   addOnBlur = true;
   // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   readonly separatorKeysCodes: number[] = [ENTER];
+
+  skills: string[] = [];
+  /*
   skills: Skill[] = [
     { name: "C#" },
     { name: "MVC" },
     { name: "Web API" }
   ];
+  */
 
   constructor(
     private router: Router,
     public dataService: DataService,
     private formBuilder: FormBuilder,
     public localDataService: LocalDataService
-  ) {    
+  ) {
+    this.skills.push('C#');
+    this.skills.push('MVC');
+    this.skills.push('Web API');
   }
   // prevent duplicate skill
   // add skill
@@ -51,8 +58,12 @@ export class TechnicalSkillCreateComponent {
     const value = event.value;
 
     if ((value || "").trim()) {
+      /*
       if (!this.skills.find(t => t.name === value))
         this.skills.push({ name: value.trim() });
+        */
+      if (!this.skills.find(t => t === value))
+        this.skills.push( value.trim() );
     }
 
     // Reset the input value
@@ -61,7 +72,8 @@ export class TechnicalSkillCreateComponent {
     }
   }
   // remove skill
-  remove(skill: Skill): void {
+  remove(skill: string): void {
+  // remove(skill: Skill): void {    
     const index = this.skills.indexOf(skill);
 
     if (index >= 0) {

@@ -24,6 +24,7 @@ namespace api_job_apps.Controllers
             _resumeCreator = resumeCreator;
         }
 
+        /*
         [HttpGet]
         [Route("createResume")]
         public IActionResult createResume()
@@ -119,6 +120,64 @@ namespace api_job_apps.Controllers
             var pdf = converter.ConvertHtmlString(content);
             var pdfBytes = pdf.Save();
             return File(pdfBytes, "application/pdf");
+        }
+        */
+
+        [HttpPost]
+        [Route("createResume")]
+        public IActionResult createResume(MyResume myResume)
+        {
+            // instantiate a html to pdf converter object
+            HtmlToPdf converter = new HtmlToPdf();
+
+            // header settings
+            converter.Options.DisplayHeader = true;
+            converter.Header.DisplayOnFirstPage = true;
+            converter.Header.DisplayOnOddPages = true;
+            converter.Header.DisplayOnEvenPages = true;
+            converter.Header.Height = 50;
+
+            // footer settings
+            converter.Options.DisplayFooter = true;
+            converter.Footer.DisplayOnFirstPage = true;
+            converter.Footer.DisplayOnOddPages = true;
+            converter.Footer.DisplayOnEvenPages = true;
+            converter.Footer.Height = 75;
+
+            // left and right side margin
+            converter.Options.MarginLeft = 50;
+            converter.Options.MarginRight = 50;
+
+            // set converter options
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            converter.Options.WebPageWidth = 1000;
+            converter.Options.WebPageHeight = 1414;
+
+            // prepare data
+            // incoming from angular
+            // Header
+            Header header = new Header();
+            header = myResume.PersonalInfo;
+
+            // Core Technical Skills List<string>
+            List<string> skills = new List<string>();
+            skills = myResume.Skills;
+
+            // WorkExperience
+            List<WorkExperience> workExps = new List<WorkExperience>();
+            workExps = myResume.WorkExperience;        
+
+            var content = _resumeCreator.GetPageHeader() +
+                            _resumeCreator.GetHeaderString(header) +
+                            _resumeCreator.GetCoreSkillsString(skills) +
+                            _resumeCreator.GetWorkExperienceString(workExps) +
+                            _resumeCreator.GetPageFooter();
+
+            // create pdf and display @ browser
+            var pdf = converter.ConvertHtmlString(content);
+            var pdfBytes = pdf.Save();
+            return File(pdfBytes, "application/pdf");            
         }
     }
 }

@@ -30,6 +30,7 @@ import { MaterialModule } from './material.module';
 import { PersonalInfoCreateComponent } from './components/child-components/personal-info-create/personal-info-create.component';
 import { TechnicalSkillCreateComponent } from './components/child-components/technical-skill-create/technical-skill-create.component';
 import { WorkExperienceCreateComponent } from './components/child-components/work-experience-create/work-experience-create.component';
+import { SaveAndViewResumeComponent } from './components/child-components/save-and-view-resume/save-and-view-resume.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { WorkExperienceCreateComponent } from './components/child-components/wor
     ResumeCreatorComponent,
     PersonalInfoCreateComponent,
     TechnicalSkillCreateComponent,
-    WorkExperienceCreateComponent
+    WorkExperienceCreateComponent,
+    SaveAndViewResumeComponent
   ],
   imports: [
     BrowserModule,

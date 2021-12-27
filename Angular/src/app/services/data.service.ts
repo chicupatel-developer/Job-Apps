@@ -12,6 +12,7 @@ export class DataService {
   public API = 'https://localhost:44301';
   public JobApplication_API = `${this.API}/api/JobApplication`;
   public JobResume_API = `${this.API}/api/JobResume`;
+  public ResumeCreator_API = `${this.API}/api/ResumeCreator`;
   public UW_API = `${this.API}/api/UW`;
 
   constructor(private http: HttpClient, public localDataService: LocalDataService) { }
@@ -72,6 +73,12 @@ export class DataService {
   // file-download
   download(jobApplicationId: number): Observable<Blob> {
     return this.http.get<Blob>(this.JobResume_API + '/download/'+jobApplicationId,
+      { responseType: 'blob' as 'json' });
+  }
+  
+  // createResume
+  createResume(myResume): Observable<Blob> {
+    return this.http.post<Blob>(this.ResumeCreator_API + '/createResume',myResume,
       { responseType: 'blob' as 'json' });
   }
 }

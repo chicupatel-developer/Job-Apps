@@ -66,6 +66,9 @@ namespace ResumeService
                                         .jobResUi{
                                             padding-bottom: 30px;
                                         }
+                                        .durationSpan{
+                                            font-size: 25;
+                                        }
                                     </style>
                                  </head>
                              <body>";
@@ -161,8 +164,8 @@ namespace ResumeService
             foreach(var workExperience in workExperiences)
             {
                 woExpString.Append(@"<b>Client: " + workExperience.EmployerName + "  -  " + workExperience.City + ", " + workExperience.Province + "</b></div>");
-                woExpString.Append(@"<span>");
-                woExpString.Append(@"Duration: " + workExperience.StartDate + " - " + workExperience.EndDate + "</span>");
+                woExpString.Append(@"<div class='durationSpan'>");
+                woExpString.Append(@"Duration: " + workExperience.StartDate + " - " + workExperience.EndDate + "</div>");
                 woExpString.Append(@"<br /><div class='wexpDiv'>");
                 woExpString.Append(@"Job Responsibilities: <ul class='jobResUi'>");
 

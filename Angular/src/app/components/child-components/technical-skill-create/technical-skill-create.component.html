@@ -14,7 +14,8 @@
             <mat-chip-list #chipList>
                 <mat-chip *ngFor="let skill of skills" [selectable]="selectable" [removable]="removable"
                     (removed)="remove(skill)">
-                    {{skill.name}}
+                    <!-- {{skill.name}} -->
+                    {{skill}}
                     <mat-icon matChipRemove *ngIf="removable">X</mat-icon>
                 </mat-chip>
                 <input placeholder="Enter Technical Skill..." [matChipInputFor]="chipList"
