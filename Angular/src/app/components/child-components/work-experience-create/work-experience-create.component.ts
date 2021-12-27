@@ -61,12 +61,12 @@ export class WorkExperienceCreateComponent {
     }
   }
 
-  // save work-experience(s) to local-data-service
-  saveWorkExperience() {
+
+  prepareDataForWorkExperience() {
     this.submitted = true;
 
     if (!this.workExpForm.valid) {
-      console.log('Invalid Form!'); 
+      console.log('Invalid Form!');
       return;
     }
 
@@ -83,15 +83,45 @@ export class WorkExperienceCreateComponent {
 
     console.log(workExp);
 
+    // reset work-experience form  
+    this.workExpForm.reset();
+
     // save to local-data-service
-   
+    this.workExps.push(workExp);
+    this.localDataService.setWorkExperience(this.workExps);
+
+    // reset this.jobDetailsForWE[]
+    this.jobDetailsForWE = [];
+
+  }
+
+  // save work-experience to workExps[] and stays to work-experience step
+  // in resume - creator 
+  saveAndAddMoreWorkExperience() {   
+    this.prepareDataForWorkExperience();   
+  }
+  
+  // save all work-experiences and move to next step in resume-creator
+  saveWorkExperience() {  
+    this.prepareDataForWorkExperience();
+    
+    if (this.localDataService.getWorkExperience() != undefined && this.localDataService.getWorkExperience().length > 0) {
+      console.log(this.localDataService.getWorkExperience());
+
+      // move to next step
+    }
+    else {
+      console.log('You Have ZERO Work - Experience !');
+    }
   }
 
   // add job-Details to work-experience
   addJobDetails() {
-    if (!(this.workExpForm.value["jobDetails"] == '' || this.workExpForm.value["jobDetails"] == 'Add Job Details Here!' )) {
-      this.jobDetailsForWE.push((this.workExpForm.value["jobDetails"]).trim());
-      this.workExpForm.controls['jobDetails'].setValue('Add Job Details Here!');      
+    if (!(this.workExpForm.value["jobDetails"] == '' || this.workExpForm.value["jobDetails"] == 'Add Job Details Here!')) {
+      if (this.workExpForm.value["jobDetails"] != null) {
+        this.jobDetailsForWE.push((this.workExpForm.value["jobDetails"]).trim());
+        this.workExpForm.controls['jobDetails'].setValue('Add Job Details Here!');
+      }     
     }
     
   }
