@@ -9,28 +9,28 @@
         <mat-tab label="SQL"> 
             <div class="sqlTextContainer">
                 <div>
-                        <span>
-                                <pre>
-                                    select T1.GL_Number,UUGA.Chrt_Acct_Desc,
-                                    sum(T1.Debit_Amount) as Debit_Amount,
-                                    sum(T1.Credit_Amount) as Credit_Amount,
-                                    sum(T1.Debit_Amount)-sum(T1.Credit_Amount) as Net_Amount
-                                    from
-                                    (
-                                        select UUT.Debit_GL_Number as GL_Number, Sum(UUT.Debit_Amount) as Debit_Amount, 0 as Credit_Amount
-                                        from UUT
-                                        <b>group by</b> UUT.Debit_GL_Number
-                                        <b>Union All</b>
-                                        select UUT.Credit_GL_Number as GL_Number, 0 as Debit_Amount, Sum(UUT.Credit_Amount) as Credit_Amount
-                                        from UUT
-                                        <b>group by</b> UUT.Credit_GL_Number 
-                                    ) as T1                        
-                                    <b>left join </b> UUGA
-                                    <u>on UUGA.Chrt_Acct_No = REPLACE(T1.GL_Number,'-','') </u>
-                                    <b>group by</b> T1.GL_Number, UUGA.Chrt_Acct_Desc
-                                    <b>order by</b> T1.GL_Number
-                                </pre>
-                        </span>
+                    <span>
+                        <pre>
+                            select T1.GL_Number,UUGA.Chrt_Acct_Desc,
+                            sum(T1.Debit_Amount) as Debit_Amount,
+                            sum(T1.Credit_Amount) as Credit_Amount,
+                            sum(T1.Debit_Amount)-sum(T1.Credit_Amount) as Net_Amount
+                            from
+                            (
+                                select UUT.Debit_GL_Number as GL_Number, Sum(UUT.Debit_Amount) as Debit_Amount, 0 as Credit_Amount
+                                from UUT
+                                <b>group by</b> UUT.Debit_GL_Number
+                                <b>Union All</b>
+                                select UUT.Credit_GL_Number as GL_Number, 0 as Debit_Amount, Sum(UUT.Credit_Amount) as Credit_Amount
+                                from UUT
+                                <b>group by</b> UUT.Credit_GL_Number
+                            ) as <b>T1</b>
+                            <b>left join </b> UUGA
+                            <u>on UUGA.Chrt_Acct_No = REPLACE(T1.GL_Number,'-','') </u>
+                            <b>group by</b> T1.GL_Number, UUGA.Chrt_Acct_Desc
+                            <b>order by</b> T1.GL_Number
+                        </pre>
+                    </span>
                 </div>
             </div>
         </mat-tab>

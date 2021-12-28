@@ -6,7 +6,7 @@ namespace ResumeService.Models
 {
     public class MyResume
     {
-        public Header PersonalInfo { get; set; }
+        public PersonalInfo PersonalInfo { get; set; }
         public List<string> Skills { get; set; }
         public List<WorkExperience> WorkExperience { get; set; }
     }

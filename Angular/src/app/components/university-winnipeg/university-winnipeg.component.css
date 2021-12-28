@@ -3,20 +3,37 @@ table {
   overflow-x: auto;
   overflow-y: hidden;
   min-width: 500px;
+  padding-left: 50px;
 }
 th.mat-header-cell {
   text-align: left;
   max-width: 300px;
 }
+.mat-header-cell {
+      color: red;
+      font-size: larger;
+ }
+.mat-paginator {
+  color: blue;
+  font-size: medium;
+}
+.mat-form-field{
+  color: green;
+  font-size: larger;
+  font-weight: bold;
+}
 .mainContainer{
     padding: 20px;
 }
 .sqlTextContainer{
-    padding: 40px;
+    color: blue;
+    font-size: large;
 }
 .linqTextContainer{
-    padding-left: 200px;
+    padding-left: 100px;
     padding-top:20px;
+    color: blue;
+    font-size: large;
 }
 .tabContainer{
     padding-left: 20px;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ResumeService.Models
 {
-    public class Header
+    public class PersonalInfo
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

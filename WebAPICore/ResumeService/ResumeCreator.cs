@@ -1,4 +1,5 @@
 ﻿using ResumeService.Models;
+using SelectPdf;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,38 @@ namespace ResumeService
 {
     public class ResumeCreator : IResumeCreator
     { 
+
+        public HtmlToPdf GetHtmlToPdfObject()
+        {
+            HtmlToPdf converter = new HtmlToPdf();
+
+            // header settings
+            converter.Options.DisplayHeader = true;
+            converter.Header.DisplayOnFirstPage = true;
+            converter.Header.DisplayOnOddPages = true;
+            converter.Header.DisplayOnEvenPages = true;
+            converter.Header.Height = 50;
+
+            // footer settings
+            converter.Options.DisplayFooter = true;
+            converter.Footer.DisplayOnFirstPage = true;
+            converter.Footer.DisplayOnOddPages = true;
+            converter.Footer.DisplayOnEvenPages = true;
+            converter.Footer.Height = 75;
+
+            // left and right side margin
+            converter.Options.MarginLeft = 50;
+            converter.Options.MarginRight = 50;
+
+            // set converter options
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            converter.Options.WebPageWidth = 1000;
+            converter.Options.WebPageHeight = 1414;
+
+            return converter;
+        }
+
         public string GetPageHeader()
         {
             string pageHeader = @"<html>
@@ -82,7 +115,7 @@ namespace ResumeService
             return pageFooter;
               
         }     
-        public string GetHeaderString(Header header)
+        public string GetPersonalInfoString(PersonalInfo personalInfo)
         {
             string headerString = null;
 
@@ -90,11 +123,11 @@ namespace ResumeService
                                 <div class='headerDiv'>
                                     <div class='nameDiv'>" + 
                                         "<div class='flNameDiv'>" +
-                                            header.FirstName + header.LastName +
+                                            personalInfo.FirstName + personalInfo.LastName +
                                         "</div>" +
-                                        "Email: " + header.EmailAddress + 
+                                        "Email: " + personalInfo.EmailAddress + 
                                         @"<br />" +
-                                        "Phone: "+header.PhoneNumber + 
+                                        "Phone: "+ personalInfo.PhoneNumber + 
                                     @"</div>  
                                 </div>
                                 <hr />
@@ -105,7 +138,7 @@ namespace ResumeService
 
 
         /*
-        public string GetCoreSkillsString(List<string> skills)
+        public string GetTechnicalSkillsString(List<string> skills)
         {
             StringBuilder skillsString = new StringBuilder();
             skillsString.Append(@"<div class='anyContent'>
@@ -123,7 +156,7 @@ namespace ResumeService
             return skillsString.ToString();
         }
         */
-        public string GetCoreSkillsString(List<string> skills)
+        public string GetTechnicalSkillsString(List<string> skills)
         {
             StringBuilder skillsString = new StringBuilder();
             skillsString.Append(@"<div class='anyContent'>
