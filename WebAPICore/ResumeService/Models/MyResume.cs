@@ -9,5 +9,6 @@ namespace ResumeService.Models
         public PersonalInfo PersonalInfo { get; set; }
         public List<string> Skills { get; set; }
         public List<WorkExperience> WorkExperience { get; set; }
+        public List<Education> Education { get; set; }
     }
 }

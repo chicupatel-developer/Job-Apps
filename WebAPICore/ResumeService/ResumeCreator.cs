@@ -102,6 +102,21 @@ namespace ResumeService
                                         .durationSpan{
                                             font-size: 25;
                                         }
+                                        .educationDiv{
+                                            padding-top:5px;
+                                            font-size: 25;
+                                        }
+                                        .educationDurationSpan{
+                                            font-size: 25;
+                                            padding-top:5px;
+                                        }
+                                        .educationLi{
+                                            padding-bottom:10px;
+                                        }
+                                        .educationContent{
+                                            font-size: 20; 
+                                            padding-left:30px;
+                                        } 
                                     </style>
                                  </head>
                              <body>";
@@ -214,5 +229,35 @@ namespace ResumeService
 
             return woExpString.ToString();
         }
+   
+        public string GetEducationString(List<Education> educations)
+        {
+            StringBuilder educationString = new StringBuilder();
+
+            educationString.Append(@"<div class='anyContent'>
+                                    <u class='sectionHeader'>Education: </u>
+                                    <br />
+                                    <div class='educationContent'><ul>"
+                                );
+
+            foreach (var education in educations)
+            {
+                educationString.Append(@"<li class='educationLi'>");
+                educationString.Append(@"<div class='educationDiv'><b>" + education.DegreeName + "</b></div>");
+                if (education.Major != null)
+                {
+                    educationString.Append(@"<div class='educationDiv'><b>Major : " + education.Major + "</b></div>");
+                }                
+                educationString.Append(@"<div class='educationDurationSpan'>");
+                educationString.Append(@"(" + education.StartDate + " - " + education.EndDate + ")</div>");
+                educationString.Append(@"<div class='educationDurationSpan'>");
+                educationString.Append(@"" + education.UniversityName + ", " + education.Country + "</div></li>");                
+            }
+
+            educationString.Append("</ul></div></div>");
+
+            return educationString.ToString();
+        }
+
     }
 }

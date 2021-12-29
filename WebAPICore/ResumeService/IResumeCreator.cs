@@ -14,6 +14,7 @@ namespace ResumeService
         string GetTechnicalSkillsString(List<string> skills);
         string GetPageFooter();
         string GetWorkExperienceString(List<WorkExperience> workExperience);
+        string GetEducationString(List<Education> educations);
 
     }
 }
