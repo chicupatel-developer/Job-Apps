@@ -55,15 +55,16 @@ namespace ResumeService
                                             margin-bottom: 30px;
                                         }
                                         .flNameDiv{                                               
-                                            font-size: 50px;   
+                                            font-size: 50;   
                                             margin-bottom: 20px;
                                         }
                                         .nameDiv{                                               
-                                            font-size: 30px;      
+                                            font-size: 30;      
                                         }
                                         .anyContent{
                                             padding-left: 10px;
                                             padding-top: 10px;
+                                            margin-top: 20px;
                                         }
                                         .sectionHeader{
                                             font-size: 30;   
@@ -117,6 +118,13 @@ namespace ResumeService
                                             font-size: 20; 
                                             padding-left:30px;
                                         } 
+                                        .educationHeader{
+                                            padding-top:-50px;
+                                            font-size: 30;
+                                        }
+                                        .anyEducationContent{
+                                            margin-top:-30px;
+                                        }
                                     </style>
                                  </head>
                              <body>";
@@ -138,7 +146,7 @@ namespace ResumeService
                                 <div class='headerDiv'>
                                     <div class='nameDiv'>" + 
                                         "<div class='flNameDiv'>" +
-                                            personalInfo.FirstName + personalInfo.LastName +
+                                            personalInfo.FirstName + "&nbsp;" + personalInfo.LastName +
                                         "</div>" +
                                         "Email: " + personalInfo.EmailAddress + 
                                         @"<br />" +
@@ -234,8 +242,8 @@ namespace ResumeService
         {
             StringBuilder educationString = new StringBuilder();
 
-            educationString.Append(@"<div class='anyContent'>
-                                    <u class='sectionHeader'>Education: </u>
+            educationString.Append(@"<div class='anyEducationContent'>
+                                    <u class='educationHeader'>Education: </u>
                                     <br />
                                     <div class='educationContent'><ul>"
                                 );

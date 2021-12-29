@@ -36,8 +36,11 @@ export class SaveAndViewResumeComponent {
     var skills = this.localDataService.getSkills();
     var workExps = this.localDataService.getWorkExperience();
 
-    if (personalInfo == null || skills == null || workExps == null)
+    if (personalInfo == null || skills == null || workExps == null) {
+      console.log('Resume Data Not Found!');
       return;
+    }
+      
    
     var myResume = {
       personalInfo: personalInfo,
