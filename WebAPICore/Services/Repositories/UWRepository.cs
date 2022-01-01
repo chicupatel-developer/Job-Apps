@@ -121,5 +121,62 @@ namespace Services.Repositories
 
             return joinDatas;
         }
+    
+        public IEnumerable<UWUser> GetUniversity_Users()
+        {
+            List<UWUser> users = new List<UWUser>
+            {
+                new UWUser()
+                {
+                     UserId=1,
+                      FirstName = "First Name...1",
+                       LastName = "Last Name...1"
+                },
+                new UWUser()
+                {
+                     UserId=2,
+                      FirstName = "First Name...2",
+                       LastName = "Last Name...2"
+                },
+                new UWUser()
+                {
+                     UserId=3,
+                      FirstName = "First Name...3",
+                       LastName = "Last Name...3"
+                },
+                new UWUser()
+                {
+                     UserId=4,
+                      FirstName = "First Name...4",
+                       LastName = "Last Name...4"
+                },
+                new UWUser()
+                {
+                     UserId=5,
+                      FirstName = "First Name...5",
+                       LastName = "Last Name...5"
+                },
+                new UWUser()
+                {
+                     UserId=6,
+                      FirstName = "First Name...6",
+                       LastName = "Last Name...6"
+                },
+                new UWUser()
+                {
+                     UserId=7,
+                      FirstName = "First Name...7",
+                       LastName = "Last Name...7"
+                },
+                new UWUser()
+                {
+                     UserId=8,
+                      FirstName = "First Name...8",
+                       LastName = "Last Name...8"
+                }
+            };
+            return users;
+        }
+
     }
 }

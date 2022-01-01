@@ -2,6 +2,7 @@
 using MimeKit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -15,7 +16,7 @@ namespace EmailService
 
         public IFormFileCollection Attachments { get; set; }
 
-        public Message(IEnumerable<string> to, string subject, string content, IFormFileCollection attachments)
+        public Message(IEnumerable<string> to, string subject, string content, IFormFileCollection attachments, MemoryStream dataAsMemoryStream)
         {
             To = new List<MailboxAddress>();
 
@@ -23,6 +24,10 @@ namespace EmailService
             Subject = subject;
             Content = content;
             Attachments = attachments;
+            DataAsMemoryStream = dataAsMemoryStream;
         }
+
+        // memory-stream to byte[] as file-attachment
+        public MemoryStream DataAsMemoryStream { get; set; }
     }
 }

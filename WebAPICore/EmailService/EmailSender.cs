@@ -1,8 +1,10 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace EmailService
@@ -25,9 +27,20 @@ namespace EmailService
 
         public async Task SendEmailAsync(Message message)
         {
-            var mailMessage = CreateEmailMessage(message);
-
-            await SendAsync(mailMessage);
+            if(message.Attachments!=null && message.Attachments.Any())
+            {
+                // email with file-attachment
+                // file either coming from upload-action or stored previously on server file-system
+                var mailMessage = CreateEmailMessage(message);
+                await SendAsync(mailMessage);
+            }
+            else
+            {
+                // email with memory-stream to byte[] as email-attachment
+                // no file storage @ server side
+                var mailMessage = CreateEmailMessage_(message);
+                await SendAsync(mailMessage);
+            }                 
         }
 
         private MimeMessage CreateEmailMessage(Message message)
@@ -106,6 +119,30 @@ namespace EmailService
                     client.Dispose();
                 }
             }
+        }
+
+        private MimeMessage CreateEmailMessage_(Message message)
+        {
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress(_emailConfig.From));
+            emailMessage.To.AddRange(message.To);
+            emailMessage.Subject = message.Subject;
+
+            var bodyBuilder = new BodyBuilder { HtmlBody = string.Format("<h2 style='color:red;'>{0}</h2>", message.Content) };
+            System.Net.Mime.ContentType ct = new System.Net.Mime.ContentType(System.Net.Mime.MediaTypeNames.Text.Plain);
+            System.Net.Mail.Attachment attach = new System.Net.Mail.Attachment(message.DataAsMemoryStream, ct);
+            attach.ContentDisposition.FileName = "universityUsers.csv";
+            bodyBuilder.Attachments.Add("universityUsers.csv", message.DataAsMemoryStream.ToArray(), ContentType.Parse("text/csv"));
+
+            emailMessage.Body = bodyBuilder.ToMessageBody();
+            return emailMessage;
+        }
+
+
+        // convert string into memory-stream
+        public MemoryStream GenerateStreamFromString(string value)
+        {
+            return new MemoryStream(Encoding.UTF8.GetBytes(value ?? ""));
         }
     }
 }

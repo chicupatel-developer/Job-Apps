@@ -8,5 +8,6 @@ namespace Services.Interfaces
     public interface IUWRepository
     {
         IEnumerable<LeftJoin_Uut_Uuga> GetUutGrpByDebitCredit_GL_Number();
+        IEnumerable<UWUser> GetUniversity_Users();
     }
 }

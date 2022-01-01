@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EmailService;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace api_job_apps.Controllers
@@ -13,10 +18,12 @@ namespace api_job_apps.Controllers
     public class UWController : ControllerBase
     {
         private readonly IUWRepository _uwRepo;
+        private readonly IEmailSender _emailSender;
 
-        public UWController(IUWRepository uwRepo)
+        public UWController(IUWRepository uwRepo, IEmailSender emailSender)
         {
             _uwRepo = uwRepo;
+            _emailSender = emailSender;
         }
 
         /// <summary>
@@ -51,6 +58,52 @@ namespace api_job_apps.Controllers
         {
             var data = _uwRepo.GetUutGrpByDebitCredit_GL_Number();
             return Ok(data);
+        }
+
+
+        // user can create csv file from List<UWUser> object and
+        // download that csv file as <universityUsers.csv> in browser
+        [HttpGet]
+        [Route("getUWUsersAsCSV")]
+        public IActionResult GetUWUsersAsCSV()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("UserId,FirstName,LastName");
+            var users = _uwRepo.GetUniversity_Users();
+            foreach (var user in users)
+            {
+                builder.AppendLine($"{user.UserId},{user.FirstName},{user.LastName}");
+            }
+
+            return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "universityUsers.csv");
+        }
+
+
+        // sending email with attachment file .csv
+        // runtime create .csv file from c# object and
+        // do not store .csv file on server
+        [HttpGet]
+        [Route("sendEmailWithCSVAttachment")]
+        public async Task<string> SendEmailWithCSVAttachmentAsync()
+        {
+            // c# object creation
+            var builder = new StringBuilder();
+            builder.AppendLine("UserId,FirstName,LastName");
+            var users = _uwRepo.GetUniversity_Users();
+            foreach (var user in users)
+            {
+                builder.AppendLine($"{user.UserId},{user.FirstName},{user.LastName}");
+            }
+            // string into memory-stream
+            MemoryStream usersStream = _emailSender.GenerateStreamFromString(builder.ToString());
+
+
+            // null = file from server, in this case it is null because we don't create and store file on server
+            // usersStream = memory-stream, in this case we will convert momery-stream into byte[] and attach as email-attachment @ _emailSender.SendEmailAsync(message) [process]
+            var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, usersStream);
+            await _emailSender.SendEmailAsync(message);
+
+            return "Email sent with attachment-file!";
         }
 
     }
