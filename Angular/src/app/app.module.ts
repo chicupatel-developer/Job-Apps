@@ -31,6 +31,7 @@ import { PersonalInfoCreateComponent } from './components/child-components/perso
 import { TechnicalSkillCreateComponent } from './components/child-components/technical-skill-create/technical-skill-create.component';
 import { WorkExperienceCreateComponent } from './components/child-components/work-experience-create/work-experience-create.component';
 import { SaveAndViewResumeComponent } from './components/child-components/save-and-view-resume/save-and-view-resume.component';
+import { EducationCreateComponent } from './components/child-components/education-create/education-create.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { SaveAndViewResumeComponent } from './components/child-components/save-a
     PersonalInfoCreateComponent,
     TechnicalSkillCreateComponent,
     WorkExperienceCreateComponent,
-    SaveAndViewResumeComponent
+    SaveAndViewResumeComponent,
+    EducationCreateComponent
   ],
   imports: [
     BrowserModule,

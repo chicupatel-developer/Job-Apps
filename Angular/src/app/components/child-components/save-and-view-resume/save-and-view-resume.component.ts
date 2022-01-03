@@ -30,43 +30,71 @@ export class SaveAndViewResumeComponent {
     
   }
 
-  saveAndViewMyResume() {
-
-    var personalInfo = this.localDataService.getPersonalInfo();    
+  checkResumeData() {
+    var personalInfo = this.localDataService.getPersonalInfo();
     var skills = this.localDataService.getSkills();
     var workExps = this.localDataService.getWorkExperience();
+    var education = this.localDataService.getEducation();
 
-    if (personalInfo == null || skills == null || workExps == null) {
+    var dataValid = false;
+    var myResume = {};
+
+    if (personalInfo == null || skills == null || workExps == null || education == null) {
       console.log('Resume Data Not Found!');
-      return;
+      dataValid = false;
     }
-      
-   
-    var myResume = {
-      personalInfo: personalInfo,
-      skills: skills,
-      workExperience: workExps
-    };
+    else {
+      myResume = {
+        personalInfo: personalInfo,
+        skills: skills,
+        workExperience: workExps,
+        education: education
+      };
 
-    console.log(myResume);
+      console.log(myResume);
+      dataValid = true;      
+    }
+    if (dataValid)
+      return myResume;
+    else
+      return null;
+  }
+  createAndDownloadResume() {
+    var myResume = this.checkResumeData();
+    if (myResume != null) {
+      // api call
+      this.dataService.createAndDownloadResume(myResume)
+        .subscribe(
+          blob => {
+            console.log(blob);
 
-    // api call
-    this.dataService.createResume(myResume)
-      .subscribe(
-        blob => {
-          console.log(blob);
+            // const myFile = new Blob([blob], { type: 'text/csv' });
+            const myFile = new Blob([blob], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(myFile);
+            window.open(url);
 
-          // const myFile = new Blob([blob], { type: 'text/csv' });
-          const myFile = new Blob([blob], { type: 'application/pdf' });
-          const url = window.URL.createObjectURL(myFile);
-          window.open(url);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
+  }
 
-        },
-        error => {
-          console.log(error);
-        }
-    );
-    
+  createAndEmailResume() {
+    var myResume = this.checkResumeData();
+    if (myResume != null) {
+      // api call
+      this.dataService.createAndEmailResume(myResume)
+        .subscribe(
+          json => {
+            console.log(json);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
   }
 }
 

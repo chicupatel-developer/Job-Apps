@@ -10,5 +10,6 @@ namespace ResumeService.Models
         public List<string> Skills { get; set; }
         public List<WorkExperience> WorkExperience { get; set; }
         public List<Education> Education { get; set; }
+        public string EmailMyResumeTo { get; set; }
     }
 }

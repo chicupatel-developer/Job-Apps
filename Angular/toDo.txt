@@ -1,1 +1,2 @@
-- add try/catch on EmailController and UWController
+- add try/catch on EmailController and UWController and ResumeCreatorController
+- if major is null then should not display Major label @ pdf

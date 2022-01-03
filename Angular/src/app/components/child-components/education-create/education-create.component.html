@@ -1,0 +1,78 @@
+<div class="educationContainer">
+    <div>
+        <h2>{{pageHeader}}</h2>
+    </div>
+    <div>
+        <form [formGroup]="educationForm">
+            <div class="saveButton">
+                <button (click)="saveEducation()" mat-raised-button color="primary" type="button">
+                    <mat-icon>save</mat-icon>
+                    &nbsp;&nbsp;Education
+                </button>
+            </div>
+
+            <div fxLayout="row" class="parent" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="mainContentLeft">
+                    <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
+                        <mat-label> University Name
+                        </mat-label>
+                        <input matInput formControlName="universityName" required>
+                        <mat-error *ngIf="(educationForm.controls.universityName.touched || submitted ) && educationForm.controls.universityName.invalid">
+                            <span *ngIf="educationForm.controls.universityName.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>
+                    <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
+                        <mat-label> Degree Name
+                        </mat-label>
+                        <input matInput formControlName="degreeName" required>
+                        <mat-error *ngIf="(educationForm.controls.degreeName.touched || submitted ) && educationForm.controls.degreeName.invalid">
+                            <span *ngIf="educationForm.controls.degreeName.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>
+                    <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
+                        <mat-label> Major
+                        </mat-label>
+                        <input matInput formControlName="major">
+                    </mat-form-field>
+                    <p></p>
+                </div>
+                <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="mainContentLeft">
+                    <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
+                        <mat-label> Country
+                        </mat-label>
+                        <input matInput formControlName="country" required>
+                        <mat-error *ngIf="(educationForm.controls.country.touched || submitted ) && educationForm.controls.country.invalid">
+                            <span *ngIf="educationForm.controls.country.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>
+                    <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
+                        <mat-label> Start Date
+                        </mat-label>
+                        <input matInput formControlName="startDate" required>
+                        <mat-error *ngIf="(educationForm.controls.startDate.touched || submitted ) && educationForm.controls.startDate.invalid">
+                            <span *ngIf="educationForm.controls.startDate.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>
+                    <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
+                        <mat-label> End Date
+                        </mat-label>
+                        <input matInput formControlName="endDate" required>
+                        <mat-error *ngIf="(educationForm.controls.endDate.touched || submitted ) && educationForm.controls.endDate.invalid">
+                            <span *ngIf="educationForm.controls.endDate.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

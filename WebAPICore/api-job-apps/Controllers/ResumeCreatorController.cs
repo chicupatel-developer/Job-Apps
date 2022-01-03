@@ -28,10 +28,9 @@ namespace api_job_apps.Controllers
         }
 
         // create pdf resume as byte[] and display @ browser
-        // and attach it as email attachment, but do not store .pdf file on server
         [HttpPost]
-        [Route("createResume")]
-        public async Task<IActionResult> createResume(MyResume myResume)
+        [Route("createAndDownloadResume")]
+        public IActionResult CreateAndDownloadResume(MyResume myResume)
         {
             // instantiate a html to pdf converter object
             HtmlToPdf converter = _resumeCreator.GetHtmlToPdfObject();        
@@ -53,23 +52,7 @@ namespace api_job_apps.Controllers
 
             // Education
             List<Education> educations = new List<Education>();
-            educations.Add(new Education()
-            {
-                 DegreeName="Master of E-Commerce",
-                  StartDate = "Oct, 1999",
-                   EndDate = "Mar, 2002",
-                    UniversityName = "S.P.University",
-                     Country = "India",
-                     Major = "Computer Programming & Business Management"
-            });
-            educations.Add(new Education()
-            {
-                DegreeName = "Bachelor of Engineering",
-                StartDate = "Jun, 1993",
-                EndDate = "Jul, 1997",
-                UniversityName = "S.P.University",
-                Country = "India"
-            });
+            educations = myResume.Education;
 
             var content = _resumeCreator.GetPageHeader() +
                             _resumeCreator.GetPersonalInfoString(personalInfo) +
@@ -80,16 +63,55 @@ namespace api_job_apps.Controllers
 
             // create pdf as byte[] and display @ browser
             var pdf = converter.ConvertHtmlString(content);
+            var pdfBytes = pdf.Save();    
+            return File(pdfBytes, "application/pdf");            
+        }
+       
+        // create pdf resume as byte[] 
+        // and attach it as email attachment, but do not store .pdf file on server
+        [HttpPost]
+        [Route("createAndEmailResume")]
+        public async Task<string> createAndEmailResume(MyResume myResume)
+        {
+            // instantiate a html to pdf converter object
+            HtmlToPdf converter = _resumeCreator.GetHtmlToPdfObject();
+
+            // prepare data
+            // incoming from angular
+            // Personal Info
+            PersonalInfo personalInfo = new PersonalInfo();
+            personalInfo = myResume.PersonalInfo;
+
+            // Technical Skills List<string>
+            List<string> skills = new List<string>();
+            skills = myResume.Skills;
+
+            // Work Experience
+            List<WorkExperience> workExps = new List<WorkExperience>();
+            workExps = myResume.WorkExperience;
+
+            // Education
+            List<Education> educations = new List<Education>();
+            educations = myResume.Education;                    
+
+            var content = _resumeCreator.GetPageHeader() +
+                            _resumeCreator.GetPersonalInfoString(personalInfo) +
+                            _resumeCreator.GetTechnicalSkillsString(skills) +
+                            _resumeCreator.GetWorkExperienceString(workExps) +
+                            _resumeCreator.GetEducationString(educations) +
+                            _resumeCreator.GetPageFooter();
+
+            var pdf = converter.ConvertHtmlString(content);
             var pdfBytes = pdf.Save();
 
             // convert byte[] to memory-stream
             MemoryStream stream = new MemoryStream(pdfBytes);
             // create .pdf and attach it as email attachment, but do not store .pdf file on server
+            // var message = new Message(new string[] { myResume.EmailMyResumeTo }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, stream, "pdf", "myResume.pdf");
             var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, stream, "pdf", "myResume.pdf");
             await _emailSender.SendEmailAsync(message);
 
-            // display resume as byte[] / .pdf @ browser
-            return File(pdfBytes, "application/pdf");            
-        }     
+            return "Resume sent in your Email-Attachment! Please check your Email!";
+        }
     }
 }

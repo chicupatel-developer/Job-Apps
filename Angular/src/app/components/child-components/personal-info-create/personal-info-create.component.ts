@@ -87,7 +87,4 @@ export class PersonalInfoCreateComponent {
     console.log(this.localDataService.getPersonalInfo());
   }
 
-  nextTab() {
-    
-  }
 }

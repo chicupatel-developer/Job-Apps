@@ -76,9 +76,15 @@ export class DataService {
       { responseType: 'blob' as 'json' });
   }
   
-  // createResume
-  createResume(myResume): Observable<Blob> {
-    return this.http.post<Blob>(this.ResumeCreator_API + '/createResume',myResume,
+  // create and download resume
+  createAndDownloadResume(myResume): Observable<Blob> {
+    return this.http.post<Blob>(this.ResumeCreator_API + '/createAndDownloadResume',myResume,
       { responseType: 'blob' as 'json' });
+  }
+
+  // create and email resume
+  createAndEmailResume(myResume): Observable<string> {
+    return this.http.post<string>(this.ResumeCreator_API + '/createAndEmailResume', myResume,
+      { responseType: 'string' as 'json' });
   }
 }

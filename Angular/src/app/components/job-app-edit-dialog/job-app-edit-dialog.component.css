@@ -1,4 +1,3 @@
-
 .mat-form-field {
     display: block;
 }
@@ -8,29 +7,35 @@ textarea {
     resize: vertical;
 }
 
+
 /*
 .mat-dialog-container{
      width: 800px; 
 }
 */
 
-.mat-dialog-header{    
+.mat-dialog-header {
     color: blue;
     font-size: large;
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
+
 .mat-card-content {
-     font-size: 20px;
-     background-color: lightyellow;
+    font-size: 20px;
+    background-color: lightyellow;
 }
 
-.mainContentLeft{    
+.mainContentLeft {
     padding: 10px;
     margin: 5px;
 }
-.mainContentRight{     
+
+.mainContentRight {
     padding: 10px;
     margin: 5px;
 }
-.parent {height:100%;}
+
+.parent {
+    height: 100%;
+}

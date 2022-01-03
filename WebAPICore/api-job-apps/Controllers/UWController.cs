@@ -61,7 +61,7 @@ namespace api_job_apps.Controllers
         }
 
 
-        // user can create csv file from c# object and
+        // create csv file from c# object and
         // download that csv file as <universityUsers.csv> in browser
         [HttpGet]
         [Route("downloadUWUsersAsCSV")]
