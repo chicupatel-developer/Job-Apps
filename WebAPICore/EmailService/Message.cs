@@ -16,7 +16,7 @@ namespace EmailService
 
         public IFormFileCollection Attachments { get; set; }
 
-        public Message(IEnumerable<string> to, string subject, string content, IFormFileCollection attachments, MemoryStream dataAsMemoryStream)
+        public Message(IEnumerable<string> to, string subject, string content, IFormFileCollection attachments, MemoryStream dataAsMemoryStream, string fileType, string fileName)
         {
             To = new List<MailboxAddress>();
 
@@ -25,9 +25,17 @@ namespace EmailService
             Content = content;
             Attachments = attachments;
             DataAsMemoryStream = dataAsMemoryStream;
+            FileType = fileType;
+            FileName = fileName;
         }
 
         // memory-stream to byte[] as file-attachment
         public MemoryStream DataAsMemoryStream { get; set; }
+
+        // file type,,, .pdf, .csv,,,
+        public string FileType { get; set; }
+
+        // file name
+        public string FileName { get; set; }
     }
 }

@@ -22,13 +22,14 @@ namespace api_job_apps.Controllers
         [HttpGet]
         public async Task<string> Get()
         {
-            var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test email async", "This is the content from our async email.", null, null);
+            var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test email async", "This is the content from our async email.", null, null, null, null);
             await _emailSender.SendEmailAsync(message);
 
             return "Email Sent!";
         }
 
         // sending email with attachment files
+        // file input is either coming from upload action or from server file-system
         [HttpPost]
         [Route("sendEmailWithAttachment")]
         public async Task<string> Post()
@@ -37,7 +38,7 @@ namespace api_job_apps.Controllers
 
             var files = Request.Form.Files.Any() ? Request.Form.Files : new FormFileCollection();
 
-            var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", files, null);
+            var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", files, null, null, null);
             await _emailSender.SendEmailAsync(message);
 
             return "Email sent with attachment-file!";

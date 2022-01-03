@@ -1,4 +1,5 @@
 ﻿using EFCore.DBFirst_SQLTOLINQ_Models;
+using EmailService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ResumeService;
@@ -18,15 +19,19 @@ namespace api_job_apps.Controllers
     public class ResumeCreatorController : ControllerBase
     {
         private readonly IResumeCreator _resumeCreator;
+        private readonly IEmailSender _emailSender;
 
-        public ResumeCreatorController(IResumeCreator resumeCreator)
+        public ResumeCreatorController(IResumeCreator resumeCreator,IEmailSender emailSender)
         {
             _resumeCreator = resumeCreator;
+            _emailSender = emailSender;
         }
 
+        // create pdf resume as byte[] and display @ browser
+        // and attach it as email attachment, but do not store .pdf file on server
         [HttpPost]
         [Route("createResume")]
-        public IActionResult createResume(MyResume myResume)
+        public async Task<IActionResult> createResume(MyResume myResume)
         {
             // instantiate a html to pdf converter object
             HtmlToPdf converter = _resumeCreator.GetHtmlToPdfObject();        
@@ -73,10 +78,18 @@ namespace api_job_apps.Controllers
                             _resumeCreator.GetEducationString(educations) +
                             _resumeCreator.GetPageFooter();
 
-            // create pdf and display @ browser
+            // create pdf as byte[] and display @ browser
             var pdf = converter.ConvertHtmlString(content);
             var pdfBytes = pdf.Save();
+
+            // convert byte[] to memory-stream
+            MemoryStream stream = new MemoryStream(pdfBytes);
+            // create .pdf and attach it as email attachment, but do not store .pdf file on server
+            var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, stream, "pdf", "myResume.pdf");
+            await _emailSender.SendEmailAsync(message);
+
+            // display resume as byte[] / .pdf @ browser
             return File(pdfBytes, "application/pdf");            
-        }
+        }     
     }
 }

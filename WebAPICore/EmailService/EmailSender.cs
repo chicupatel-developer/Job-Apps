@@ -121,6 +121,9 @@ namespace EmailService
             }
         }
 
+        // email with attachment file,,, .pdf, .csv,,,
+        // do not store file on server
+        // just attach as byte[],,,  message.DataAsMemoryStream.ToArray()
         private MimeMessage CreateEmailMessage_(Message message)
         {
             var emailMessage = new MimeMessage();
@@ -129,10 +132,24 @@ namespace EmailService
             emailMessage.Subject = message.Subject;
 
             var bodyBuilder = new BodyBuilder { HtmlBody = string.Format("<h2 style='color:red;'>{0}</h2>", message.Content) };
-            System.Net.Mime.ContentType ct = new System.Net.Mime.ContentType(System.Net.Mime.MediaTypeNames.Text.Plain);
-            System.Net.Mail.Attachment attach = new System.Net.Mail.Attachment(message.DataAsMemoryStream, ct);
-            attach.ContentDisposition.FileName = "universityUsers.csv";
-            bodyBuilder.Attachments.Add("universityUsers.csv", message.DataAsMemoryStream.ToArray(), ContentType.Parse("text/csv"));
+            
+            System.Net.Mime.ContentType ct = new System.Net.Mime.ContentType();           
+            
+            // .csv
+            if (message.FileType == "csv")
+            {
+                ct = new System.Net.Mime.ContentType(System.Net.Mime.MediaTypeNames.Text.Plain);
+                System.Net.Mail.Attachment attach = new System.Net.Mail.Attachment(message.DataAsMemoryStream, ct);
+                attach.ContentDisposition.FileName = message.FileName;
+                bodyBuilder.Attachments.Add(message.FileName, message.DataAsMemoryStream.ToArray(), ContentType.Parse("text/csv"));
+            }
+            else if(message.FileType == "pdf")
+            {
+                ct = new System.Net.Mime.ContentType(System.Net.Mime.MediaTypeNames.Application.Pdf);
+                System.Net.Mail.Attachment attach = new System.Net.Mail.Attachment(message.DataAsMemoryStream, ct);                
+                attach.ContentDisposition.FileName = message.FileName;
+                bodyBuilder.Attachments.Add(message.FileName, message.DataAsMemoryStream.ToArray(), ContentType.Parse("application/pdf"));
+            }
 
             emailMessage.Body = bodyBuilder.ToMessageBody();
             return emailMessage;

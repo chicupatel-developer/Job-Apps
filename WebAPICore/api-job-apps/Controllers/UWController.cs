@@ -61,21 +61,15 @@ namespace api_job_apps.Controllers
         }
 
 
-        // user can create csv file from List<UWUser> object and
+        // user can create csv file from c# object and
         // download that csv file as <universityUsers.csv> in browser
         [HttpGet]
-        [Route("getUWUsersAsCSV")]
-        public IActionResult GetUWUsersAsCSV()
-        {
-            var builder = new StringBuilder();
-            builder.AppendLine("UserId,FirstName,LastName");
-            var users = _uwRepo.GetUniversity_Users();
-            foreach (var user in users)
-            {
-                builder.AppendLine($"{user.UserId},{user.FirstName},{user.LastName}");
-            }
-
-            return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "universityUsers.csv");
+        [Route("downloadUWUsersAsCSV")]
+        public IActionResult DownloadUWUsersAsCSV()
+        {  
+            // c# object to strbuilder to str
+            var universityUsersAsStr = _uwRepo.GetUniversity_Users_As_Str();
+            return File(Encoding.UTF8.GetBytes(universityUsersAsStr), "text/csv", "universityUsers.csv");
         }
 
 
@@ -84,26 +78,20 @@ namespace api_job_apps.Controllers
         // do not store .csv file on server
         [HttpGet]
         [Route("sendEmailWithCSVAttachment")]
-        public async Task<string> SendEmailWithCSVAttachmentAsync()
+        public async Task<string> SendEmailWithCSVAttachment()
         {
-            // c# object creation
-            var builder = new StringBuilder();
-            builder.AppendLine("UserId,FirstName,LastName");
-            var users = _uwRepo.GetUniversity_Users();
-            foreach (var user in users)
-            {
-                builder.AppendLine($"{user.UserId},{user.FirstName},{user.LastName}");
-            }
+            // c# object to strbuilder to str
+            var universityUsersAsStr = _uwRepo.GetUniversity_Users_As_Str();
             // string into memory-stream
-            MemoryStream usersStream = _emailSender.GenerateStreamFromString(builder.ToString());
+            MemoryStream usersStream = _emailSender.GenerateStreamFromString(universityUsersAsStr);
 
 
             // null = file from server, in this case it is null because we don't create and store file on server
             // usersStream = memory-stream, in this case we will convert momery-stream into byte[] and attach as email-attachment @ _emailSender.SendEmailAsync(message) [process]
-            var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, usersStream);
+            var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, usersStream, "csv", "universityUsers.csv");
             await _emailSender.SendEmailAsync(message);
 
-            return "Email sent with attachment-file!";
+            return "Email sent with File-Attachment!";
         }
 
     }

@@ -18,6 +18,7 @@ namespace EFCore.DBFirst_SQLTOLINQ_Models
         public virtual DbSet<MigrationHistory> MigrationHistory { get; set; }
         public virtual DbSet<Uuga> Uuga { get; set; }
         public virtual DbSet<Uut> Uut { get; set; }
+        public virtual DbSet<Uwuser> Uwuser { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -78,6 +79,27 @@ namespace EFCore.DBFirst_SQLTOLINQ_Models
                 entity.Property(e => e.DebitGlNumber)
                     .HasColumnName("Debit_GL_Number")
                     .HasMaxLength(10);
+            });
+
+            modelBuilder.Entity<Uwuser>(entity =>
+            {
+                entity.ToTable("UWUser");
+
+                entity.Property(e => e.UwuserId).HasColumnName("UWUserId");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(12);
             });
 
             OnModelCreatingPartial(modelBuilder);
