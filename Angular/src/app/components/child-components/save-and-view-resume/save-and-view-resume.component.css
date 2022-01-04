@@ -41,10 +41,12 @@ th.mat-header-cell {
 
 .mainContentLeft {
     padding: 10px;
+    margin: 10px;
 }
 
 .mainContentRight {
     padding: 10px;
+    margin: 10px;
 }
 
 mat-form-field {
@@ -53,4 +55,8 @@ mat-form-field {
 
 .saveButton {
     padding-bottom: 30px;
+}
+
+.resumeDiv {
+    margin-top: 30px;
 }

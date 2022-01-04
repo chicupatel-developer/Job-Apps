@@ -25,6 +25,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 @NgModule({
     imports: [
@@ -52,7 +54,8 @@ import { MatChipsModule } from '@angular/material/chips';
         MatProgressBarModule,
         MatExpansionModule,
         MatStepperModule,
-        MatChipsModule
+        MatChipsModule,
+        MatProgressSpinnerModule
     ],
     exports: [
         MatSliderModule,
@@ -79,7 +82,8 @@ import { MatChipsModule } from '@angular/material/chips';
         MatProgressBarModule,
         MatExpansionModule,
         MatStepperModule,
-        MatChipsModule
+        MatChipsModule,
+        MatProgressSpinnerModule
     ]
 })
 export class MaterialModule { }

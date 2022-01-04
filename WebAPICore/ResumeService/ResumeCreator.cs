@@ -160,7 +160,6 @@ namespace ResumeService
             return headerString;
         }
 
-
         /*
         public string GetTechnicalSkillsString(List<string> skills)
         {
@@ -205,8 +204,7 @@ namespace ResumeService
             skillsString.Append(@"</table></div>");
             return skillsString.ToString();
         }
-  
-    
+      
         public string GetWorkExperienceString(List<WorkExperience> workExperiences)
         {
             StringBuilder woExpString = new StringBuilder();
@@ -253,7 +251,7 @@ namespace ResumeService
             {
                 educationString.Append(@"<li class='educationLi'>");
                 educationString.Append(@"<div class='educationDiv'><b>" + education.DegreeName + "</b></div>");
-                if (education.Major != null)
+                if (education.Major != null && education.Major!="")
                 {
                     educationString.Append(@"<div class='educationDiv'><b>Major : " + education.Major + "</b></div>");
                 }                

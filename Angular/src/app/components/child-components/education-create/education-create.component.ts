@@ -45,11 +45,12 @@ export class EducationCreateComponent {
     });
   }
 
-  // save education to local-data-service
-  saveEducation() {
+
+  prepareDataForEducation() {
     this.submitted = true;
 
     if (!this.educationForm.valid) {
+      console.log('Invalid Form!');
       return;
     }
 
@@ -63,13 +64,32 @@ export class EducationCreateComponent {
       major: this.educationForm.value["major"]
     };
 
-    // save to local-data-service
-    this.education = educationData;
-    this.educations.push(this.education);
-    this.localDataService.setEducation(this.educations);
+    // reset education form  
+    this.educationForm.reset();
 
-    console.log(this.localDataService.getEducation());
-   
+    // save to local-data-service
+    this.educations.push(educationData);
+    this.localDataService.setEducation(this.educations);
+  }
+
+  // save education to educations[] and stays to education step
+  // in resume - creator 
+  saveAndAddMoreEducation() {
+    this.prepareDataForEducation();
+  }
+
+  // save all educations and move to next step in resume-creator
+  saveEducation() {
+    this.prepareDataForEducation();
+
+    if (this.localDataService.getEducation() != undefined && this.localDataService.getEducation().length > 0) {
+      console.log(this.localDataService.getEducation());
+
+      // move to next step
+    }
+    else {
+      console.log('You Have ZERO Education !');
+    }   
   }
 
 }

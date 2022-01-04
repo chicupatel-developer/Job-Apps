@@ -62,3 +62,7 @@ th.mat-header-cell {
     color: black;
     font-size: x-large;
 }
+
+.spinnerDiv {
+    padding: 20px;
+}
