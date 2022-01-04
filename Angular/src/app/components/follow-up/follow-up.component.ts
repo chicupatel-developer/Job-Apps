@@ -26,6 +26,7 @@ import AppStatusType from 'src/app/models/appStatusType';
 export class FollowUpComponent implements OnInit {
 
   jobApps = [];
+  showSpinner = false;
 
   filterForm: FormGroup;
   provinceCollection: any = ['MB', 'ON', 'AB'];
@@ -190,6 +191,7 @@ export class FollowUpComponent implements OnInit {
   }
 
   getAllJobApps() {
+    this.showSpinner = true;
     this.dataService.getAllJobApps()
       .subscribe(
         data => {
@@ -200,9 +202,12 @@ export class FollowUpComponent implements OnInit {
           // no need for api call
           // no need to filter @ api
           this.localDataService.setMyJobs(data);
+          
+          this.showSpinner = false;
         },
         error => {
           console.log(error);
+          this.showSpinner = false;
         });
   }
 

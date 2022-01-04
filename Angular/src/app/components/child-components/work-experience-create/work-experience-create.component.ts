@@ -12,12 +12,14 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { map, startWith } from 'rxjs/operators';
 import WorkExperience from 'src/app/models/workExperience';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-work-experience-create',
   templateUrl: './work-experience-create.component.html',
   styleUrls: ['./work-experience-create.component.css']
 })
+
 export class WorkExperienceCreateComponent {
 
   @Input() pageHeader: string | undefined;
@@ -81,6 +83,9 @@ export class WorkExperienceCreateComponent {
       jobDetails: this.jobDetailsForWE
     };
 
+    if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
+      workExp.endDate = 'Till - Date';
+
     console.log(workExp);
 
     // reset work-experience form  
@@ -92,7 +97,6 @@ export class WorkExperienceCreateComponent {
 
     // reset this.jobDetailsForWE[]
     this.jobDetailsForWE = [];
-
   }
 
   // save work-experience to workExps[] and stays to work-experience step
@@ -124,5 +128,26 @@ export class WorkExperienceCreateComponent {
       }     
     }
     
+  }
+
+  // wip - get duration from endDate and startDate
+  onBlurEvent(event) {
+    var startDate = this.workExpForm.value["startDate"];
+    var endDate = this.workExpForm.value["endDate"];
+
+    if (startDate != '' && endDate != '') {
+      if(startDate!=null && endDate != null)
+        console.log('Start-Date & End-Date are OK!');
+    }
+    else if (startDate != '' && endDate === '') {
+      console.log('Start-Date is OK,,, End-Date is Till-Date');
+    }
+    else if (startDate === '') {
+      console.log('Start-Date is Not OK!');
+      return;
+    }
+    else if (startDate > endDate) {
+      console.log('Start-Date > End-Date !');
+    }
   }
 }

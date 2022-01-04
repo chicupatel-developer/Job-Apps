@@ -63,13 +63,13 @@
             </mat-card>
         </div>
 
-        <div *ngIf="!(jobApps?.length > 0)" class="spinnerDiv ">
+        <div *ngIf="showSpinner" class="spinnerDiv ">
             <div fxLayout fxLayoutAlign="center center ">
                 <mat-spinner [diameter]="50 "></mat-spinner>
             </div>
         </div>
 
-        <div *ngIf="(jobApps?.length > 0)">
+        <div *ngIf="(jobApps?.length > 0); else noJobData">
             <div *ngFor="let job of jobApps" class="mainContent-mat-card">
                 <mat-card class="mat-elevation-z4 jobApps-mat-card">
                     <mat-card-header>
@@ -158,4 +158,10 @@
 
 <ng-template #notesNotAv>
     Notes N/A
+</ng-template>
+
+<ng-template #noJobData>
+    <div fxLayout fxLayoutAlign="center center ">
+        <span class="noJobData">Job Data Not Available!</span>
+    </div>
 </ng-template>

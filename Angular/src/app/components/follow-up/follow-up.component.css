@@ -71,3 +71,11 @@
     .spinnerDiv {
         padding: 20px;
     }
+    
+    .noJobData {
+        color: blue;
+        font-size: larger;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        font-weight: bold;
+    }
