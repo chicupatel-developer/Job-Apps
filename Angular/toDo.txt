@@ -1,2 +1,0 @@
-- add try/catch on EmailController and UWController and ResumeCreatorController
-

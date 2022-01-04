@@ -66,3 +66,12 @@ th.mat-header-cell {
 .spinnerDiv {
     padding: 20px;
 }
+
+.error {
+    color: red;
+    font-size: medium;
+}
+
+.apiResponseDiv {
+    margin-bottom: 20px;
+}

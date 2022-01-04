@@ -73,9 +73,20 @@
 <p></p>
 <div class="mainContainer">
 
-    <div *ngIf="uutGrpByDebitCredit_GL_Number.data.length<1" class="spinnerDiv">
-        <div fxLayout fxLayoutAlign="center center">
-            <mat-spinner [diameter]="50"></mat-spinner>
+
+    <div *ngIf="apiResponse" fxLayout fxLayoutAlign="center center" class="apiResponseDiv">
+        <mat-card>
+            <mat-card-title>
+                <span class="error">{{apiResponse}}</span>
+            </mat-card-title>
+        </mat-card>
+    </div>
+
+
+
+    <div *ngIf=" !apiResponse && uutGrpByDebitCredit_GL_Number.data.length<1 " class="spinnerDiv ">
+        <div fxLayout fxLayoutAlign="center center ">
+            <mat-spinner [diameter]="50 "></mat-spinner>
         </div>
     </div>
 
@@ -113,5 +124,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <mat-paginator *ngIf="!apiResponse" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>

@@ -22,10 +22,17 @@ namespace api_job_apps.Controllers
         [HttpGet]
         public async Task<string> Get()
         {
-            var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test email async", "This is the content from our async email.", null, null, null, null);
-            await _emailSender.SendEmailAsync(message);
+            try
+            {
+                var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test email async", "This is the content from our async email.", null, null, null, null);
+                await _emailSender.SendEmailAsync(message);
 
-            return "Email Sent!";
+                return "Email Sent!";
+            }
+            catch(Exception ex)
+            {
+                return "Error Sending Email!";
+            }
         }
 
         // sending email with attachment files
@@ -34,14 +41,23 @@ namespace api_job_apps.Controllers
         [Route("sendEmailWithAttachment")]
         public async Task<string> Post()
         {
-            var rng = new Random();
+            try
+            {
+                // throw new Exception();
 
-            var files = Request.Form.Files.Any() ? Request.Form.Files : new FormFileCollection();
+                var rng = new Random();
 
-            var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", files, null, null, null);
-            await _emailSender.SendEmailAsync(message);
+                var files = Request.Form.Files.Any() ? Request.Form.Files : new FormFileCollection();
 
-            return "Email sent with attachment-file!";
+                var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", files, null, null, null);
+                await _emailSender.SendEmailAsync(message);
+
+                return "Email sent with attachment-file!";
+            }
+            catch(Exception ex)
+            {
+                return "Error Sending Email!";
+            }       
         }
     }
 }

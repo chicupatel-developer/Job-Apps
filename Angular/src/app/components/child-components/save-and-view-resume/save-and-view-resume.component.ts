@@ -21,6 +21,9 @@ export class SaveAndViewResumeComponent {
 
   @Input() pageHeader: string | undefined;
 
+  apiResponse = '';
+  successResponse = '';
+
   constructor(
     private router: Router,
     public dataService: DataService,
@@ -43,14 +46,13 @@ export class SaveAndViewResumeComponent {
       console.log('Resume Data Not Found!');
       dataValid = false;
     }
-    else {
+    else {    
       myResume = {
         personalInfo: personalInfo,
         skills: skills,
         workExperience: workExps,
         education: education
-      };
-
+      };      
       console.log(myResume);
       dataValid = true;      
     }
@@ -72,12 +74,29 @@ export class SaveAndViewResumeComponent {
             const myFile = new Blob([blob], { type: 'application/pdf' });
             const url = window.URL.createObjectURL(myFile);
             window.open(url);
-
           },
           error => {
-            console.log(error);
+            if (error.status === 400) {
+              this.apiResponse = error.statusText;            
+            }
+            else if (error.status === 500) {             
+              this.apiResponse = error.statusText;
+            }
+            else {
+              console.log(error);
+              this.apiResponse = 'Error!';
+            }
+            setTimeout(() => {
+              this.apiResponse = '';
+            }, 3000);
           }
         );
+    }
+    else {
+      this.apiResponse = 'Resume Data Not Found!';
+      setTimeout(() => {
+        this.apiResponse = '';
+      }, 3000);
     }
   }
 
@@ -89,11 +108,33 @@ export class SaveAndViewResumeComponent {
         .subscribe(
           json => {
             console.log(json);
+            this.successResponse = json;
+            setTimeout(() => {
+              this.successResponse = '';
+            }, 3000);
           },
           error => {
-            console.log(error);
+            if (error.status === 400) {
+              this.apiResponse = error.statusText;
+            }
+            else if (error.status === 500) {
+              this.apiResponse = error.statusText;
+            }
+            else {
+              console.log(error);
+              this.apiResponse = 'Error!';
+            }
+            setTimeout(() => {
+              this.apiResponse = '';
+            }, 3000);
           }
         );
+    }
+    else {
+      this.apiResponse = 'Resume Data Not Found!';
+      setTimeout(() => {
+        this.apiResponse = '';
+      }, 3000);
     }
   }
 }

@@ -60,3 +60,13 @@ mat-form-field {
 .resumeDiv {
     margin-top: 30px;
 }
+
+.error {
+    color: red;
+    font-size: medium;
+}
+
+.success {
+    color: green;
+    font-size: medium;
+}

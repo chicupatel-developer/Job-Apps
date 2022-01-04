@@ -56,8 +56,18 @@ namespace api_job_apps.Controllers
         [Route("getUUTGrp_DebitCredit_GL_Number")]
         public IActionResult GetUutGrpByDebitCredit_GL_Number()
         {
-            var data = _uwRepo.GetUutGrpByDebitCredit_GL_Number();
-            return Ok(data);
+            try
+            {
+                // throw new Exception();
+
+                var data = _uwRepo.GetUutGrpByDebitCredit_GL_Number();
+                return Ok(data);
+                // return Ok(null);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, "Server Error!");
+            }          
         }
 
 
@@ -66,10 +76,19 @@ namespace api_job_apps.Controllers
         [HttpGet]
         [Route("downloadUWUsersAsCSV")]
         public IActionResult DownloadUWUsersAsCSV()
-        {  
-            // c# object to strbuilder to str
-            var universityUsersAsStr = _uwRepo.GetUniversity_Users_As_Str();
-            return File(Encoding.UTF8.GetBytes(universityUsersAsStr), "text/csv", "universityUsers.csv");
+        {
+            try
+            {
+                throw new Exception();
+
+                // c# object to strbuilder to str
+                var universityUsersAsStr = _uwRepo.GetUniversity_Users_As_Str();
+                return File(Encoding.UTF8.GetBytes(universityUsersAsStr), "text/csv", "universityUsers.csv");
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, "Server Error!");
+            }         
         }
 
 
@@ -80,18 +99,27 @@ namespace api_job_apps.Controllers
         [Route("sendEmailWithCSVAttachment")]
         public async Task<string> SendEmailWithCSVAttachment()
         {
-            // c# object to strbuilder to str
-            var universityUsersAsStr = _uwRepo.GetUniversity_Users_As_Str();
-            // string into memory-stream
-            MemoryStream usersStream = _emailSender.GenerateStreamFromString(universityUsersAsStr);
+            try
+            {
+                // throw new Exception();
+
+                // c# object to strbuilder to str
+                var universityUsersAsStr = _uwRepo.GetUniversity_Users_As_Str();
+                // string into memory-stream
+                MemoryStream usersStream = _emailSender.GenerateStreamFromString(universityUsersAsStr);
 
 
-            // null = file from server, in this case it is null because we don't create and store file on server
-            // usersStream = memory-stream, in this case we will convert momery-stream into byte[] and attach as email-attachment @ _emailSender.SendEmailAsync(message) [process]
-            var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, usersStream, "csv", "universityUsers.csv");
-            await _emailSender.SendEmailAsync(message);
+                // null = file from server, in this case it is null because we don't create and store file on server
+                // usersStream = memory-stream, in this case we will convert momery-stream into byte[] and attach as email-attachment @ _emailSender.SendEmailAsync(message) [process]
+                var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, usersStream, "csv", "universityUsers.csv");
+                await _emailSender.SendEmailAsync(message);
 
-            return "Email sent with File-Attachment!";
+                return "Email sent with File-Attachment!";
+            }
+            catch(Exception ex)
+            {
+                return "Error Sending Email!";
+            }         
         }
 
     }

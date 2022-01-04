@@ -13,6 +13,8 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class UniversityWinnipegComponent implements OnInit, AfterViewInit {
 
+  apiResponse = '';
+
   displayedColumns = ['gL_Number', 'chrt_Acct_Desc', 'debit_Amount', 'credit_Amount','net_Amount'];
   uutGrpByDebitCredit_GL_Number = new MatTableDataSource<any>();
   
@@ -44,10 +46,16 @@ export class UniversityWinnipegComponent implements OnInit, AfterViewInit {
       .subscribe(
         data => {
           console.log(data);
-          this.uutGrpByDebitCredit_GL_Number.data = data;
+          if (data == null) {
+            this.uutGrpByDebitCredit_GL_Number.data = [];
+            this.apiResponse = 'Data Not Found!';
+          }
+          else
+            this.uutGrpByDebitCredit_GL_Number.data = data;
         },
         error => {
           console.log(error);
+          this.apiResponse = error.error;
         });
   }
 
