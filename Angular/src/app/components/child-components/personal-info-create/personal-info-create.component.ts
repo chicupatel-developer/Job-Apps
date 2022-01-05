@@ -31,6 +31,7 @@ export class PersonalInfoCreateComponent {
   submitted = false;
   personalInfo = new PersonalInfo();
 
+  saved = false;
   constructor(
     private router: Router,
     public dataService: DataService,
@@ -85,6 +86,12 @@ export class PersonalInfoCreateComponent {
     this.localDataService.setPersonalInfo(this.personalInfo);
 
     console.log(this.localDataService.getPersonalInfo());
-  }
 
+  
+    this.saved = true;
+    setTimeout(() => {
+      this.saved = false;
+    }, 3000);
+
+  }
 }

@@ -37,8 +37,12 @@ export class WorkExperienceCreateComponent {
   // calculate work experience duration
   startDate = '';
   endDate = '';
-  duration = 0;
+  duration = 0;  
   
+  // edit work experience
+  employerNames : string[] = [];
+
+
   constructor(
     private router: Router,
     public dataService: DataService,
@@ -102,6 +106,9 @@ export class WorkExperienceCreateComponent {
 
     // reset this.jobDetailsForWE[]
     this.jobDetailsForWE = [];
+
+    // edit work experience
+    this.employerNames.push(workExp.employerName);   
   }
 
   // save work-experience to workExps[] and stays to work-experience step
@@ -135,7 +142,7 @@ export class WorkExperienceCreateComponent {
     
   }
 
-  // wip - get duration from endDate and startDate  
+  // get duration from endDate and startDate  
   onBlurEvent_EndDate(event) {
     if (this.workExpForm.value["startDate"] != null) {
       this.endDate = event.target.value;
@@ -188,7 +195,6 @@ export class WorkExperienceCreateComponent {
     else
       this.duration = 0;
   }
-
   changeEvent_StartDate(event) {
     if (event.target.value != null) {
       this.endDate = this.workExpForm.value["endDate"];
@@ -225,4 +231,7 @@ export class WorkExperienceCreateComponent {
       this.duration = 0;
   }
 
+  editWorkExperience(emp) {
+    console.log('editing... ' + emp);
+  }
 }
