@@ -60,7 +60,7 @@
                     <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
                         <mat-label> Start Date
                         </mat-label>
-                        <input matInput formControlName="startDate" [matDatepicker]="picker">
+                        <input required (dateChange)="changeEvent_StartDate($event)" matInput formControlName="startDate" [matDatepicker]="picker">
                         <mat-datepicker-toggle matSuffix [for]="picker">
                         </mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
@@ -73,14 +73,11 @@
                     <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">
                         <mat-label> End Date
                         </mat-label>
-                        <input matInput formControlName="endDate" (blur)="onBlurEvent($event)" [matDatepicker]="picker1">
+                        <input (blur)="onBlurEvent_EndDate($event)" (dateChange)="changeEvent_EndDate($event)" matInput formControlName="endDate" [matDatepicker]="picker1">
                         <mat-datepicker-toggle matSuffix [for]="picker1">
                         </mat-datepicker-toggle>
                         <mat-datepicker #picker1></mat-datepicker>
-                        <mat-error *ngIf="(workExpForm.controls.endDate.touched || submitted ) && workExpForm.controls.endDate.invalid">
-                            <span *ngIf="workExpForm.controls.endDate.errors.required">This
-                                field is mandatory.</span>
-                        </mat-error>
+                        <span class="duration">&nbsp;&nbsp;&nbsp;&nbsp;Experience : {{duration}}  Days</span>
                     </mat-form-field>
                     <p></p>
                     <mat-form-field [style.width.px]=327 class="form-field" appearance="outline">

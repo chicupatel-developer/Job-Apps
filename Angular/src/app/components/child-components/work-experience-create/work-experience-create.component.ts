@@ -33,6 +33,11 @@ export class WorkExperienceCreateComponent {
   workExp = new WorkExperience();
   workExps: WorkExperience[] = [];
   jobDetailsForWE: string[] = [];
+
+  // calculate work experience duration
+  startDate = '';
+  endDate = '';
+  duration = 0;
   
   constructor(
     private router: Router,
@@ -130,24 +135,94 @@ export class WorkExperienceCreateComponent {
     
   }
 
-  // wip - get duration from endDate and startDate
-  onBlurEvent(event) {
-    var startDate = this.workExpForm.value["startDate"];
-    var endDate = this.workExpForm.value["endDate"];
+  // wip - get duration from endDate and startDate  
+  onBlurEvent_EndDate(event) {
+    if (this.workExpForm.value["startDate"] != null) {
+      this.endDate = event.target.value;
+      this.startDate = this.workExpForm.value["startDate"];
+      console.log(this.startDate + ' --> ' + this.endDate);
 
-    if (startDate != '' && endDate != '') {
-      if(startDate!=null && endDate != null)
-        console.log('Start-Date & End-Date are OK!');
+      var Difference_In_Days = 0;
+      if (this.endDate === '') {
+        var eventStartTime = new Date(this.startDate);
+        var eventEndTime = new Date();
+        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+        Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+        console.log('blur if ... duration : ' + Difference_In_Days);
+      }
+      else {
+        var eventStartTime = new Date(this.startDate);
+        var eventEndTime = new Date(this.endDate);
+        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+        Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+        console.log('blur else ... duration : ' + Difference_In_Days);
+      }
+      this.duration = Difference_In_Days;
     }
-    else if (startDate != '' && endDate === '') {
-      console.log('Start-Date is OK,,, End-Date is Till-Date');
-    }
-    else if (startDate === '') {
-      console.log('Start-Date is Not OK!');
-      return;
-    }
-    else if (startDate > endDate) {
-      console.log('Start-Date > End-Date !');
-    }
+    else
+      this.duration = 0;
   }
+  changeEvent_EndDate(event) {
+    if (this.workExpForm.value["startDate"] != null) {
+      this.endDate = event.target.value;
+      this.startDate = this.workExpForm.value["startDate"];
+      console.log(this.startDate + ' --> ' + this.endDate);
+
+      var Difference_In_Days = 0;
+      if (this.endDate === null) {
+        var eventStartTime = new Date(this.startDate);
+        var eventEndTime = new Date();
+        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+        Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+        console.log('change if ... duration : ' + Difference_In_Days);
+      }
+      else {
+        var eventStartTime = new Date(this.startDate);
+        var eventEndTime = new Date(this.endDate);
+        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+        Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+        console.log('change else ... duration : ' + Difference_In_Days);
+      }
+      this.duration = Difference_In_Days;
+    }
+    else
+      this.duration = 0;
+  }
+
+  changeEvent_StartDate(event) {
+    if (event.target.value != null) {
+      this.endDate = this.workExpForm.value["endDate"];
+      this.startDate = event.target.value;
+      console.log(this.startDate + ' --> ' + this.endDate);
+
+      var Difference_In_Days = 0;
+      if (this.endDate==='') {
+        var eventStartTime = new Date(this.startDate);
+        var eventEndTime = new Date();
+        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+        Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+        console.log('change if ...startDate... duration : ' + Difference_In_Days);
+      }
+      else {
+        if (this.endDate === null) {
+          var eventStartTime = new Date(this.startDate);
+          var eventEndTime = new Date();
+          var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+          Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+          console.log('change else-if ...startDate... duration : ' + Difference_In_Days);
+        }
+        else {
+          var eventStartTime = new Date(this.startDate);
+          var eventEndTime = new Date(this.endDate);
+          var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+          Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+          console.log('change else-else ...startDate... duration : ' + Difference_In_Days);
+        }       
+      }
+      this.duration = Difference_In_Days;
+    }
+    else
+      this.duration = 0;
+  }
+
 }

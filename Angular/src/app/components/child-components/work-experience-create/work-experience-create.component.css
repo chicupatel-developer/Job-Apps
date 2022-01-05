@@ -54,3 +54,8 @@ mat-form-field {
 .saveButton {
     padding-bottom: 30px;
 }
+
+.duration {
+    color: blue;
+    font-size: medium;
+}
