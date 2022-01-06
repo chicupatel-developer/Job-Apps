@@ -97,10 +97,14 @@
                     </mat-form-field>
                 </div>
 
-                <div fxFlex="30%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="mainContentLeft">
+                <div fxFlex="30%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" fxFlex.lg="100%" class="mainContentLeft">
                     <div *ngIf="(employerNames?.length > 0)">
+                        <div class="employersHeader">
+                            Employers
+                        </div>
+
                         <div class="woEditSpan" *ngFor="let emp of employerNames">
-                            <button class="woEditBtn" (click)="editWorkExperience(emp)" mat-raised-button color="primary" type="button">
+                            <button class="woEditBtn" (click)="editWorkExperience(emp)" mat-raised-button color="accent" type="button">
                                 <mat-icon>edit</mat-icon>
                                 <span *ngIf="emp.length>25">
                                     {{emp.substring(0, 25)}},,,

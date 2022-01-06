@@ -81,34 +81,100 @@ export class WorkExperienceCreateComponent {
       return;
     }
 
-    // prepare work experience data
-    var workExp = {
-      employerName: this.workExpForm.value["employerName"],
-      city: this.workExpForm.value["city"],
-      province: this.workExpForm.value["province"],
-      startDate: this.workExpForm.value["startDate"],
-      endDate: this.workExpForm.value["endDate"],
-      // jobDetails: this.workExpForm.value["jobDetails"]
-      jobDetails: this.jobDetailsForWE
-    };
 
-    if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
-      workExp.endDate = 'Till - Date';
+    // check if edit or add mode
+    // if woExp data found from local-storage, then it's edit
+    // else add
+    if (this.localDataService.getWorkExperience() != null) {
+      var currentEditingEmployerName = this.workExpForm.value["employerName"];
+      var foundWoExp = this.localDataService.getWorkExperience().filter(function (woExp) {
+        return woExp.employerName === currentEditingEmployerName;
+      });
+      if (foundWoExp != null && foundWoExp.length > 0) {
+        // EDIT
+        var allJobDetails = this.workExpForm.value["jobDetails"].split('\n\n');
+        console.log(allJobDetails);
 
-    console.log(workExp);
 
-    // reset work-experience form  
-    this.workExpForm.reset();
+        var workExp = {
+          employerName: this.workExpForm.value["employerName"],
+          city: this.workExpForm.value["city"],
+          province: this.workExpForm.value["province"],
+          startDate: this.workExpForm.value["startDate"],
+          endDate: this.workExpForm.value["endDate"],
+          // jobDetails: this.workExpForm.value["jobDetails"]
+          jobDetails: this.jobDetailsForWE,
+          duration: this.duration
+        };
+      }
+      else {
+        // ADD
+        // prepare work experience data
+        var workExp = {
+          employerName: this.workExpForm.value["employerName"],
+          city: this.workExpForm.value["city"],
+          province: this.workExpForm.value["province"],
+          startDate: this.workExpForm.value["startDate"],
+          endDate: this.workExpForm.value["endDate"],
+          // jobDetails: this.workExpForm.value["jobDetails"]
+          jobDetails: this.jobDetailsForWE,
+          duration: this.duration
+        };
 
-    // save to local-data-service
-    this.workExps.push(workExp);
-    this.localDataService.setWorkExperience(this.workExps);
+        if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
+          workExp.endDate = 'Till - Date';
 
-    // reset this.jobDetailsForWE[]
-    this.jobDetailsForWE = [];
+        console.log(workExp);
 
-    // edit work experience
-    this.employerNames.push(workExp.employerName);   
+        // reset work-experience form  
+        this.workExpForm.reset();
+
+        // save to local-data-service
+        this.workExps.push(workExp);
+        this.localDataService.setWorkExperience(this.workExps);
+
+        // reset this.jobDetailsForWE[]
+        this.jobDetailsForWE = [];
+
+        // edit work experience
+        this.employerNames.push(workExp.employerName);
+      }
+    }
+    else {
+      // ADD
+      // prepare work experience data
+      var workExp = {
+        employerName: this.workExpForm.value["employerName"],
+        city: this.workExpForm.value["city"],
+        province: this.workExpForm.value["province"],
+        startDate: this.workExpForm.value["startDate"],
+        endDate: this.workExpForm.value["endDate"],
+        // jobDetails: this.workExpForm.value["jobDetails"]
+        jobDetails: this.jobDetailsForWE,
+        duration: this.duration
+      };
+
+      if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
+        workExp.endDate = 'Till - Date';
+
+      console.log(workExp);
+
+      // reset work-experience form  
+      this.workExpForm.reset();
+
+      // save to local-data-service
+      this.workExps.push(workExp);
+      this.localDataService.setWorkExperience(this.workExps);
+
+      // reset this.jobDetailsForWE[]
+      this.jobDetailsForWE = [];
+
+      // edit work experience
+      this.employerNames.push(workExp.employerName);
+    }
+  
+
+  
   }
 
   // save work-experience to workExps[] and stays to work-experience step
@@ -138,8 +204,7 @@ export class WorkExperienceCreateComponent {
         this.jobDetailsForWE.push((this.workExpForm.value["jobDetails"]).trim());
         this.workExpForm.controls['jobDetails'].setValue('Add Job Details Here!');
       }     
-    }
-    
+    }    
   }
 
   // get duration from endDate and startDate  
@@ -232,6 +297,25 @@ export class WorkExperienceCreateComponent {
   }
 
   editWorkExperience(emp) {
-    console.log('editing... ' + emp);
+    var editingWoExp = this.localDataService.getWorkExperience().filter(function (woExp) {
+      return woExp.employerName === emp;
+    });
+
+    let jobDetailsForEditingWoExp = '';
+    for (let entry of editingWoExp[0].jobDetails) {
+      jobDetailsForEditingWoExp = jobDetailsForEditingWoExp + entry + '\n\n';
+    }
+
+    this.workExpForm.setValue({
+      employerName: editingWoExp[0].employerName,
+      city: editingWoExp[0].city,
+      province: editingWoExp[0].province,
+      startDate: editingWoExp[0].startDate,
+      endDate: editingWoExp[0].endDate,
+      jobDetails: jobDetailsForEditingWoExp
+    });
+    this.duration = editingWoExp[0].duration;
+
+    console.log(this.workExpForm);
   }
 }
