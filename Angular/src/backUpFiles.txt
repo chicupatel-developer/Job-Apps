@@ -1,0 +1,560 @@
+import { Component, Input } from '@angular/core';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { DataService } from '../../../services/data.service';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { LocalDataService } from 'src/app/services/local-data.service';
+import PersonalInfo from 'src/app/models/personalInfo';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ElementRef, ViewChild } from '@angular/core';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { map, startWith } from 'rxjs/operators';
+import WorkExperience from 'src/app/models/workExperience';
+import * as moment from 'moment';
+
+@Component({
+  selector: 'app-work-experience-create',
+  templateUrl: './work-experience-create.component.html',
+  styleUrls: ['./work-experience-create.component.css']
+})
+
+export class WorkExperienceCreateComponent {
+
+  @Input() pageHeader: string | undefined;
+
+  workExpForm: FormGroup;
+ 
+  provinceCollection: any = ['MB', 'ON', 'AB'];
+  cityCollection: string[] = [];
+
+  submitted = false;
+  workExp = new WorkExperience();
+  workExps: WorkExperience[] = [];
+  jobDetailsForWE: string[] = [];
+
+  // calculate work experience duration
+  startDate = '';
+  endDate = '';
+  duration = 0;  
+  
+  // edit work experience
+  employerNames : string[] = [];
+
+  selectedCity = '';
+
+  constructor(
+    private router: Router,
+    public dataService: DataService,
+    private formBuilder: FormBuilder,
+    public localDataService: LocalDataService
+  ) {
+    this.workExpForm = this.formBuilder.group({
+      employerName: ['', Validators.required],
+      city: ['', Validators.required],
+      province: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: [''],
+      jobDetails: ['', Validators.required]
+    });
+  }
+
+  changeProvince(e) {
+    this.cityCollection = [];
+    this.workExpForm.controls['city'].setValue('');
+
+    if (e.target.value == "") {
+      return;
+    }
+    else {
+      var cities = this.localDataService.getCities(e.target.value);
+      this.cityCollection = cities;
+    }
+  }
+
+
+  prepareDataForWorkExperience() {
+    this.submitted = true;   
+
+    if (!this.workExpForm.valid) {
+      console.log('Invalid Form!');
+      return;
+    }
+
+    this.selectedCity = '';
+
+    // check if edit or add mode
+    // if woExp data found from local-storage, then it's edit
+    // else add
+    if (this.localDataService.getWorkExperience() != null) {
+      var currentEditingEmployerName = this.workExpForm.value["employerName"];
+      var foundWoExp = this.localDataService.getWorkExperience().filter(function (woExp) {
+        return woExp.employerName === currentEditingEmployerName;
+      });
+      if (foundWoExp != null && foundWoExp.length > 0) {
+        // EDIT
+        var allJobDetails = this.workExpForm.value["jobDetails"].substring(0, this.workExpForm.value["jobDetails"].lastIndexOf("\n\n")).split('\n\n');
+        // console.log(allJobDetails);
+
+        var workExpEdit = {
+          employerName: this.workExpForm.value["employerName"],
+          city: this.workExpForm.value["city"],
+          province: this.workExpForm.value["province"],
+          startDate: this.workExpForm.value["startDate"],
+          endDate: this.workExpForm.value["endDate"],
+          // jobDetails: this.workExpForm.value["jobDetails"]
+          jobDetails: allJobDetails,
+          duration: this.duration
+        };
+        
+        if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
+          workExp.endDate = 'Till - Date';
+
+        // console.log(workExpEdit);
+
+        // reset work-experience form  
+        this.workExpForm.reset();
+
+        // save to local-data-service
+        var otherWoExp = this.localDataService.getWorkExperience().filter(function (woExp) {
+          return woExp.employerName != currentEditingEmployerName;
+        });
+        otherWoExp.push(workExpEdit);
+        this.localDataService.setWorkExperience(otherWoExp);
+      }
+      else {
+        // ADD
+        // prepare work experience data
+        var workExp = {
+          employerName: this.workExpForm.value["employerName"],
+          city: this.workExpForm.value["city"],
+          province: this.workExpForm.value["province"],
+          startDate: this.workExpForm.value["startDate"],
+          endDate: this.workExpForm.value["endDate"],
+          // jobDetails: this.workExpForm.value["jobDetails"]
+          jobDetails: this.jobDetailsForWE,
+          duration: this.duration
+        };
+
+        if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
+          workExp.endDate = 'Till - Date';
+
+        // reset work-experience form  
+        this.workExpForm.reset();
+
+        // save to local-data-service
+        this.workExps.push(workExp);
+        this.localDataService.setWorkExperience(this.workExps);
+
+        // reset this.jobDetailsForWE[]
+        this.jobDetailsForWE = [];
+
+        // edit work experience
+        this.employerNames.push(workExp.employerName);
+      }
+    }
+    else {
+      // ADD
+      // prepare work experience data
+      var workExp = {
+        employerName: this.workExpForm.value["employerName"],
+        city: this.workExpForm.value["city"],
+        province: this.workExpForm.value["province"],
+        startDate: this.workExpForm.value["startDate"],
+        endDate: this.workExpForm.value["endDate"],
+        // jobDetails: this.workExpForm.value["jobDetails"]
+        jobDetails: this.jobDetailsForWE,
+        duration: this.duration
+      };
+
+      if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
+        workExp.endDate = 'Till - Date';
+
+      // reset work-experience form  
+      this.workExpForm.reset();
+
+      // save to local-data-service
+      this.workExps.push(workExp);
+      this.localDataService.setWorkExperience(this.workExps);
+
+      // reset this.jobDetailsForWE[]
+      this.jobDetailsForWE = [];
+
+      // edit work experience
+      this.employerNames.push(workExp.employerName);
+    }
+  }
+
+  // save work-experience to workExps[] and stays to work-experience step
+  // in resume - creator 
+  saveAndAddMoreWorkExperience() {   
+    this.prepareDataForWorkExperience();   
+  }
+  
+  // save all work-experiences and move to next step in resume-creator
+  saveWorkExperience() {  
+    this.prepareDataForWorkExperience();
+    
+    if (this.localDataService.getWorkExperience() != undefined && this.localDataService.getWorkExperience().length > 0) {
+      console.log(this.localDataService.getWorkExperience());
+
+      // move to next step
+    }
+    else {
+      console.log('You Have ZERO Work - Experience !');
+    }
+  }
+
+  // add job-Details to work-experience
+  addJobDetails() {
+    if (!(this.workExpForm.value["jobDetails"] == '' || this.workExpForm.value["jobDetails"] == 'Add Job Details Here!')) {
+      if (this.workExpForm.value["jobDetails"] != null) {
+        this.jobDetailsForWE.push((this.workExpForm.value["jobDetails"]).trim());
+        this.workExpForm.controls['jobDetails'].setValue('Add Job Details Here!');
+      }     
+    }    
+  }
+
+  // get duration from endDate and startDate  
+  onBlurEvent_EndDate(event) {
+    if (this.workExpForm.value["startDate"] != null) {
+      this.endDate = event.target.value;
+      this.startDate = this.workExpForm.value["startDate"];
+      console.log(this.startDate + ' --> ' + this.endDate);
+
+      var Difference_In_Days = 0;
+      if (this.endDate === '') {
+        var eventStartTime = new Date(this.startDate);
+        var eventEndTime = new Date();
+        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+        Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+        console.log('blur if ... duration : ' + Difference_In_Days);
+      }
+      else {
+        var eventStartTime = new Date(this.startDate);
+        var eventEndTime = new Date(this.endDate);
+        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+        Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+        console.log('blur else ... duration : ' + Difference_In_Days);
+      }
+      this.duration = Difference_In_Days;
+    }
+    else
+      this.duration = 0;
+  }
+  changeEvent_EndDate(event) {
+    if (this.workExpForm.value["startDate"] != null) {
+      this.endDate = event.target.value;
+      this.startDate = this.workExpForm.value["startDate"];
+      console.log(this.startDate + ' --> ' + this.endDate);
+
+      var Difference_In_Days = 0;
+      if (this.endDate === null) {
+        var eventStartTime = new Date(this.startDate);
+        var eventEndTime = new Date();
+        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+        Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+        console.log('change if ... duration : ' + Difference_In_Days);
+      }
+      else {
+        var eventStartTime = new Date(this.startDate);
+        var eventEndTime = new Date(this.endDate);
+        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+        Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+        console.log('change else ... duration : ' + Difference_In_Days);
+      }
+      this.duration = Difference_In_Days;
+    }
+    else
+      this.duration = 0;
+  }
+  changeEvent_StartDate(event) {
+    if (event.target.value != null) {
+      this.endDate = this.workExpForm.value["endDate"];
+      this.startDate = event.target.value;
+      console.log(this.startDate + ' --> ' + this.endDate);
+
+      var Difference_In_Days = 0;
+      if (this.endDate==='') {
+        var eventStartTime = new Date(this.startDate);
+        var eventEndTime = new Date();
+        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+        Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+        console.log('change if ...startDate... duration : ' + Difference_In_Days);
+      }
+      else {
+        if (this.endDate === null) {
+          var eventStartTime = new Date(this.startDate);
+          var eventEndTime = new Date();
+          var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+          Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+          console.log('change else-if ...startDate... duration : ' + Difference_In_Days);
+        }
+        else {
+          var eventStartTime = new Date(this.startDate);
+          var eventEndTime = new Date(this.endDate);
+          var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+          Difference_In_Days = Math.floor(duration / (1000 * 3600 * 24));
+          console.log('change else-else ...startDate... duration : ' + Difference_In_Days);
+        }       
+      }
+      this.duration = Difference_In_Days;
+    }
+    else
+      this.duration = 0;
+  }
+
+  editWorkExperience(emp) {
+    var editingWoExp = this.localDataService.getWorkExperience().filter(function (woExp) {
+      return woExp.employerName === emp;
+    });
+
+    let jobDetailsForEditingWoExp = '';
+    for (let entry of editingWoExp[0].jobDetails) {
+      jobDetailsForEditingWoExp = jobDetailsForEditingWoExp + entry + '\n\n';
+    }
+
+    var cities = this.localDataService.getCities(editingWoExp[0].province).filter(function (city_) {
+      return city_ != editingWoExp[0].city;
+    });
+    this.cityCollection = cities;
+    this.selectedCity = editingWoExp[0].city;
+
+    this.workExpForm.patchValue({
+      employerName: editingWoExp[0].employerName,     
+      province: editingWoExp[0].province,
+      city: this.selectedCity,
+      startDate: editingWoExp[0].startDate,
+      endDate: editingWoExp[0].endDate,
+      jobDetails: jobDetailsForEditingWoExp
+    });
+    this.duration = editingWoExp[0].duration;
+  }
+}
+
+-----------------------------------------------------------------
+
+
+<div class="personalContainer">
+    <div>
+        <h2>{{pageHeader}}</h2>
+    </div>
+    <div>
+        <form [formGroup]="workExpForm">
+            <div class="saveButton">
+                <button (click)="saveWorkExperience()" mat-raised-button color="primary" type="button">
+                    <mat-icon>save</mat-icon>
+                    &nbsp;&nbsp;Work Expeience
+                </button> &nbsp;&nbsp;&nbsp;&nbsp;
+                <button (click)="saveAndAddMoreWorkExperience()" mat-raised-button color="primary" type="button">
+                    <mat-icon>save</mat-icon><span> &nbsp;&amp;&nbsp; </span><mat-icon>note_add</mat-icon>
+                    &nbsp;&nbsp; More Work Expeience
+                </button>
+            </div>
+
+            <div fxLayout="row" class="parent" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
+                <div fxFlex="30%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="mainContentLeft">
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Employer Name
+                        </mat-label>
+                        <input matInput formControlName="employerName" required>
+                        <mat-error *ngIf="(workExpForm.controls.employerName.touched || submitted ) && workExpForm.controls.employerName.invalid">
+                            <span *ngIf="workExpForm.controls.employerName.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>
+                    <mat-form-field class="form-field small-form-field" appearance="fill">
+                        <mat-label>Province</mat-label>
+                        <select matNativeControl (change)="changeProvince($event)" required formControlName="province">
+                            <option value="">Choose Province</option>
+                            <option *ngFor="let p of provinceCollection">
+                                {{p}}
+                            </option>
+                        </select>
+                        <mat-error *ngIf="(workExpForm.controls.province.touched || submitted ) && workExpForm.controls.province.invalid">
+                            <span *ngIf="workExpForm.controls.province.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>
+
+
+                    <div *ngIf="selectedCity">
+                        <mat-form-field class="form-field small-form-field" appearance="fill">
+                            <mat-label>City</mat-label>
+                            <select matNativeControl [(ngModel)]="selectedCity" required formControlName="city">
+                            <option value="selectedCity">{{selectedCity}}</option>
+                            <option *ngFor="let c of cityCollection">
+                                {{c}}
+                            </option>
+                        </select>
+                            <mat-error *ngIf="(workExpForm.controls.city.touched || submitted ) && workExpForm.controls.city.invalid">
+                                <span *ngIf="workExpForm.controls.city.errors.required">This field
+                                is mandatory.</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div *ngIf="!selectedCity">
+                        <mat-form-field class="form-field small-form-field" appearance="fill">
+                            <mat-label>City</mat-label>
+                            <select matNativeControl [(ngModel)]="selectedCity" required formControlName="city">
+                            <option value="selectedCity">{{selectedCity}}</option>
+                            <option *ngFor="let c of cityCollection">
+                                {{c}}
+                            </option>
+                        </select>
+                            <mat-error *ngIf="(workExpForm.controls.city.touched || submitted ) && workExpForm.controls.city.invalid">
+                                <span *ngIf="workExpForm.controls.city.errors.required">This field
+                                is mandatory.</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="40%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="mainContentLeft">
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Start Date
+                        </mat-label>
+                        <input required (dateChange)="changeEvent_StartDate($event)" matInput formControlName="startDate" [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="(workExpForm.controls.startDate.touched || submitted ) && workExpForm.controls.startDate.invalid">
+                            <span *ngIf="workExpForm.controls.startDate.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <p></p>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> End Date
+                        </mat-label>
+                        <input (blur)="onBlurEvent_EndDate($event)" (dateChange)="changeEvent_EndDate($event)" matInput formControlName="endDate" [matDatepicker]="picker1">
+                        <mat-datepicker-toggle matSuffix [for]="picker1">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <span class="duration">&nbsp;&nbsp;&nbsp;&nbsp;Experience : {{duration}}  Days</span>
+                    </mat-form-field>
+                    <p></p>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Job Details
+                        </mat-label>
+                        <textarea matInput formControlName="jobDetails" required>
+                        </textarea>
+                        <p></p>
+                        <p></p>
+                        <button (click)="addJobDetails()" mat-raised-button color="primary" type="button">
+                            <mat-icon>note_add</mat-icon>
+                        </button>
+                        <mat-error *ngIf="(workExpForm.controls.jobDetails.touched || submitted ) && workExpForm.controls.jobDetails.invalid">
+                            <span *ngIf="workExpForm.controls.jobDetails.errors.required">This
+                                field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="30%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" fxFlex.lg="100%" class="mainContentLeft">
+                    <div *ngIf="(employerNames?.length > 0)">
+                        <div class="employersHeader">
+                            Employers
+                        </div>
+
+                        <div class="woEditSpan" *ngFor="let emp of employerNames">
+                            <button class="woEditBtn" (click)="editWorkExperience(emp)" mat-raised-button color="accent" type="button">
+                                <mat-icon>edit</mat-icon>
+                                <span *ngIf="emp.length>25">
+                                    {{emp.substring(0, 25)}},,,
+                                </span>
+                                 <span *ngIf="emp.length<=25">
+                                    {{emp}}
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+--------------------------------------------------------
+
+.pageHeader {
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border: 2px solid blueviolet;
+    border-radius: 10px;
+    background-color: lightseagreen;
+    color: black;
+    font-size: x-large;
+}
+
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+}
+
+.mainContainer {
+    padding: 20px;
+}
+
+.personalContainer {
+    padding: 40px;
+}
+
+.skillsContainer {
+    padding: 40px;
+}
+
+.tabContainer {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-style: oblique;
+}
+
+.parent {
+    height: 100%;
+}
+
+.mainContentLeft {
+    padding: 10px;
+}
+
+.mainContentRight {
+    padding: 10px;
+}
+
+mat-form-field {
+    width: 80%;
+}
+
+.saveButton {
+    padding-bottom: 30px;
+}
+
+.duration {
+    color: blue;
+    font-size: medium;
+}
+
+.woEditSpan {
+    margin: 10px;
+}
+
+.woEditBtn {
+    margin: 10px;
+    padding: 10px;
+}
+
+.employersHeader {
+    color: darkblue;
+    font-size: xx-large;
+    font-style: italic;
+}
+

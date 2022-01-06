@@ -21,6 +21,8 @@ import { JobAppViewDialogComponent } from './components/job-app-view-dialog/job-
 import { JobAppDeleteDialogComponent } from './components/job-app-delete-dialog/job-app-delete-dialog.component';
 import { JobResumeUploadComponent } from './components/job-resume-upload/job-resume-upload.component';
 import { ResumeCreatorComponent } from './components/resume-creator/resume-creator.component';
+import { AddWorkExperienceComponent } from './components/child-components/add-work-experience/add-work-experience.component';
+import { EditWorkExperienceComponent } from './components/child-components/edit-work-experience/edit-work-experience.component';
 
 ////////services
 import { LocalDataService } from './services/local-data.service';
@@ -51,7 +53,9 @@ import { EducationCreateComponent } from './components/child-components/educatio
     TechnicalSkillCreateComponent,
     WorkExperienceCreateComponent,
     SaveAndViewResumeComponent,
-    EducationCreateComponent
+    EducationCreateComponent,
+    AddWorkExperienceComponent,
+    EditWorkExperienceComponent
   ],
   imports: [
     BrowserModule,

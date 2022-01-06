@@ -15,39 +15,17 @@ import WorkExperience from 'src/app/models/workExperience';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-work-experience-create',
-  templateUrl: './work-experience-create.component.html',
-  styleUrls: ['./work-experience-create.component.css']
+  selector: 'app-edit-work-experience',
+  templateUrl: './edit-work-experience.component.html',
+  styleUrls: ['./edit-work-experience.component.css']
 })
-
-export class WorkExperienceCreateComponent implements OnInit {
+export class EditWorkExperienceComponent implements OnInit {
 
   @Input() pageHeader: string | undefined;
 
-  showAdd = true;
-  showEdit = false;
+  constructor() { }
 
-  // store employer's name for future edit of work-experience
-  employerList: string[] = [];
-
-  constructor(
-    private router: Router,
-    public dataService: DataService,
-    private formBuilder: FormBuilder,
-    public localDataService: LocalDataService
-  ) {
-  
-  }
- 
   ngOnInit(): void {
   }
 
-  employerListChangedHandler(employerName: string) {    
-    this.employerList.push(employerName);
-    console.log(this.employerList);
-  }
-
-  editWorkExperience(editingEmployerName) {
-    console.log(editingEmployerName);
-  }
 }
