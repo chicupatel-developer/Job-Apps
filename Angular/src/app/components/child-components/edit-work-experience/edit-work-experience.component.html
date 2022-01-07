@@ -1,19 +1,25 @@
 <div>
-    <h3>{{pageHeader}}</h3>
+    <div>
+        <h2>{{pageHeader}}</h2>
+    </div>
 
     <form [formGroup]="workExpForm">
         <div class="saveButton">
             <button (click)="editWorkExperience()" mat-raised-button color="primary" type="button">
                     <mat-icon>edit</mat-icon>
-                    &nbsp;&nbsp;Work Expeience
+                    &nbsp;&nbsp;Edit Done
             </button> &nbsp;&nbsp;&nbsp;&nbsp;
+            <button (click)="cancelEditWorkExperience()" mat-raised-button color="primary" type="button">
+                    <mat-icon>arrow_back</mat-icon>
+                    &nbsp;&nbsp;Cancel Edit
+            </button>
         </div>
         <div fxLayout="row" class="parent" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
             <div fxFlex="40%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="mainContentLeft">
                 <mat-form-field class="form-field" appearance="outline">
                     <mat-label> Employer Name
                     </mat-label>
-                    <input matInput formControlName="employerName" required>
+                    <input [readonly]="true" matInput formControlName="employerName" required>
                     <mat-error *ngIf="(workExpForm.controls.employerName.touched || submitted ) && workExpForm.controls.employerName.invalid">
                         <span *ngIf="workExpForm.controls.employerName.errors.required">This
                                 field is mandatory.</span>

@@ -45,14 +45,26 @@ export class WorkExperienceCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // notification coming from child - add-work-experience component
   employerListChangedHandler(employerName: string) {    
     this.employerList.push(employerName);
     console.log(this.employerList);
   }
 
-  editWorkExperience(editingEmployerName) {
-    // console.log(editingEmployerName);
+  // notification coming from child - edit-work-experience component
+  editDoneChangedHandler(editDone: boolean) {
+    if (editDone) {
+      this.showAdd = true;
+      this.showEdit = false;
+    }
+    else {
+      this.showAdd = false;
+      this.showEdit = true;
+    }
+  }
 
+  editWorkExperience(editingEmployerName) {
+    
     this.showEdit = true;
     this.showAdd = false;
 
@@ -65,11 +77,17 @@ export class WorkExperienceCreateComponent implements OnInit {
       jobDetailsForEditingWoExp = jobDetailsForEditingWoExp + entry + '\n\n';
     }
 
-    // console.log(editingWoExp);
-    // console.log(jobDetailsForEditingWoExp);
-    editingWoExp[0].jobDetails = jobDetailsForEditingWoExp;
+    var myWoExp = {
+      employerName: editingWoExp[0].employerName,
+      province: editingWoExp[0].province,
+      city: editingWoExp[0].city,
+      startDate: editingWoExp[0].startDate,
+      endDate: editingWoExp[0].endDate,
+      jobDetails: jobDetailsForEditingWoExp,
+      duration: editingWoExp[0].duration
+    };
     
     // send this editingWoExp to edit-work-experience child component
-    this.editWoExp = editingWoExp[0];
+    this.editWoExp = myWoExp;
   }
 }

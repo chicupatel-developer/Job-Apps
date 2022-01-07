@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, Output, EventEmitter  } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DataService } from '../../../services/data.service';
@@ -25,13 +25,14 @@ export class EditWorkExperienceComponent implements OnInit {
   @Input() pageHeader: string | undefined;
   @Input() editWoExp: any | undefined;
 
+  @Output() editDoneChanged: EventEmitter<boolean> = new EventEmitter();
+
   workExpForm: FormGroup;
 
   provinceCollection: any = ['MB', 'ON', 'AB'];
   cityCollection: string[] = [];
 
   submitted = false;
-  workExp = new WorkExperience();
 
   // calculate work experience duration
   startDate = '';
@@ -54,22 +55,19 @@ export class EditWorkExperienceComponent implements OnInit {
       startDate: ['', Validators.required],
       endDate: [''],
       jobDetails: ['', Validators.required]
-    });
+    });    
+  }
+
+  ngOnChanges() {
+    this.setFormControls()
   }
 
   ngOnInit(): void {
-    console.log(this.editWoExp);
+    this.setFormControls()
+  }
 
-    /*
-    this.workExpForm.patchValue({
-      employerName: this.editWoExp.employerName,
-      province: this.editWoExp.province,
-      city: this.editWoExp.city,
-      startDate: this.editWoExp.startDate,
-      endDate: this.editWoExp.endDate,
-      jobDetails: this.editWoExp.jobDetails
-    });
-    */
+  setFormControls() {
+
     this.workExpForm.setValue({
       employerName: this.editWoExp.employerName,
       province: this.editWoExp.province,
@@ -102,7 +100,39 @@ export class EditWorkExperienceComponent implements OnInit {
   }
 
   editWorkExperience() {
-    console.log('edit wo - exp');
+    var currentEditingEmployerName = this.workExpForm.value["employerName"];
+
+    var allJobDetails = this.workExpForm.value["jobDetails"].substring(0, this.workExpForm.value["jobDetails"].lastIndexOf("\n\n")).split('\n\n');
+  
+    var workExpEdited = {
+      employerName: this.workExpForm.value["employerName"],
+      city: this.workExpForm.value["city"],
+      province: this.workExpForm.value["province"],
+      startDate: this.workExpForm.value["startDate"],
+      endDate: this.workExpForm.value["endDate"],
+      jobDetails: allJobDetails,
+      duration: this.duration
+    };
+    if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
+      workExpEdited.endDate = 'Till - Date';
+
+    // reset work-experience form  
+    this.workExpForm.reset();
+    this.duration = 0;
+
+    // save to local-data-service
+    var otherWoExp = this.localDataService.getWorkExperience().filter(function (woExp) {
+      return woExp.employerName != currentEditingEmployerName;
+    });
+    otherWoExp.push(workExpEdited);
+    this.localDataService.setWorkExperience(otherWoExp);
+
+    // notify parent component that edit is done
+    this.editDoneChanged.emit(true);    
+  }
+  cancelEditWorkExperience() {
+    // notify parent component that edit is done
+    this.editDoneChanged.emit(true);
   }
 
   // get duration from endDate and startDate  
