@@ -42,20 +42,34 @@ export class SaveAndViewResumeComponent {
     var dataValid = false;
     var myResume = {};
 
+
+
+    // format work-experience's startDate/endDate
+    var woExps = workExps;
+    console.log(woExps);
+
+
+
+
+
     if (personalInfo == null || skills == null || workExps == null || education == null) {
       console.log('Resume Data Not Found!');
       dataValid = false;
     }
-    else {    
+    else {
+      
+      // format work-experience's startDate/endDate
+      
       myResume = {
         personalInfo: personalInfo,
         skills: skills,
         workExperience: workExps,
         education: education
       };      
-      console.log(myResume);
+      // console.log(myResume);
       dataValid = true;      
     }
+
     if (dataValid)
       return myResume;
     else
@@ -65,6 +79,7 @@ export class SaveAndViewResumeComponent {
     var myResume = this.checkResumeData();
     if (myResume != null) {
       // api call
+      /*
       this.dataService.createAndDownloadResume(myResume)
         .subscribe(
           blob => {
@@ -91,6 +106,7 @@ export class SaveAndViewResumeComponent {
             }, 3000);
           }
         );
+        */
     }
     else {
       this.apiResponse = 'Resume Data Not Found!';
