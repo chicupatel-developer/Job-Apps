@@ -32,13 +32,14 @@ export class EditWorkExperienceComponent implements OnInit {
 
   submitted = false;
   workExp = new WorkExperience();
-  workExps: WorkExperience[] = [];
-  jobDetailsForWE: string[] = [];
 
   // calculate work experience duration
   startDate = '';
   endDate = '';
   duration = 0;
+
+  selectedProvince = '';
+  selectedCity = '';
 
   constructor(
     private router: Router,
@@ -59,6 +60,7 @@ export class EditWorkExperienceComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.editWoExp);
 
+    /*
     this.workExpForm.patchValue({
       employerName: this.editWoExp.employerName,
       province: this.editWoExp.province,
@@ -67,18 +69,34 @@ export class EditWorkExperienceComponent implements OnInit {
       endDate: this.editWoExp.endDate,
       jobDetails: this.editWoExp.jobDetails
     });
+    */
+    this.workExpForm.setValue({
+      employerName: this.editWoExp.employerName,
+      province: this.editWoExp.province,
+      city: this.editWoExp.city,
+      startDate: this.editWoExp.startDate,
+      endDate: this.editWoExp.endDate,
+      jobDetails: this.editWoExp.jobDetails
+    });
+
     this.duration = this.editWoExp.duration;
+
+    this.selectedProvince = this.editWoExp.province;
+    var cities = this.localDataService.getCities(this.selectedProvince);
+    this.cityCollection = cities;
+    this.selectedCity = this.editWoExp.city;
   }
 
   changeProvince(e) {
+    // reset city, when province gets changed
     this.cityCollection = [];
     this.workExpForm.controls['city'].setValue('');
 
-    if (e.target.value == "") {
+    if (e.value == "") {
       return;
     }
     else {
-      var cities = this.localDataService.getCities(e.target.value);
+      var cities = this.localDataService.getCities(e.value);
       this.cityCollection = cities;
     }
   }
