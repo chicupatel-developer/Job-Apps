@@ -23,6 +23,9 @@ import * as moment from 'moment';
 export class WorkExperienceCreateComponent implements OnInit {
 
   @Input() pageHeader: string | undefined;
+  
+
+  editWoExp: any;
 
   showAdd = true;
   showEdit = false;
@@ -48,6 +51,25 @@ export class WorkExperienceCreateComponent implements OnInit {
   }
 
   editWorkExperience(editingEmployerName) {
-    console.log(editingEmployerName);
+    // console.log(editingEmployerName);
+
+    this.showEdit = true;
+    this.showAdd = false;
+
+    var editingWoExp = this.localDataService.getWorkExperience().filter(function (woExp) {
+      return woExp.employerName === editingEmployerName;
+    });
+
+    let jobDetailsForEditingWoExp = '';
+    for (let entry of editingWoExp[0].jobDetails) {
+      jobDetailsForEditingWoExp = jobDetailsForEditingWoExp + entry + '\n\n';
+    }
+
+    // console.log(editingWoExp);
+    // console.log(jobDetailsForEditingWoExp);
+    editingWoExp[0].jobDetails = jobDetailsForEditingWoExp;
+    
+    // send this editingWoExp to edit-work-experience child component
+    this.editWoExp = editingWoExp[0];
   }
 }

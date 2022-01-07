@@ -11,16 +11,16 @@
             </div>
 
             <div *ngIf="showEdit">
-                <app-edit-work-experience pageHeader="Edit Work Experience">
+                <app-edit-work-experience [editWoExp]="editWoExp" pageHeader="Edit Work Experience ">
                 </app-edit-work-experience>
             </div>
 
 
         </div>
 
-        <div fxFlex="20%" fxFlex.xs="100% " fxFlex.sm="100% " fxFlex.md="100% " class="mainContentLeft ">
+        <div fxFlex="20% " fxFlex.xs="100% " fxFlex.sm="100% " fxFlex.md="100% " class="mainContentLeft ">
 
-            <div *ngIf="(employerList?.length > 0)">
+            <div *ngIf="(employerList?.length> 0)">
                 <div class="employersHeader">
                     Employers
                 </div>
