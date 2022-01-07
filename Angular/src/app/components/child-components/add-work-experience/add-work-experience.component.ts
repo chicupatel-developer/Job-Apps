@@ -31,7 +31,8 @@ export class AddWorkExperienceComponent implements OnInit {
 
   submitted = false;
   workExp = new WorkExperience();
-  workExps: WorkExperience[] = [];
+  // workExps: WorkExperience[] = [];
+  workExps: any[] = [];
   jobDetailsForWE: string[] = [];
 
   // calculate work experience duration
@@ -91,12 +92,15 @@ export class AddWorkExperienceComponent implements OnInit {
     };
 
     if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
-      workExp.endDate = 'Till - Date';
+      // workExp.endDate = 'Till - Date';
+      workExp.endDate = '';
 
     // reset work-experience form  
     this.workExpForm.reset();
 
     // save to local-data-service
+    var myWoExps = this.localDataService.getWorkExperience();
+    this.workExps = Object.assign([], myWoExps);
     this.workExps.push(workExp);
     this.localDataService.setWorkExperience(this.workExps);
 
@@ -119,7 +123,7 @@ export class AddWorkExperienceComponent implements OnInit {
     this.prepareDataForWorkExperience();
 
     if (this.localDataService.getWorkExperience() != undefined && this.localDataService.getWorkExperience().length > 0) {
-      console.log(this.localDataService.getWorkExperience());
+      // console.log(this.localDataService.getWorkExperience());
 
       // move to next step
     }

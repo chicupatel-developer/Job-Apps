@@ -100,12 +100,19 @@ export class EditWorkExperienceComponent implements OnInit {
   }
 
   editWorkExperience() {
+    this.submitted = true;
+
+    if (!this.workExpForm.valid) {
+      console.log('Invalid Form!');
+      return;
+    }
+    
     var currentEditingEmployerName = this.workExpForm.value["employerName"];
 
     var allJobDetails = this.workExpForm.value["jobDetails"].substring(0, this.workExpForm.value["jobDetails"].lastIndexOf("\n\n")).split('\n\n');
   
     var workExpEdited = {
-      employerName: this.workExpForm.value["employerName"],
+      employerName: currentEditingEmployerName,
       city: this.workExpForm.value["city"],
       province: this.workExpForm.value["province"],
       startDate: this.workExpForm.value["startDate"],
@@ -114,7 +121,8 @@ export class EditWorkExperienceComponent implements OnInit {
       duration: this.duration
     };
     if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
-      workExpEdited.endDate = 'Till - Date';
+      // workExpEdited.endDate = 'Till - Date';
+      workExpEdited.endDate = '';
 
     // reset work-experience form  
     this.workExpForm.reset();
