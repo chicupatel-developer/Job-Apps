@@ -12,6 +12,10 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { map, startWith } from 'rxjs/operators';
 
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+
 @Component({
   selector: 'app-save-and-view-resume',
   templateUrl: './save-and-view-resume.component.html',
@@ -42,16 +46,6 @@ export class SaveAndViewResumeComponent {
     var dataValid = false;
     var myResume = {};
 
-
-
-    // format work-experience's startDate/endDate
-    var woExps = workExps;
-    console.log(woExps);
-
-
-
-
-
     if (personalInfo == null || skills == null || workExps == null || education == null) {
       console.log('Resume Data Not Found!');
       dataValid = false;
@@ -59,14 +53,28 @@ export class SaveAndViewResumeComponent {
     else {
       
       // format work-experience's startDate/endDate
+      var woExps = workExps;
+      woExps.forEach((woe) => {
+        var startDate_ = monthNames[new Date(woe.startDate).getMonth()] + ', ' + new Date(woe.startDate).getFullYear();
+        woe.startDate = startDate_;
+
+        if (woe.endDate === '') {
+          woe.endDate = 'Till - Date';
+        }
+        else {
+          var endDate_ = monthNames[new Date(woe.endDate).getMonth()] + ', ' + new Date(woe.endDate).getFullYear();
+          woe.endDate = endDate_;
+        }
+      });
+      // console.log(woExps);
       
       myResume = {
         personalInfo: personalInfo,
         skills: skills,
-        workExperience: workExps,
+        workExperience: woExps,
         education: education
       };      
-      // console.log(myResume);
+      console.log(myResume);
       dataValid = true;      
     }
 
@@ -78,8 +86,7 @@ export class SaveAndViewResumeComponent {
   createAndDownloadResume() {
     var myResume = this.checkResumeData();
     if (myResume != null) {
-      // api call
-      /*
+      // api call      
       this.dataService.createAndDownloadResume(myResume)
         .subscribe(
           blob => {
@@ -89,6 +96,12 @@ export class SaveAndViewResumeComponent {
             const myFile = new Blob([blob], { type: 'application/pdf' });
             const url = window.URL.createObjectURL(myFile);
             window.open(url);
+
+            // redirect to resume-creator component, so 
+            // all service variables get reset
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
           },
           error => {
             if (error.status === 400) {
@@ -106,7 +119,6 @@ export class SaveAndViewResumeComponent {
             }, 3000);
           }
         );
-        */
     }
     else {
       this.apiResponse = 'Resume Data Not Found!';

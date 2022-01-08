@@ -31,7 +31,6 @@ export class AddWorkExperienceComponent implements OnInit {
 
   submitted = false;
   workExp = new WorkExperience();
-  // workExps: WorkExperience[] = [];
   workExps: any[] = [];
   jobDetailsForWE: string[] = [];
 
@@ -91,10 +90,10 @@ export class AddWorkExperienceComponent implements OnInit {
       duration: this.duration
     };
 
-    if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
-      // workExp.endDate = 'Till - Date';
+    if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined || this.workExpForm.value["endDate"] ===null) {    
       workExp.endDate = '';
-
+    }
+      
     // reset work-experience form  
     this.workExpForm.reset();
 

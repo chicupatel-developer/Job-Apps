@@ -120,10 +120,10 @@ export class EditWorkExperienceComponent implements OnInit {
       jobDetails: allJobDetails,
       duration: this.duration
     };
-    if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined)
-      // workExpEdited.endDate = 'Till - Date';
+    if (this.workExpForm.value["endDate"] === '' || this.workExpForm.value["endDate"] === undefined || this.workExpForm.value["endDate"] === null) {      
       workExpEdited.endDate = '';
-
+    }
+      
     // reset work-experience form  
     this.workExpForm.reset();
     this.duration = 0;
