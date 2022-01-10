@@ -25,6 +25,10 @@ th.mat-header-cell {
     padding: 40px;
 }
 
+.skillsContainer {
+    padding: 40px;
+}
+
 .tabContainer {
     padding-left: 20px;
     padding-right: 20px;
@@ -49,4 +53,24 @@ mat-form-field {
 
 .saveButton {
     padding-bottom: 30px;
+}
+
+.duration {
+    color: blue;
+    font-size: medium;
+}
+
+.degEditSpan {
+    margin: 10px;
+}
+
+.degEditBtn {
+    margin: 10px;
+    padding: 10px;
+}
+
+.degreeHeader {
+    color: darkblue;
+    font-size: xx-large;
+    font-style: italic;
 }

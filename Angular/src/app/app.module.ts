@@ -34,8 +34,8 @@ import { TechnicalSkillCreateComponent } from './components/child-components/tec
 import { WorkExperienceCreateComponent } from './components/child-components/work-experience-create/work-experience-create.component';
 import { SaveAndViewResumeComponent } from './components/child-components/save-and-view-resume/save-and-view-resume.component';
 import { EducationCreateComponent } from './components/child-components/education-create/education-create.component';
-import { AddEducationComponent } from './components/add-education/add-education.component';
-import { EditEducationComponent } from './components/edit-education/edit-education.component';
+import { AddEducationComponent } from './components/child-components/add-education/add-education.component';
+import { EditEducationComponent } from './components/child-components/edit-education/edit-education.component';
 
 
 @NgModule({

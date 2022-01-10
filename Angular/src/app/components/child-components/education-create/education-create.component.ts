@@ -22,12 +22,13 @@ export class EducationCreateComponent {
 
   @Input() pageHeader: string | undefined;
 
-  educationForm: FormGroup;
+  editEducation: any;
 
-  submitted = false;
-  education = new Education();
-  educations: Education[] = [];
+  showAdd = true;
+  showEdit = false;
 
+  // store degree's name for future edit of education
+  degreeList: string[] = [];
 
   constructor(
     private router: Router,
@@ -35,61 +36,50 @@ export class EducationCreateComponent {
     private formBuilder: FormBuilder,
     public localDataService: LocalDataService
   ) {
-    this.educationForm = this.formBuilder.group({
-      universityName: ['', Validators.required],
-      country: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      degreeName: ['', Validators.required],
-      major: ['']    
-    });
+
   }
 
-
-  prepareDataForEducation() {
-    this.submitted = true;
-
-    if (!this.educationForm.valid) {
-      console.log('Invalid Form!');
-      return;
-    }
-
-    // prepare education data
-    var educationData = {
-      universityName: this.educationForm.value["universityName"],
-      country: this.educationForm.value["country"],
-      startDate: this.educationForm.value["startDate"],
-      endDate: this.educationForm.value["endDate"],
-      degreeName: this.educationForm.value["degreeName"],
-      major: this.educationForm.value["major"]
-    };
-
-    // reset education form  
-    this.educationForm.reset();
-
-    // save to local-data-service
-    this.educations.push(educationData);
-    this.localDataService.setEducation(this.educations);
+  ngOnInit(): void {
   }
 
-  // save education to educations[] and stays to education step
-  // in resume - creator 
-  saveAndAddMoreEducation() {
-    this.prepareDataForEducation();
+  // notification coming from child - add-education component
+  degreeListChangedHandler(degreeName: string) {
+    this.degreeList.push(degreeName);
+    console.log(this.degreeList);
   }
 
-  // save all educations and move to next step in resume-creator
-  saveEducation() {
-    this.prepareDataForEducation();
-
-    if (this.localDataService.getEducation() != undefined && this.localDataService.getEducation().length > 0) {
-      console.log(this.localDataService.getEducation());
-
-      // move to next step
+  // notification coming from child - edit-education component
+  editDoneChangedHandler(editDone: boolean) {
+    if (editDone) {
+      this.showAdd = true;
+      this.showEdit = false;
     }
     else {
-      console.log('You Have ZERO Education !');
-    }   
+      this.showAdd = false;
+      this.showEdit = true;
+    }
+  }
+
+  editMyEducation(editingDegreeName) {
+
+    this.showEdit = true;
+    this.showAdd = false;
+
+    var editingEducation = this.localDataService.getEducation().filter(function (edu) {
+      return edu.degreeName === editingDegreeName;
+    });
+
+    var myEdu = {
+      universityName: editingEducation[0].universityName,
+      country: editingEducation[0].country,
+      startDate: editingEducation[0].startDate,
+      endDate: editingEducation[0].endDate,
+      degreeName: editingEducation[0].degreeName,
+      major: editingEducation[0].major
+    };
+
+    // send this editEducation to edit-education child component
+    this.editEducation = myEdu;
   }
 
 }
