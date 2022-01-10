@@ -1,16 +1,9 @@
 import { Component, Input  } from '@angular/core';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { DataService } from '../../../services/data.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalDataService } from 'src/app/services/local-data.service';
 import PersonalInfo from 'src/app/models/personalInfo';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { ElementRef, ViewChild } from '@angular/core';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-personal-info-create',
@@ -25,14 +18,14 @@ export class PersonalInfoCreateComponent {
   emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
   phoneRegx = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
-  provinceCollection: any = ['MB', 'ON', 'AB'];
+  provinceCollection: string[] = [];
   cityCollection: string[] = [];
 
   submitted = false;
   personalInfo = new PersonalInfo();
 
   saved = false;
-  
+
   constructor(
     private router: Router,
     public dataService: DataService,
@@ -47,7 +40,9 @@ export class PersonalInfoCreateComponent {
       city: ['', Validators.required],
       province: ['', Validators.required]
     });
-  } 
+ 
+    this.getProvinces();
+  }
 
   changeProvince(e) {
     this.cityCollection = [];
@@ -79,7 +74,6 @@ export class PersonalInfoCreateComponent {
       city: this.personalInfoForm.value["city"],
       province: this.personalInfoForm.value["province"]
     };
-
     // console.log(personalInfoData);
 
     // save to local-data-service
@@ -94,5 +88,9 @@ export class PersonalInfoCreateComponent {
       this.saved = false;
     }, 3000);
 
+  }
+
+  getProvinces() {
+    this.provinceCollection = this.localDataService.getProvinces();
   }
 }

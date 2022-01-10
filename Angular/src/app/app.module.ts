@@ -31,7 +31,6 @@ import { EducationCreateComponent } from './components/child-components/educatio
 import { AddEducationComponent } from './components/child-components/add-education/add-education.component';
 import { EditEducationComponent } from './components/child-components/edit-education/edit-education.component';
 
-
 ////////services
 import { LocalDataService } from './services/local-data.service';
 

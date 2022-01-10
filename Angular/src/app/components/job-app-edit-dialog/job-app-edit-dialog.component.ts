@@ -1,11 +1,9 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import * as moment from 'moment';
 import { LocalDataService } from '../../services/local-data.service';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
-
 import JobApplication from '../../models/jobApplication';
 
 @Component({
@@ -24,7 +22,7 @@ export class JobAppEditDialogComponent implements OnInit {
   responseColor = '';
   errors: string[];
 
-  provinceCollection: any = ['MB', 'ON', 'AB'];
+  provinceCollection: string[] = [];
   cityCollection: string[] = [];
   
   jobApplication = new JobApplication();
@@ -132,6 +130,8 @@ export class JobAppEditDialogComponent implements OnInit {
     });
    
     this.getAppStatusTypes();
+
+    this.getProvinces();
   }
 
   getAppStatusTypes() {
@@ -250,6 +250,10 @@ export class JobAppEditDialogComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  getProvinces() {
+    this.provinceCollection = this.localDataService.getProvinces();
   }
 
 }

@@ -1,15 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { DataService } from '../../../services/data.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import PersonalInfo from 'src/app/models/personalInfo';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { ElementRef, ViewChild } from '@angular/core';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { FormBuilder } from '@angular/forms';
+import { ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { map, startWith } from 'rxjs/operators';
 import { LocalDataService } from 'src/app/services/local-data.service';
 
 export interface Skill {

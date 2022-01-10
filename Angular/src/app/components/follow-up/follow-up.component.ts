@@ -15,8 +15,6 @@ import { JobAppViewDialogComponent } from '../job-app-view-dialog/job-app-view-d
 import { JobAppDeleteDialogComponent } from '../job-app-delete-dialog/job-app-delete-dialog.component';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import AppStatusType from 'src/app/models/appStatusType';
-
 
 @Component({
   selector: 'app-follow-up',
@@ -29,7 +27,7 @@ export class FollowUpComponent implements OnInit {
   showSpinner = false;
 
   filterForm: FormGroup;
-  provinceCollection: any = ['MB', 'ON', 'AB'];
+  provinceCollection: string[] = [];
   cityCollection: string[] = [];
 
   // app-status-types enum from api
@@ -70,6 +68,7 @@ export class FollowUpComponent implements OnInit {
     this.getAllJobApps();
     this.getAppStatusTypes();
 
+    this.getProvinces();
   }
   
   // open dialog
@@ -377,5 +376,9 @@ export class FollowUpComponent implements OnInit {
   setFileDownload(downloadStatus, downloadClass) {
     this.downloadStatus = downloadStatus;
     this.downloadClass = downloadClass;
+  }
+
+  getProvinces() {
+    this.provinceCollection = this.localDataService.getProvinces();
   }
 }

@@ -15,7 +15,6 @@ export class LocalDataService {
 
   constructor() { }
 
-
   setEducation(val) {
     this.Education = val;
   }
@@ -87,6 +86,26 @@ export class LocalDataService {
       return 'purple';
   }
 
+  // return country collection
+  getCountries(): Array<string> {
+    let Countries: string[] = [];
+    Countries.push("Canada");
+    Countries.push("USA");
+    Countries.push("Mexico");
+    Countries.push("England");
+    Countries.push("India");
+    return Countries;
+  }  
+  // return province collection
+  getProvinces(): Array<string>{
+    let provinces: string[] = [];
+    provinces.push("MB");
+    provinces.push("ON");
+    provinces.push("AB");
+    provinces.push("SK");
+    provinces.push("BC");
+    return provinces;
+  }
   // return city collection as per province input
   getCities(province: string): Array<string> {
     let cities: string[] = [];
@@ -104,7 +123,15 @@ export class LocalDataService {
     else if (province == "AB") {
       cities.push("Calgary");
       cities.push("Edmonton");
-    }    
+    }
+    else if (province == "BC") {
+      cities.push("Vancouver");
+      cities.push("Burnaby");
+    }
+    else if (province == "SK") {
+      cities.push("Saskatoon");
+      cities.push("Regina");
+    }
     return cities;
   }
 

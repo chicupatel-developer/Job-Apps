@@ -1,18 +1,9 @@
-import { Component, Input, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalDataService } from 'src/app/services/local-data.service';
-import PersonalInfo from 'src/app/models/personalInfo';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { ElementRef, ViewChild } from '@angular/core';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { map, startWith } from 'rxjs/operators';
-import WorkExperience from 'src/app/models/workExperience';
-import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-edit-education',
@@ -28,7 +19,7 @@ export class EditEducationComponent implements OnInit {
 
   educationForm: FormGroup;
 
-  countryCollection: any = ['India', 'Canada', 'US'];
+  countryCollection: string[] = [];
 
   submitted = false;
 
@@ -56,11 +47,12 @@ export class EditEducationComponent implements OnInit {
   }
 
   ngOnChanges() {
-    this.setFormControls()
+    this.setFormControls();
   }
 
   ngOnInit(): void {
-    this.setFormControls()
+    this.setFormControls();
+    this.getCountries();
   }
 
   setFormControls() {
@@ -131,4 +123,7 @@ export class EditEducationComponent implements OnInit {
     this.editDoneChanged.emit(true);
   }
 
+  getCountries() {
+    this.countryCollection = this.localDataService.getCountries();
+  }
 }

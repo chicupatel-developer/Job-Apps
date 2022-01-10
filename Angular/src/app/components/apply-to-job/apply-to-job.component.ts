@@ -16,7 +16,7 @@ export class ApplyToJobComponent implements OnInit {
   emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
   phoneRegx = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
-  provinceCollection: any = ['MB', 'ON', 'AB'];
+  provinceCollection: string[] = [];
   cityCollection: string[] = [];
 
   // apply-to-job
@@ -43,6 +43,8 @@ export class ApplyToJobComponent implements OnInit {
       city: ['', Validators.required],
       province: ['', Validators.required]
     });
+
+    this.getProvinces();
   }
 
 
@@ -120,4 +122,7 @@ export class ApplyToJobComponent implements OnInit {
       );
   }
 
+  getProvinces() {
+    this.provinceCollection = this.localDataService.getProvinces();
+  }
 }
