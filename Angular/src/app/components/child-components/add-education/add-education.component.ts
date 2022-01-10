@@ -83,12 +83,26 @@ export class AddEducationComponent implements OnInit {
     var myEducations = this.localDataService.getEducation();
     this.educations = Object.assign([], myEducations);
     this.educations.push(education);
-    this.localDataService.setWorkExperience(this.educations);
+    this.localDataService.setEducation(this.educations);
 
     // notify parent component's degreeList
     this.degreeListChanged.emit(education.degreeName);
   }
 
+  saveAndAddMoreEducation() {
+    this.prepareDataForEducation();
+  }
 
+  // save all educations and move to next step in resume-creator
+  saveEducation() {
+    this.prepareDataForEducation();
+
+    if (this.localDataService.getEducation() != undefined && this.localDataService.getEducation().length > 0) {    
+      // move to next step
+    }
+    else {
+      console.log('You Have ZERO Education !');
+    }
+  }
 
 }

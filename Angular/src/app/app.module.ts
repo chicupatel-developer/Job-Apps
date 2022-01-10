@@ -23,12 +23,6 @@ import { JobResumeUploadComponent } from './components/job-resume-upload/job-res
 import { ResumeCreatorComponent } from './components/resume-creator/resume-creator.component';
 import { AddWorkExperienceComponent } from './components/child-components/add-work-experience/add-work-experience.component';
 import { EditWorkExperienceComponent } from './components/child-components/edit-work-experience/edit-work-experience.component';
-
-////////services
-import { LocalDataService } from './services/local-data.service';
-
-// angular-material
-import { MaterialModule } from './material.module';
 import { PersonalInfoCreateComponent } from './components/child-components/personal-info-create/personal-info-create.component';
 import { TechnicalSkillCreateComponent } from './components/child-components/technical-skill-create/technical-skill-create.component';
 import { WorkExperienceCreateComponent } from './components/child-components/work-experience-create/work-experience-create.component';
@@ -36,6 +30,13 @@ import { SaveAndViewResumeComponent } from './components/child-components/save-a
 import { EducationCreateComponent } from './components/child-components/education-create/education-create.component';
 import { AddEducationComponent } from './components/child-components/add-education/add-education.component';
 import { EditEducationComponent } from './components/child-components/edit-education/edit-education.component';
+
+
+////////services
+import { LocalDataService } from './services/local-data.service';
+
+// angular-material
+import { MaterialModule } from './material.module';
 
 
 @NgModule({

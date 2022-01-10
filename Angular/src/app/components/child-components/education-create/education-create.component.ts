@@ -22,7 +22,7 @@ export class EducationCreateComponent {
 
   @Input() pageHeader: string | undefined;
 
-  editEducation: any;
+  editEdu: any;
 
   showAdd = true;
   showEdit = false;
@@ -60,7 +60,7 @@ export class EducationCreateComponent {
     }
   }
 
-  editMyEducation(editingDegreeName) {
+  editEducation(editingDegreeName) {
 
     this.showEdit = true;
     this.showAdd = false;
@@ -79,7 +79,7 @@ export class EducationCreateComponent {
     };
 
     // send this editEducation to edit-education child component
-    this.editEducation = myEdu;
+    this.editEdu = myEdu;
   }
 
 }

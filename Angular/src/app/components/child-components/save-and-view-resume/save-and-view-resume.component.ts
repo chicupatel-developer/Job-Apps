@@ -41,12 +41,12 @@ export class SaveAndViewResumeComponent {
     var personalInfo = this.localDataService.getPersonalInfo();
     var skills = this.localDataService.getSkills();
     var workExps = this.localDataService.getWorkExperience();
-    var education = this.localDataService.getEducation();
+    var educations = this.localDataService.getEducation();
 
     var dataValid = false;
     var myResume = {};
 
-    if (personalInfo == null || skills == null || workExps == null || education == null) {
+    if (personalInfo == null || skills == null || workExps == null || educations == null) {
       console.log('Resume Data Not Found!');
       dataValid = false;
     }
@@ -67,12 +67,27 @@ export class SaveAndViewResumeComponent {
         }
       });
       // console.log(woExps);
+
+      // format education's startDate/endDate
+      var edus = educations;
+      edus.forEach((edu) => {
+        var startDate_ = monthNames[new Date(edu.startDate).getMonth()] + ', ' + new Date(edu.startDate).getFullYear();
+        edu.startDate = startDate_;
+
+        if (edu.endDate === '') {
+          edu.endDate = 'Till - Date';
+        }
+        else {
+          var endDate_ = monthNames[new Date(edu.endDate).getMonth()] + ', ' + new Date(edu.endDate).getFullYear();
+          edu.endDate = endDate_;
+        }
+      });
       
       myResume = {
         personalInfo: personalInfo,
         skills: skills,
         workExperience: woExps,
-        education: education
+        education: edus
       };      
       console.log(myResume);
       dataValid = true;      
