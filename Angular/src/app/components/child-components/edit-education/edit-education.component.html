@@ -1,6 +1,8 @@
 <div>
     <div>
         <h2>{{pageHeader}}</h2>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="saved" *ngIf="saved">Data Saved !</span>
     </div>
 
     <form [formGroup]="educationForm">

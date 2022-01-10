@@ -39,6 +39,8 @@ export class AddWorkExperienceComponent implements OnInit {
   endDate = '';
   duration = 0;
 
+  saved = false;
+
   constructor(
     private router: Router,
     public dataService: DataService,
@@ -111,6 +113,11 @@ export class AddWorkExperienceComponent implements OnInit {
 
     // notify parent component's employerList
     this.employerListChanged.emit(workExp.employerName);
+
+    this.saved = true;
+    setTimeout(() => {
+      this.saved = false;
+    }, 3000);
   }
 
   saveAndAddMoreWorkExperience() {

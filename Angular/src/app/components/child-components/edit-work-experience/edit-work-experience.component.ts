@@ -42,6 +42,8 @@ export class EditWorkExperienceComponent implements OnInit {
   selectedProvince = '';
   selectedCity = '';
 
+  saved = false;
+
   constructor(
     private router: Router,
     public dataService: DataService,
@@ -134,9 +136,13 @@ export class EditWorkExperienceComponent implements OnInit {
     });
     otherWoExp.push(workExpEdited);
     this.localDataService.setWorkExperience(otherWoExp);
-
-    // notify parent component that edit is done
-    this.editDoneChanged.emit(true);    
+    
+    this.saved = true;
+    setTimeout(() => {
+      this.saved = false;
+      // notify parent component that edit is done
+      this.editDoneChanged.emit(true);
+    }, 3000);  
   }
   cancelEditWorkExperience() {
     // notify parent component that edit is done

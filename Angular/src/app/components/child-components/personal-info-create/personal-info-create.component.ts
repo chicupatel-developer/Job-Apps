@@ -32,6 +32,7 @@ export class PersonalInfoCreateComponent {
   personalInfo = new PersonalInfo();
 
   saved = false;
+  
   constructor(
     private router: Router,
     public dataService: DataService,

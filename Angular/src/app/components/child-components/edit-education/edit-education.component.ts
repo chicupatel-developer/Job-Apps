@@ -37,6 +37,8 @@ export class EditEducationComponent implements OnInit {
 
   selectedCountry = '';
 
+  saved = false;
+
   constructor(
     private router: Router,
     public dataService: DataService,
@@ -117,8 +119,12 @@ export class EditEducationComponent implements OnInit {
     otherEdu.push(educationEdited);
     this.localDataService.setEducation(otherEdu);
 
-    // notify parent component that edit is done
-    this.editDoneChanged.emit(true);
+    this.saved = true;
+    setTimeout(() => {
+      this.saved = false;
+      // notify parent component that edit is done
+      this.editDoneChanged.emit(true);
+    }, 3000);  
   }
   cancelEditEducation() {
     // notify parent component that edit is done

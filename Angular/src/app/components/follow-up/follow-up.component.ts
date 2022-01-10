@@ -327,11 +327,24 @@ export class FollowUpComponent implements OnInit {
         this.setFileDownload('Downloading!', 'green');
 
         console.log(blob);
-
-        // const myFile = new Blob([blob], { type: 'text/csv' });
-        const myFile = new Blob([blob], { type: 'application/pdf' });
-        const url = window.URL.createObjectURL(myFile);
-        window.open(url);
+        // .txt
+        if (blob.type === 'text/plain') {
+          const myFile = new Blob([blob], { type: 'text/plain' });
+          const url = window.URL.createObjectURL(myFile);
+          window.open(url);
+        }
+        else if (blob.type === 'text/csv') {
+          const myFile = new Blob([blob], { type: 'text/csv' });
+          const url = window.URL.createObjectURL(myFile);
+          window.open(url);
+        }
+        // .pdf
+        else {
+          // const myFile = new Blob([blob], { type: 'text/csv' });
+          const myFile = new Blob([blob], { type: 'application/pdf' });
+          const url = window.URL.createObjectURL(myFile);
+          window.open(url);
+        }      
 
         setTimeout(() => {
           this.resetAfterFileDownload();

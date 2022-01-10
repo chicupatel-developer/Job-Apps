@@ -41,6 +41,8 @@ export class TechnicalSkillCreateComponent {
   ];
   */
 
+  saved = false;
+  
   constructor(
     private router: Router,
     public dataService: DataService,
@@ -84,6 +86,11 @@ export class TechnicalSkillCreateComponent {
   saveSkills() {
     this.localDataService.setSkills(this.skills);
     console.log(this.localDataService.getSkills());
+
+    this.saved = true;
+    setTimeout(() => {
+      this.saved = false;
+    }, 3000);
   }
 
 }

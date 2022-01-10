@@ -1,6 +1,8 @@
 <div class="personalContainer">
     <div>
         <h2>{{pageHeader}}</h2>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="saved" *ngIf="saved">Data Saved !</span>
     </div>
     <div>
         <form [formGroup]="personalInfoForm">
@@ -8,8 +10,7 @@
                 <button (click)="savePersonalInfo()" mat-raised-button color="primary" type="button">
                     <mat-icon>save</mat-icon>
                     &nbsp;&nbsp;Save
-                </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="saved" *ngIf="saved">Data Saved !</span>
+                </button>
             </div>
 
             <div fxLayout="row" class="parent" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">

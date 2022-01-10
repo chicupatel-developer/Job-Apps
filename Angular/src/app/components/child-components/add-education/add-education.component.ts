@@ -35,6 +35,8 @@ export class AddEducationComponent implements OnInit {
   startDate = '';
   endDate = '';
 
+  saved = false;
+
   constructor(
     private router: Router,
     public dataService: DataService,
@@ -87,6 +89,11 @@ export class AddEducationComponent implements OnInit {
 
     // notify parent component's degreeList
     this.degreeListChanged.emit(education.degreeName);
+
+    this.saved = true;
+    setTimeout(() => {
+      this.saved = false;
+    }, 3000);
   }
 
   saveAndAddMoreEducation() {
