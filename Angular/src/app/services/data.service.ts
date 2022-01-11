@@ -87,4 +87,9 @@ export class DataService {
     return this.http.post<string>(this.ResumeCreator_API + '/createAndEmailResume', myResume,
       { responseType: 'string' as 'json' });
   }
+
+  // follow-up-->app-status-track-dialog
+  tractJobAppStatus(jobAppId): Observable<any> {
+    return this.http.get<any>(this.JobApplication_API + '/tractJobAppStatus/' + jobAppId);
+  }
 }

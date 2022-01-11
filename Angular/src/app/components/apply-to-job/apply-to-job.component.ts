@@ -100,7 +100,7 @@ export class ApplyToJobComponent implements OnInit {
             // this.applyToJobForm.get("city").patchValue('');
 
             setTimeout(() => {
-              this.router.navigate(['/home']);
+              this.router.navigate(['/follow-up']);
               this.apiResponse = '';
             }, 3000);
           }
@@ -117,7 +117,7 @@ export class ApplyToJobComponent implements OnInit {
           this.responseColor = 'red';
           this.errors = [];
 
-          this.errors = this.localDataService.display400andEx(error, 'Account');
+          this.errors = this.localDataService.display400andEx(error, 'Job-Application');
         }
       );
   }

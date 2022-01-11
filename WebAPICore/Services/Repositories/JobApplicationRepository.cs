@@ -19,9 +19,34 @@ namespace Services.Repositories
 
         public JobApplication AddJobApp(JobApplication jobApplication)
         {
-            var result = appDbContext.JobApplications.Add(jobApplication);
-            appDbContext.SaveChanges();
-            return result.Entity;
+            using var transaction = appDbContext.Database.BeginTransaction();
+            try
+            {
+                // 1)
+                var result = appDbContext.JobApplications.Add(jobApplication);
+                appDbContext.SaveChanges();
+
+                // throw new Exception();
+
+                // 2)
+                AppStatusLog appStatusLog = new AppStatusLog()
+                {
+                    AppStatusChangedOn = DateTime.Now,
+                    JobApplicationId = result.Entity.JobApplicationId,
+                    AppStatus = 0
+                };
+                appDbContext.AppStatusLog.Add(appStatusLog);
+                appDbContext.SaveChanges();
+
+                // commit 1 & 2
+                transaction.Commit();
+                return result.Entity;
+            }
+            catch(Exception ex)
+            {
+                transaction.Rollback();
+                throw new Exception();
+            }          
         }
 
         public IEnumerable<JobApplication> GetAllJobApps()
@@ -129,5 +154,17 @@ namespace Services.Repositories
             }         
         }
 
+        public IEnumerable<AppStatusLog> TractJobAppStatus(int jobAppId)
+        {
+            List<AppStatusLog> appStatusLog = new List<AppStatusLog>();
+
+            var appStatusLog_ = appDbContext.AppStatusLog
+                            .Where(x => x.JobApplicationId == jobAppId);
+            if(appStatusLog_!=null && appStatusLog_.Count() > 0)
+            {
+                appStatusLog = appStatusLog_.ToList();
+            }
+            return appStatusLog;
+        }
     }
 }

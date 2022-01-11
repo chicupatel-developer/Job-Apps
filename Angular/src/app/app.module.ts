@@ -30,6 +30,7 @@ import { SaveAndViewResumeComponent } from './components/child-components/save-a
 import { EducationCreateComponent } from './components/child-components/education-create/education-create.component';
 import { AddEducationComponent } from './components/child-components/add-education/add-education.component';
 import { EditEducationComponent } from './components/child-components/edit-education/edit-education.component';
+import { AppStatusTrackDialogComponent } from './components/app-status-track-dialog/app-status-track-dialog.component';
 
 ////////services
 import { LocalDataService } from './services/local-data.service';
@@ -59,7 +60,8 @@ import { MaterialModule } from './material.module';
     AddWorkExperienceComponent,
     EditWorkExperienceComponent,
     AddEducationComponent,
-    EditEducationComponent
+    EditEducationComponent,
+    AppStatusTrackDialogComponent
   ],
   imports: [
     BrowserModule,

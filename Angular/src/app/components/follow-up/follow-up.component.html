@@ -90,9 +90,13 @@
                                 <mat-icon>file_upload</mat-icon>
                                 Resume
                             </button>
+                            <span>&nbsp;</span>
+                            <button class="mat-raised-button" (click)="tractAppStatus(job)">
+                                <mat-icon>track_changes</mat-icon>
+                                App Status
+                            </button>
                             <span>&nbsp;&nbsp;&nbsp;</span> [{{displayAppStatusType(job.appStatus)}}]
-                            <span>&nbsp;&nbsp;&nbsp;</span> {{job.appliedOn | date : "MMMM d, y"}} @ {{job.city}},{{job.province}}
-
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{job.appliedOn | date : "MMMM d, y"}} @ {{job.city}},{{job.province}}
                         </mat-card-title>
                     </mat-card-header>
                     <mat-card-content>

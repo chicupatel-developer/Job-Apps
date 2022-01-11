@@ -38,7 +38,7 @@ namespace api_job_apps.Controllers
             try
             {
                 // check for null
-                // jobApplication = null;
+                // jobAppData = null;
                 if (jobAppData == null)
                 {
                     return BadRequest();
@@ -68,8 +68,8 @@ namespace api_job_apps.Controllers
             catch (Exception ex)
             {
                 _response.ResponseCode = -1;
-                // _response.ResponseMessage = "Server Error !";
-                _response.ResponseMessage = ex.Message.ToString();
+                _response.ResponseMessage = "Server Error !";
+                // _response.ResponseMessage = ex.Message.ToString();
                 return Ok(_response);
             }
         }
@@ -189,5 +189,21 @@ namespace api_job_apps.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("tractJobAppStatus/{jobAppId}")]
+        public IActionResult TractJobAppStatus(int jobAppId)
+        {
+            try
+            {
+                // throw new Exception();
+
+                var appStatusLog = _jobAppRepo.TractJobAppStatus(jobAppId);
+                return Ok(appStatusLog);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Server Error !");
+            }
+        }
     }
 }
