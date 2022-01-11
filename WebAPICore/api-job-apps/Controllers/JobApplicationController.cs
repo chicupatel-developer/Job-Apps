@@ -114,10 +114,18 @@ namespace api_job_apps.Controllers
                                 
                 if (ModelState.IsValid)
                 {
-                    _jobAppRepo.EditJobApp(jobAppData);
-                    _response.ResponseCode = 0;
-                    _response.ResponseMessage = "Job Edited Successfully !";
-                    return Ok(_response);
+                    if (_jobAppRepo.EditJobApp(jobAppData) != null)
+                    {
+                        _response.ResponseCode = 0;
+                        _response.ResponseMessage = "Job Edited Successfully !";
+                        return Ok(_response);
+                    }
+                    else
+                    {
+                        _response.ResponseCode = -1;
+                        _response.ResponseMessage = "Data Not Found @ Server !";
+                        return Ok(_response);
+                    }                
                 }
                 else
                 {

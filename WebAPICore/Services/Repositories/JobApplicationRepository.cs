@@ -48,24 +48,55 @@ namespace Services.Repositories
             // check for catch exception @ angular
             // throw new Exception();
 
-            var jobApp_ = appDbContext.JobApplications
-                            .Where(x => x.JobApplicationId == jobApplication.JobApplicationId).FirstOrDefault();
-            if (jobApp_ != null)
+            using var transaction = appDbContext.Database.BeginTransaction();
+            try
             {
-                jobApp_.PhoneNumber = jobApplication.PhoneNumber;
-                jobApp_.Province = jobApplication.Province;
-                jobApp_.WebURL = jobApplication.WebURL;
-                jobApp_.FollowUpNotes = jobApplication.FollowUpNotes;
-                jobApp_.ContactPersonName = jobApplication.ContactPersonName;
-                jobApp_.ContactEmail = jobApplication.ContactEmail;
-                jobApp_.CompanyName = jobApplication.CompanyName;
-                jobApp_.City = jobApplication.City;
-                jobApp_.AppStatus = jobApplication.AppStatus;
-                jobApp_.AppliedOn = jobApplication.AppliedOn;
-                jobApp_.AgencyName = jobApplication.AgencyName;
-                appDbContext.SaveChanges();
-            }       
-            return jobApplication;
+                var jobApp_ = appDbContext.JobApplications
+                          .Where(x => x.JobApplicationId == jobApplication.JobApplicationId).FirstOrDefault();
+                if (jobApp_ != null)
+                {
+                    // 1) edit JobApplications db table
+                    jobApp_.PhoneNumber = jobApplication.PhoneNumber;
+                    jobApp_.Province = jobApplication.Province;
+                    jobApp_.WebURL = jobApplication.WebURL;
+                    jobApp_.FollowUpNotes = jobApplication.FollowUpNotes;
+                    jobApp_.ContactPersonName = jobApplication.ContactPersonName;
+                    jobApp_.ContactEmail = jobApplication.ContactEmail;
+                    jobApp_.CompanyName = jobApplication.CompanyName;
+                    jobApp_.City = jobApplication.City;
+                    jobApp_.AppStatus = jobApplication.AppStatus;
+                    jobApp_.AppliedOn = jobApplication.AppliedOn;
+                    jobApp_.AgencyName = jobApplication.AgencyName;
+                    appDbContext.SaveChanges();
+
+
+                    // throw new Exception();
+
+                    // 2) add into AppStatusLog db table
+                    AppStatusLog appStatusLog = new AppStatusLog()
+                    {
+                        AppStatusChangedOn = DateTime.Now,
+                        JobApplicationId = jobApp_.JobApplicationId,
+                        AppStatus = jobApplication.AppStatus
+                    };
+                    appDbContext.AppStatusLog.Add(appStatusLog);
+                    appDbContext.SaveChanges();
+
+                    // throw new Exception();
+
+                    // commit 1 & 2
+                    transaction.Commit();
+
+                    return jobApplication;
+                }
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                throw new Exception();
+            }     
         }
 
         public JobApplication ViewJobApp(int jobAppId)
