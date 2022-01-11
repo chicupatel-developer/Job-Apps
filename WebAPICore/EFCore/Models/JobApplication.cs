@@ -20,5 +20,6 @@ namespace EFCore.Models
         public string FollowUpNotes { get; set; }
 
         public JobResume JobResume { get; set; }
+        public ICollection<AppStatusLog> AppStatusLog { get; set; }
     }
 }
