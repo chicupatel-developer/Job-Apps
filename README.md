@@ -6,9 +6,7 @@ Technology
 ----------
 - .Net Core Web API
 
-- EF Core 
-  - Code First (Email-Sender, Follow-Up, Apply-Job, Resume-Creator Modules) 
-  - Database First (University-Work Module)
+- EF Core - Code First, EF Core Transaction 
 
 - Repository pattern
 
