@@ -41,7 +41,8 @@ export class ApplyToJobComponent implements OnInit {
       contactEmail: ['', [Validators.required, Validators.pattern(this.emailRegx)]],
       phoneNumber: ['', [Validators.pattern(this.phoneRegx)]],
       city: ['', Validators.required],
-      province: ['', Validators.required]
+      province: ['', Validators.required],
+      appliedOn: ['', Validators.required],
     });
 
     this.getProvinces();
@@ -78,11 +79,13 @@ export class ApplyToJobComponent implements OnInit {
       contactEmail: this.applyToJobForm.value["contactEmail"],
       phoneNumber: this.applyToJobForm.value["phoneNumber"],
       city: this.applyToJobForm.value["city"],
-      province: this.applyToJobForm.value["province"]
+      province: this.applyToJobForm.value["province"],
+      appliedOn: this.applyToJobForm.value["appliedOn"]
     };
 
     console.log(jobAppData);
 
+    
     this.dataService.addJobApp(jobAppData)
       .subscribe(
         response => {

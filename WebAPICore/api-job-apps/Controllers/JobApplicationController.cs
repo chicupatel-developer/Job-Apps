@@ -10,6 +10,7 @@ using api_job_apps.DTO;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Net.Http.Headers;
+using Services.DTO;
 
 namespace api_job_apps.Controllers
 {
@@ -51,8 +52,7 @@ namespace api_job_apps.Controllers
                 // ModelState.AddModelError("error", "ModelState Check!");
                 // ModelState.AddModelError("error", "Another ModelState Check!");
                 // ModelState.AddModelError("error", "One More Another ModelState Check!");
-
-                jobAppData.AppliedOn = DateTime.Now;
+                                
                 if (ModelState.IsValid)
                 {
                     _jobAppRepo.AddJobApp(jobAppData);
@@ -92,7 +92,7 @@ namespace api_job_apps.Controllers
 
         [HttpPost]
         [Route("editJobApplication")]
-        public IActionResult EditJobApplication(JobApplication jobAppData)
+        public IActionResult EditJobApplication(JobApplicationEditVM jobAppData)
         {
             _response = new APIResponse();
             try

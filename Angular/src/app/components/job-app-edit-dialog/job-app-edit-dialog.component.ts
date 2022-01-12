@@ -36,6 +36,10 @@ export class JobAppEditDialogComponent implements OnInit {
   // holds either Applied or FollowUp or ,,,
   selectedAppStatusDisplay = '';
 
+  // before edit appStatus
+  beforeEditAppStatus = '';
+  showEditAppStatusDatePicker = false;
+
   constructor(
     private router: Router,
     public dataService: DataService,
@@ -70,7 +74,8 @@ export class JobAppEditDialogComponent implements OnInit {
       appliedOn: [''],
       // appStatus: ['', Validators.required],
       appStatusDisplay: ['', Validators.required],
-      followUpNotes: ['']
+      followUpNotes: [''],
+      appStatusChangedOn: ['']
     });
 
     this.jobApplication.jobApplicationId = jobApplicationId;
@@ -93,26 +98,11 @@ export class JobAppEditDialogComponent implements OnInit {
     this.selectedCity = city;
     this.selectedAppStatus = appStatus;
     this.selectedAppStatusDisplay = appStatusDisplay;
+
+    this.beforeEditAppStatus = appStatusDisplay;
   }
 
-  ngOnInit(): void {
-    
-    // patch form values
-    /*
-    this.form.patchValue({
-      companyName: this.jobApplication.companyName,
-      agencyName: this.jobApplication.agencyName,
-      webURL: this.jobApplication.webURL,
-      contactPersonName: this.jobApplication.contactPersonName,
-      contactEmail: this.jobApplication.contactEmail,
-      phoneNumber: this.jobApplication.phoneNumber,
-      city: this.jobApplication.city,
-      province: this.jobApplication.province,
-      appliedOn: this.jobApplication.appliedOn,
-      appStatus: this.jobApplication.appStatus,
-      followUpNotes: this.jobApplication.followUpNotes
-    });
-    */
+  ngOnInit(): void {  
 
     this.form.setValue({
       companyName: this.jobApplication.companyName,
@@ -126,12 +116,22 @@ export class JobAppEditDialogComponent implements OnInit {
       appliedOn: this.jobApplication.appliedOn,
       // appStatus: this.jobApplication.appStatus,
       appStatusDisplay: this.jobApplication.appStatusDisplay,
-      followUpNotes: this.jobApplication.followUpNotes
+      followUpNotes: this.jobApplication.followUpNotes,
+      appStatusChangedOn: new Date()
     });
    
     this.getAppStatusTypes();
 
     this.getProvinces();
+  }
+
+  onAppStatusChange(event) {
+    if (event.value === this.beforeEditAppStatus) {
+      this.showEditAppStatusDatePicker = false;
+    }
+    else {
+      this.showEditAppStatusDatePicker = true;
+    }
   }
 
   getAppStatusTypes() {
@@ -196,6 +196,7 @@ export class JobAppEditDialogComponent implements OnInit {
     this.submitted = true;
     
     if (!this.form.valid) {
+      console.log('Invalid Form!');
       return;
     }
     
@@ -205,8 +206,26 @@ export class JobAppEditDialogComponent implements OnInit {
     this.jobApplication.jobApplicationId = jobApplicationId;
     this.jobApplication.appStatus = this.convertAppStatusType(this.selectedAppStatusDisplay);
 
+    var jobApplicationEditVM = {};
+    if (this.jobApplication.appStatusDisplay != this.beforeEditAppStatus) {
+      jobApplicationEditVM = {
+        jobApplication: this.jobApplication,
+        appStatusChanged: true,
+        appStatusChangedOn: this.form.value["appStatusChangedOn"]
+      }      
+    }
+    else {
+      jobApplicationEditVM = {
+        jobApplication: this.jobApplication,
+        appStatusChanged: false,
+        appStatusChangedOn: new Date()
+      }
+    }
+    console.log(jobApplicationEditVM);
+
     // api call
-    this.dataService.editJobApp(this.jobApplication)
+    // this.dataService.editJobApp(this.jobApplication)
+    this.dataService.editJobApp(jobApplicationEditVM)
       .subscribe(
         response => {
           if (response.responseCode == 0) {
@@ -245,7 +264,7 @@ export class JobAppEditDialogComponent implements OnInit {
           }
           this.errors = this.localDataService.display400andEx(error, 'Edit-Job-App');
         }
-      );    
+      ); 
   }
 
   close() {

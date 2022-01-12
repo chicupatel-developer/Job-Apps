@@ -13,7 +13,7 @@
             <div *ngIf="appStatusTrackingData.length>0; else notAv">
                 <div class="appStatusDiv" *ngFor="let data of appStatusTrackingData">
                     <div>
-                        {{data.appStatusDisplay}} @ {{data.appStatusChangedOn | date:'medium'}}
+                        {{data.appStatusDisplay}} @ {{data.appStatusChangedOn | date:'mediumDate'}}
                     </div>
                     <mat-toolbar class="progress-bar">
                         <mat-progress-bar color="blue" [value]="data.appCompleted">

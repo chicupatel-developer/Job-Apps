@@ -1,5 +1,6 @@
 ﻿using EFCore.Context;
 using EFCore.Models;
+using Services.DTO;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Services.Repositories
                 // 2)
                 AppStatusLog appStatusLog = new AppStatusLog()
                 {
-                    AppStatusChangedOn = DateTime.Now,
+                    AppStatusChangedOn = result.Entity.AppliedOn,
                     JobApplicationId = result.Entity.JobApplicationId,
                     AppStatus = 0
                 };
@@ -68,7 +69,7 @@ namespace Services.Repositories
             return appStatusTypes;
         }
 
-        public JobApplication EditJobApp(JobApplication jobApplication)
+        public JobApplication EditJobApp(JobApplicationEditVM jobApplication)
         {
             // check for catch exception @ angular
             // throw new Exception();
@@ -77,42 +78,43 @@ namespace Services.Repositories
             try
             {
                 var jobApp_ = appDbContext.JobApplications
-                          .Where(x => x.JobApplicationId == jobApplication.JobApplicationId).FirstOrDefault();
+                          .Where(x => x.JobApplicationId == jobApplication.JobApplication.JobApplicationId).FirstOrDefault();
                 if (jobApp_ != null)
                 {
                     // 1) edit JobApplications db table
-                    jobApp_.PhoneNumber = jobApplication.PhoneNumber;
-                    jobApp_.Province = jobApplication.Province;
-                    jobApp_.WebURL = jobApplication.WebURL;
-                    jobApp_.FollowUpNotes = jobApplication.FollowUpNotes;
-                    jobApp_.ContactPersonName = jobApplication.ContactPersonName;
-                    jobApp_.ContactEmail = jobApplication.ContactEmail;
-                    jobApp_.CompanyName = jobApplication.CompanyName;
-                    jobApp_.City = jobApplication.City;
-                    jobApp_.AppStatus = jobApplication.AppStatus;
-                    jobApp_.AppliedOn = jobApplication.AppliedOn;
-                    jobApp_.AgencyName = jobApplication.AgencyName;
+                    jobApp_.PhoneNumber = jobApplication.JobApplication.PhoneNumber;
+                    jobApp_.Province = jobApplication.JobApplication.Province;
+                    jobApp_.WebURL = jobApplication.JobApplication.WebURL;
+                    jobApp_.FollowUpNotes = jobApplication.JobApplication.FollowUpNotes;
+                    jobApp_.ContactPersonName = jobApplication.JobApplication.ContactPersonName;
+                    jobApp_.ContactEmail = jobApplication.JobApplication.ContactEmail;
+                    jobApp_.CompanyName = jobApplication.JobApplication.CompanyName;
+                    jobApp_.City = jobApplication.JobApplication.City;
+                    jobApp_.AppStatus = jobApplication.JobApplication.AppStatus;
+                    jobApp_.AppliedOn = jobApplication.JobApplication.AppliedOn;
+                    jobApp_.AgencyName = jobApplication.JobApplication.AgencyName;
                     appDbContext.SaveChanges();
 
 
                     // throw new Exception();
 
                     // 2) add into AppStatusLog db table
-                    AppStatusLog appStatusLog = new AppStatusLog()
+                    if (jobApplication.AppStatusChanged)
                     {
-                        AppStatusChangedOn = DateTime.Now,
-                        JobApplicationId = jobApp_.JobApplicationId,
-                        AppStatus = jobApplication.AppStatus
-                    };
-                    appDbContext.AppStatusLog.Add(appStatusLog);
-                    appDbContext.SaveChanges();
-
-                    // throw new Exception();
-
-                    // commit 1 & 2
+                        AppStatusLog appStatusLog = new AppStatusLog()
+                        {
+                            AppStatusChangedOn = jobApplication.AppStatusChangedOn,
+                            JobApplicationId = jobApp_.JobApplicationId,
+                            AppStatus = jobApplication.JobApplication.AppStatus
+                        };
+                        appDbContext.AppStatusLog.Add(appStatusLog);
+                        appDbContext.SaveChanges();
+                    }
+                 
+                    // commit 1 &&/|| 2
                     transaction.Commit();
 
-                    return jobApplication;
+                    return jobApplication.JobApplication;
                 }
                 else
                     return null;
