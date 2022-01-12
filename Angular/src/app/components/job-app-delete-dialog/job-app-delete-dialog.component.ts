@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 })
 export class JobAppDeleteDialogComponent {
 
-  message: string = "Are you sure?"
+  message: string = "Are you sure you want to delete this Job-Application ?"
   confirmButtonText = "Yes"
   cancelButtonText = "Cancel"
   constructor(

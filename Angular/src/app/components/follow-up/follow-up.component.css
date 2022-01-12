@@ -79,3 +79,13 @@
         margin-bottom: 50px;
         font-weight: bold;
     }
+    
+    .uploadBtn {
+        background-color: green;
+        color: #fff;
+    }
+    
+    .downloadBtn {
+        background-color: lightgreen;
+        color: black;
+    }

@@ -86,7 +86,7 @@
                                 <mat-icon>delete</mat-icon>
                             </button>
                             <span>&nbsp;</span>
-                            <button class="mat-raised-button mat-warn" (click)="resumeUpload(job)">
+                            <button class="mat-raised-button uploadBtn" (click)="resumeUpload(job)">
                                 <mat-icon>file_upload</mat-icon>
                                 Resume
                             </button>
@@ -112,7 +112,7 @@
                                     Phone : <span *ngIf="job.phoneNumber; else notAv">{{job.phoneNumber}}</span>
                                 </p>
                                 <p>
-                                    <button class="mat-raised-button mat-Basic" (click)="resumeDownload(job)">                                        
+                                    <button class="mat-raised-button downloadBtn" (click)="resumeDownload(job)">                                        
                                         <mat-icon>cloud_download</mat-icon>
                                         Resume
                                         &nbsp;&nbsp;&nbsp;

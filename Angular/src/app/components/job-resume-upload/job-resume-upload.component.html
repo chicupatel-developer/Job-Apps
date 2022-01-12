@@ -1,23 +1,26 @@
-<div fxLayout="row wrap" 
-    fxLayout.lg="row " 
-    fxLayout.md="row" 
-    fxLayout.sm="column" 
-    fxLayout.xs="column">
+<div fxLayout="row wrap" fxLayout.lg="row " fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column">
 
     <div fxFlex="20%">
     </div>
     <div fxFlex="60%">
-        
+
         <div class="pageHeader">
             Job - Resume - Upload
         </div>
 
         <mat-card>
-            <mat-card-header *ngIf="JobApp">                
+            <mat-card-header *ngIf="JobApp">
                 <mat-card-title class="card-title">
+                    <div>
+                        <button class="mat-raised-button backBtn" (click)="backToFollowUp()">
+                            <mat-icon>arrow_back</mat-icon>
+                            Back
+                        </button>
+                    </div>
+                    <p></p>
                     Job Application # {{JobApp.jobApplicationId}}
                 </mat-card-title>
-                <mat-card-subtitle>                    
+                <mat-card-subtitle>
                     <p>
                         Contact Name : <span *ngIf="JobApp.contactPersonName; else notAv">{{JobApp.contactPersonName}}</span>
                     </p>
@@ -49,12 +52,13 @@
                         <div>
                             <mat-toolbar>
                                 <input matInput [value]="fileName" />
-                
+
                                 <button mat-flat-button color="primary" [disabled]="!currentFile" (click)="upload()">
-                                    Upload
+                                    <mat-icon>cloud_upload</mat-icon>
+                                    Upload&nbsp;&nbsp;
                                 </button>
                             </mat-toolbar>
-                
+
                             <input type="file" id="fileInput" (change)="selectFile($event)" name="fileInput" />
                         </div>
                     </mat-form-field>
@@ -67,9 +71,9 @@
                         </span>
                     </div>
                 </div>
-            </mat-card-content>           
-        </mat-card>    
-    </div>    
+            </mat-card-content>
+        </mat-card>
+    </div>
     <div fxFlex="20%">
     </div>
 </div>

@@ -123,4 +123,9 @@ export class JobResumeUploadComponent implements OnInit {
 
   }
 
+  // back to follow-up
+  backToFollowUp() {
+    this.router.navigate(['/follow-up']);
+  }
+
 }

@@ -273,7 +273,7 @@ export class FollowUpComponent implements OnInit {
   openDialogDelete(job) {
     const dialogRef = this.dialog.open(JobAppDeleteDialogComponent, {
       data: {
-        message: 'Are you sure want to delete?',
+        message: 'Are you sure you want to delete this Job-Application ?',
         buttonText: {
           ok: 'Yes',
           cancel: 'No'
