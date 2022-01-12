@@ -15,8 +15,11 @@
                     <div>
                         {{data.appStatusDisplay}} @ {{data.appStatusChangedOn | date:'medium'}}
                     </div>
-                    <mat-progress-bar mode="determinate" value="{{data.appCompleted}}">
-                    </mat-progress-bar>
+                    <mat-toolbar class="progress-bar">
+                        <mat-progress-bar color="blue" [value]="data.appCompleted">
+                        </mat-progress-bar>
+                        <span class="progress">{{ data.appCompleted }}%</span>
+                    </mat-toolbar>
                     <p></p>
                 </div>
             </div>
