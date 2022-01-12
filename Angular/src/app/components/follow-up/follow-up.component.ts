@@ -198,10 +198,13 @@ export class FollowUpComponent implements OnInit {
           this.jobApps = data;
           console.log(this.jobApps);
 
+          // order desc by appliedOn
           // store @ service to filter later on,,, 
           // no need for api call
           // no need to filter @ api
-          this.localDataService.setMyJobs(data);
+          this.jobApps.sort((x, y) => +new Date(y.appliedOn) - +new Date(x.appliedOn));          
+          // this.jobApps.sort((x, y) => +new Date(x.appliedOn) - +new Date(y.appliedOn));
+          this.localDataService.setMyJobs(this.jobApps);
           
           this.showSpinner = false;
         },
