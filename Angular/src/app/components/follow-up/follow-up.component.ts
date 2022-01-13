@@ -311,6 +311,11 @@ export class FollowUpComponent implements OnInit {
 
   // resume-upload
   resumeUpload(job) {
+
+    // check for appStatus===6
+    if (job.appStatus === 6)
+      return;
+
     // store selected job for whicu user wants to upload resume, 
     // to local-data-service and,,,
     this.localDataService.setJobApp(job);

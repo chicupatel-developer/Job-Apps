@@ -78,29 +78,28 @@
                                 <mat-icon>view_module</mat-icon>
                             </button>
                             <span>&nbsp;</span>
-                            <button class="mat-raised-button mat-primary" (click)="openDialog(job)">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                            <span *ngIf="job.appStatus!=6">
+                                <button class="mat-raised-button mat-primary" (click)="openDialog(job)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </span>
                             <span>&nbsp;</span>
                             <button class="mat-raised-button mat-warn" (click)="deleteJobDetails(job)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                             <span>&nbsp;</span>
-                            <button class="mat-raised-button uploadBtn" (click)="resumeUpload(job)">
-                                <mat-icon>file_upload</mat-icon>
-                                Resume
-                            </button>
+                            <span *ngIf="job.appStatus!=6">
+                                <button class="mat-raised-button uploadBtn" (click)="resumeUpload(job)">
+                                    <mat-icon>file_upload</mat-icon>
+                                    Resume
+                                </button>
+                                </span>
                             <span>&nbsp;</span>
                             <button class="mat-raised-button" (click)="tractAppStatus(job)">
                                 <mat-icon>track_changes</mat-icon>
                                 App Status
                             </button> &nbsp;&nbsp;
-                            <span *ngIf="job.appStatus!=6"> [{{displayAppStatusType(job.appStatus)}}]
-                                &nbsp;&nbsp;&nbsp;
-                                {{job.appliedOn | date : "MMMM d, y"}} @ {{job.city}},{{job.province}}
-                            </span>
-                            <span *ngIf="job.appStatus==6" class="appStatusClass">                                
-                                [{{displayAppStatusType(job.appStatus)}}]
+                            <span> [{{displayAppStatusType(job.appStatus)}}]
                                 &nbsp;&nbsp;&nbsp;
                                 {{job.appliedOn | date : "MMMM d, y"}} @ {{job.city}},{{job.province}}
                             </span>
