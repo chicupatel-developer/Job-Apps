@@ -8,3 +8,6 @@ C:\JobApps\WebAPICore\ResumeService\obj\Debug\netcoreapp3.1\ResumeService.csproj
 C:\JobApps\WebAPICore\ResumeService\obj\Debug\netcoreapp3.1\ResumeService.dll
 C:\JobApps\WebAPICore\ResumeService\obj\Debug\netcoreapp3.1\ResumeService.pdb
 C:\JobApps\WebAPICore\ResumeService\obj\Debug\netcoreapp3.1\ResumeService.csproj.AssemblyReference.cache
+C:\JobApps\WebAPICore\ResumeService\bin\Debug\netcoreapp3.1\EFCore.dll
+C:\JobApps\WebAPICore\ResumeService\bin\Debug\netcoreapp3.1\EFCore.pdb
+C:\JobApps\WebAPICore\ResumeService\obj\Debug\netcoreapp3.1\ResumeService.csproj.CopyComplete

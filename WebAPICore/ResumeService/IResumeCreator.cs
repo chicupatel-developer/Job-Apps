@@ -1,4 +1,5 @@
-﻿using ResumeService.Models;
+﻿using EFCore.Models;
+using ResumeService.Models;
 using SelectPdf;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace ResumeService
         string GetPageFooter();
         string GetWorkExperienceString(List<WorkExperience> workExperience);
         string GetEducationString(List<Education> educations);
+        bool AddUserData(UserResumeCreate userData);
 
     }
 }

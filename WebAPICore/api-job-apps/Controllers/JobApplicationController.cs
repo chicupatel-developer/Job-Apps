@@ -80,18 +80,7 @@ namespace api_job_apps.Controllers
         public IActionResult GetAllJobApps()
         {
             var allJobApps = _jobAppRepo.GetAllJobApps();
-            return Ok(allJobApps);
-
-            /*
-            var hostName = System.Net.Dns.GetHostName();
-            var ips = System.Net.Dns.GetHostAddresses(hostName);
-            List<string> myIps = new List<string>();
-            foreach(var ip in ips)
-            {
-                myIps.Add(ip.ToString());
-            }
-            return Ok(myIps);
-            */
+            return Ok(allJobApps);        
         }
 
         [HttpGet]

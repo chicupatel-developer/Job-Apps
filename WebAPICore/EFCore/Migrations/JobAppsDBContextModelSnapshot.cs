@@ -119,6 +119,30 @@ namespace EFCore.Migrations
                     b.ToTable("JobResumes");
                 });
 
+            modelBuilder.Entity("EFCore.Models.UserResumeCreate", b =>
+                {
+                    b.Property<int>("UserResumeCreateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ResumeCreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserIPAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserResumeCreateId");
+
+                    b.ToTable("UserResumeCreate");
+                });
+
             modelBuilder.Entity("EFCore.Models.AppStatusLog", b =>
                 {
                     b.HasOne("EFCore.Models.JobApplication", "JobApplication")

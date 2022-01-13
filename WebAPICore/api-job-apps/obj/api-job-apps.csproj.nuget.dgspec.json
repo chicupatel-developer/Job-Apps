@@ -283,7 +283,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\JobApps\\WebAPICore\\EFCore\\EFCore.csproj": {
+                "projectPath": "C:\\JobApps\\WebAPICore\\EFCore\\EFCore.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

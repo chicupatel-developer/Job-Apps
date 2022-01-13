@@ -1,2 +1,19 @@
+user-resume-create
+    - view
+        - user-resume-create data in table <mat-table>
+        - search by firstname and lastname
+        - order by firstname and lastname
 
-        
+
+create table user-resume-email
+    - UserResumeEmailId, FirstName, LastName, UserEmail, ResumeEmailedAt
+
+user-resume-email
+    - add operation
+    - view
+        - user-resume-email data in table <mat-table>
+        - search by firstname and lastname and useremail
+        - order by firstname and lastname and useremail
+
+add-education/add-work-experience
+    - delete operation

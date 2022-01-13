@@ -1,4 +1,6 @@
-﻿using ResumeService.Models;
+﻿using EFCore.Context;
+using EFCore.Models;
+using ResumeService.Models;
 using SelectPdf;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,13 @@ using System.Threading.Tasks;
 namespace ResumeService
 {
     public class ResumeCreator : IResumeCreator
-    { 
+    {
+        private readonly JobAppsDBContext appDbContext;
+
+        public ResumeCreator(JobAppsDBContext appDbContext)
+        {
+            this.appDbContext = appDbContext;
+        }
 
         public HtmlToPdf GetHtmlToPdfObject()
         {
@@ -266,5 +274,18 @@ namespace ResumeService
             return educationString.ToString();
         }
 
+        public bool AddUserData(UserResumeCreate userData)
+        {
+            try
+            {
+                appDbContext.UserResumeCreate.Add(userData);
+                appDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

@@ -1831,6 +1831,7 @@
       },
       "ResumeService/1.0.0": {
         "dependencies": {
+          "EFCore": "1.0.0",
           "Select.HtmlToPdf.NetCore": "21.2.0"
         },
         "runtime": {

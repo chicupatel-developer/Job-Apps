@@ -1,5 +1,6 @@
 ﻿using api_job_apps.DTO;
 using EFCore.DBFirst_SQLTOLINQ_Models;
+using EFCore.Models;
 using EmailService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace api_job_apps.Controllers
@@ -98,14 +100,33 @@ namespace api_job_apps.Controllers
                 var pdf = converter.ConvertHtmlString(content);
                 var pdfBytes = pdf.Save();
 
-                
+
                 // process to add client's ip address and datetime
                 // and PersonalInfo>FirstName and LastName @ db
-
-
-
-
-                return File(pdfBytes, "application/pdf");
+                var hostName = System.Net.Dns.GetHostName();
+                var ips = System.Net.Dns.GetHostAddresses(hostName);
+                StringBuilder myIpAddress = new StringBuilder();
+                foreach (var ip in ips)
+                {
+                    myIpAddress.Append(ip.ToString() + ",");
+                }
+                UserResumeCreate userData = new UserResumeCreate()
+                {
+                     FirstName = personalInfo.FirstName,
+                      LastName = personalInfo.LastName,
+                       ResumeCreatedAt = DateTime.Now,
+                        UserIPAddress = myIpAddress.ToString().Substring(0,myIpAddress.ToString().Length-1)
+                };
+                if (_resumeCreator.AddUserData(userData))
+                {
+                    return File(pdfBytes, "application/pdf");
+                }
+                else
+                {
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Server Error!";
+                    return StatusCode(500, _response);
+                }                
             }
             catch(Exception ex)
             {
