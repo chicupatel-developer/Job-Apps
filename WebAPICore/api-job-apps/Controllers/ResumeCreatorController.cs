@@ -97,6 +97,14 @@ namespace api_job_apps.Controllers
                 // create pdf as byte[] and display @ browser
                 var pdf = converter.ConvertHtmlString(content);
                 var pdfBytes = pdf.Save();
+
+                
+                // process to add client's ip address and datetime
+                // and PersonalInfo>FirstName and LastName @ db
+
+
+
+
                 return File(pdfBytes, "application/pdf");
             }
             catch(Exception ex)

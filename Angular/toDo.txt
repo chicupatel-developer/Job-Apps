@@ -1,6 +1,2 @@
-appStatus   
-    - Closed
-        - app can not edited
-        - resume can not uploaded
 
         

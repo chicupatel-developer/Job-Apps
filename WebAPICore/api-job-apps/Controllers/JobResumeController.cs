@@ -38,9 +38,10 @@ namespace api_job_apps.Controllers
         {
             _response = new APIResponse();
             try
-            {
+            {          
+
                 // resumeUpload = null;
-                if(resumeUpload==null)
+                if (resumeUpload==null)
                 {
                     _response.ResponseCode = -1;
                     _response.ResponseMessage = "Object Null Error!";
@@ -53,6 +54,13 @@ namespace api_job_apps.Controllers
                     _response.ResponseCode = -1;
                     _response.ResponseMessage = "Job-Application Object Null Error!";
                     return BadRequest(_response);
+                }
+                else
+                {
+                    // check for appStatus==Closed
+                    // user can't edit this job-app
+                    if (_jobResumeRepo.JobAppClosed(Convert.ToInt32(resumeUpload.JobApplicationId)))
+                        throw new Exception();
                 }
 
                 // resumeUpload.JobApplicationId = "Bad Job-Application Object";
@@ -94,30 +102,30 @@ namespace api_job_apps.Controllers
                     if (_jobResumeRepo.StoreResumeFile(jobResume))
                     {
                         _response.ResponseCode = 0;
-                        _response.ResponseMessage = "Resume Upload Success!";
+                        _response.ResponseMessage = "Resume Upload Success !";
                         return Ok(_response);
                     }
                     else
                     {
                         _response.ResponseCode = -1;
-                        _response.ResponseMessage = "Database Error!";
+                        _response.ResponseMessage = "Database Error !";
                         return BadRequest(_response);
                     }
                 }
                 else
                 {
-                    return BadRequest("Nothing To Upload!");
+                    return BadRequest("Nothing To Upload !");
                 }
             }
             catch (FormatException)
             {
                 _response.ResponseCode = -1;
-                _response.ResponseMessage = "Bad Job-Application Object!";
+                _response.ResponseMessage = "Bad Job-Application Object !";
                 return BadRequest(_response);
             }       
             catch (Exception ex)
             {
-                return StatusCode(500, "Server Error!");
+                return StatusCode(500, "Server Error !");
             }
         }
 

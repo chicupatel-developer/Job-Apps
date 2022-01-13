@@ -18,6 +18,21 @@ namespace Services.Repositories
             this.appDbContext = appDbContext;
         }
 
+        public bool JobAppClosed(int jobApplicationId)
+        {
+            var lastAppStatusLog = appDbContext.AppStatusLog
+                                   .Where(x => x.JobApplicationId == jobApplicationId);
+            if (lastAppStatusLog != null && lastAppStatusLog.Count() > 0)
+            {
+                var lastAppStatusLog_ = lastAppStatusLog.ToList().LastOrDefault();
+                if (lastAppStatusLog_.AppStatus == AppStatusType.Closed)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+     
         public JobApplication AddJobApp(JobApplication jobApplication)
         {
             using var transaction = appDbContext.Database.BeginTransaction();
@@ -76,20 +91,7 @@ namespace Services.Repositories
 
             using var transaction = appDbContext.Database.BeginTransaction();
             try
-            {
-                // check for appStatus==Closed
-                // user can't edit this job-app
-                var lastAppStatusLog = appDbContext.AppStatusLog
-                                        .Where(x => x.JobApplicationId == jobApplication.JobApplication.JobApplicationId);
-                if (lastAppStatusLog != null && lastAppStatusLog.Count()>0)
-                {
-                    var lastAppStatusLog_ = lastAppStatusLog.ToList().LastOrDefault();
-                    if (lastAppStatusLog_.AppStatus == AppStatusType.Closed)
-                    {
-                        throw new Exception();                
-                    }
-                }
-
+            {    
                 var jobApp_ = appDbContext.JobApplications
                           .Where(x => x.JobApplicationId == jobApplication.JobApplication.JobApplicationId).FirstOrDefault();
                 if (jobApp_ != null)

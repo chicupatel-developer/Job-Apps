@@ -15,5 +15,6 @@ namespace Services.Interfaces
         JobApplication ViewJobApp(int jobAppId);
         bool DeleteJobApp(JobApplication jobApplication);
         IEnumerable<AppStatusLog> TractJobAppStatus(int jobAppId);
+        bool JobAppClosed(int jobApplicationId);
     }
 }

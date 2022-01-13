@@ -100,11 +100,11 @@ export class SaveAndViewResumeComponent {
           blob => {
             console.log(blob);
 
-            // const myFile = new Blob([blob], { type: 'text/csv' });
+            // const myFile = new Blob([blob], { type: 'text/csv' });            
             const myFile = new Blob([blob], { type: 'application/pdf' });
             const url = window.URL.createObjectURL(myFile);
             window.open(url);
-
+            
             // redirect to resume-creator component, so 
             // all service variables get reset
             setTimeout(() => {

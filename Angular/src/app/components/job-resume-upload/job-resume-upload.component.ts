@@ -111,7 +111,7 @@ export class JobResumeUploadComponent implements OnInit {
             }
           }
           else {
-            this.message = 'Could not upload the file!';
+            this.message = 'Could not upload the file !';
           }
 
           this.currentFile = undefined;

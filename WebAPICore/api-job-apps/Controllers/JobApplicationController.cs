@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Net.Http.Headers;
 using Services.DTO;
+using System.Web;
 
 namespace api_job_apps.Controllers
 {
@@ -80,6 +81,17 @@ namespace api_job_apps.Controllers
         {
             var allJobApps = _jobAppRepo.GetAllJobApps();
             return Ok(allJobApps);
+
+            /*
+            var hostName = System.Net.Dns.GetHostName();
+            var ips = System.Net.Dns.GetHostAddresses(hostName);
+            List<string> myIps = new List<string>();
+            foreach(var ip in ips)
+            {
+                myIps.Add(ip.ToString());
+            }
+            return Ok(myIps);
+            */
         }
 
         [HttpGet]
@@ -114,6 +126,11 @@ namespace api_job_apps.Controllers
                                 
                 if (ModelState.IsValid)
                 {
+                    // check for appStatus==Closed
+                    // user can't edit this job-app
+                    if (_jobAppRepo.JobAppClosed(jobAppData.JobApplication.JobApplicationId))
+                        throw new Exception();
+
                     if (_jobAppRepo.EditJobApp(jobAppData) != null)
                     {
                         _response.ResponseCode = 0;

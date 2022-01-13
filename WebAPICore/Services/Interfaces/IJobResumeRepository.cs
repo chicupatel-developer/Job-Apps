@@ -9,5 +9,6 @@ namespace Services.Interfaces
     {     
         bool StoreResumeFile(JobResume jobResume);
         string GetResumeFile(int jobApplicationId);
+        bool JobAppClosed(int jobApplicationId);
     }
 }

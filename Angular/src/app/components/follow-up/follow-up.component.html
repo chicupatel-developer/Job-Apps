@@ -80,6 +80,7 @@
                             <span>&nbsp;</span>
                             <!-- 
                                 check for appStatus==Closed, user can't edit this job-app!
+                          
                             <span>
                                 <button class="mat-raised-button mat-primary" (click)="openDialog(job)">
                                     <mat-icon>edit</mat-icon>
@@ -96,6 +97,17 @@
                                 <mat-icon>delete</mat-icon>
                             </button>
                             <span>&nbsp;</span>
+                            <!-- 
+                                check for appStatus==Closed, user can't edit this job-app!
+                                
+                            <span>
+                                <button class="mat-raised-button uploadBtn" (click)="resumeUpload(job)">
+                                    <mat-icon>file_upload</mat-icon>
+                                    Resume
+                                </button>
+                                </span>
+                            <span>&nbsp;</span>
+                            -->
                             <span *ngIf="job.appStatus!=6">
                                 <button class="mat-raised-button uploadBtn" (click)="resumeUpload(job)">
                                     <mat-icon>file_upload</mat-icon>
