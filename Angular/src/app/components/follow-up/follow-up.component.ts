@@ -413,7 +413,7 @@ export class FollowUpComponent implements OnInit {
                 appStatusChangedOn: element.appStatusChangedOn,
                 jobApplicationId: element.jobApplicationId,
                 appStatusDisplay: this.displayAppStatusType(element.appStatus),
-                appCompleted: ((20 * element.appStatus) === 0 ? (5) : (20 * element.appStatus)),
+                appCompleted: ((20 * element.appStatus) === 0 ? (5) : ((element.appStatus===6) ? (0) : (20 * element.appStatus))),
                 companyName: job.companyName
               });
             });

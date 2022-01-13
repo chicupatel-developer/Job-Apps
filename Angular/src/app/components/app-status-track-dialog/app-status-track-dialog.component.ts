@@ -22,6 +22,7 @@ export class AppStatusTrackDialogComponent implements OnInit {
         Interview_Setup,  --60% --3
         Interview_Done,   --80% --4
         Client_Final_Response --100% --5
+        Closed --0% --6
     }
   */
 

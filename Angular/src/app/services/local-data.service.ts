@@ -82,6 +82,8 @@ export class LocalDataService {
       return 'green';
     else if (appStatusType == 3)
       return 'red';
+    else if (appStatusType == 6)
+      return 'white';
     else
       return 'purple';
   }

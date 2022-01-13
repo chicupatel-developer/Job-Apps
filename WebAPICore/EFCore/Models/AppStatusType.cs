@@ -11,6 +11,7 @@ namespace EFCore.Models
         Client_Response,
         Interview_Setup,
         Interview_Done,
-        Final_Result
+        Final_Result,
+        Closed
     }
 }

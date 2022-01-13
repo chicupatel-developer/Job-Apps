@@ -94,9 +94,16 @@
                             <button class="mat-raised-button" (click)="tractAppStatus(job)">
                                 <mat-icon>track_changes</mat-icon>
                                 App Status
-                            </button>
-                            <span>&nbsp;&nbsp;</span> [{{displayAppStatusType(job.appStatus)}}]
-                            <span>&nbsp;&nbsp;&nbsp;</span> {{job.appliedOn | date : "MMMM d, y"}} @ {{job.city}},{{job.province}}
+                            </button> &nbsp;&nbsp;
+                            <span *ngIf="job.appStatus!=6"> [{{displayAppStatusType(job.appStatus)}}]
+                                &nbsp;&nbsp;&nbsp;
+                                {{job.appliedOn | date : "MMMM d, y"}} @ {{job.city}},{{job.province}}
+                            </span>
+                            <span *ngIf="job.appStatus==6" class="appStatusClass">                                
+                                [{{displayAppStatusType(job.appStatus)}}]
+                                &nbsp;&nbsp;&nbsp;
+                                {{job.appliedOn | date : "MMMM d, y"}} @ {{job.city}},{{job.province}}
+                            </span>
                         </mat-card-title>
                     </mat-card-header>
                     <mat-card-content>

@@ -1,4 +1,6 @@
-- job-app-edit-dialog
-    - [Required] validation for appStatusChangedOn when appStatus is changed
-    
+appStatus   
+    - Closed
+        - app can not edited
+        - resume can not uploaded
 
+        
