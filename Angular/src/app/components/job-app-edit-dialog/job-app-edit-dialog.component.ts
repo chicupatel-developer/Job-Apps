@@ -75,7 +75,7 @@ export class JobAppEditDialogComponent implements OnInit {
       // appStatus: ['', Validators.required],
       appStatusDisplay: ['', Validators.required],
       followUpNotes: [''],
-      appStatusChangedOn: ['']
+      appStatusChangedOn: ['', Validators.required]
     });
 
     this.jobApplication.jobApplicationId = jobApplicationId;
@@ -155,7 +155,7 @@ export class JobAppEditDialogComponent implements OnInit {
   // ,,,
   convertAppStatusType(appStatusType) {
     var filterByAppStatusTypeName = this.appStatusTypesCollection.filter(xx => xx.appStatus == appStatusType);
-    if (filterByAppStatusTypeName != null) {
+    if (filterByAppStatusTypeName != null && filterByAppStatusTypeName.length>0) {
       return filterByAppStatusTypeName[0].indexValue;
     }
     else {
@@ -193,12 +193,7 @@ export class JobAppEditDialogComponent implements OnInit {
   }
 
   save() {  
-    this.submitted = true;
-    
-    if (!this.form.valid) {
-      console.log('Invalid Form!');
-      return;
-    }
+    this.submitted = true;       
     
     // prepare object for api call
     var jobApplicationId = this.jobApplication.jobApplicationId;
@@ -208,6 +203,12 @@ export class JobAppEditDialogComponent implements OnInit {
 
     var jobApplicationEditVM = {};
     if (this.jobApplication.appStatusDisplay != this.beforeEditAppStatus) {
+      // complete form validation
+      if (!this.form.valid) {
+        console.log('Invalid Form!');
+        return;
+      }
+      
       jobApplicationEditVM = {
         jobApplication: this.jobApplication,
         appStatusChanged: true,
@@ -215,13 +216,18 @@ export class JobAppEditDialogComponent implements OnInit {
       }      
     }
     else {
+
+      // patch for appStatusChangedOn, then
+      // complete form validation
+      this.form.get("appStatusChangedOn").patchValue(new Date());
+
       jobApplicationEditVM = {
         jobApplication: this.jobApplication,
         appStatusChanged: false,
         appStatusChangedOn: new Date()
       }
     }
-    console.log(jobApplicationEditVM);
+    // console.log(jobApplicationEditVM);
 
     // api call
     // this.dataService.editJobApp(this.jobApplication)
