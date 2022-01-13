@@ -266,6 +266,7 @@ export class JobAppEditDialogComponent implements OnInit {
           this.errors = [];
 
           if (error.status === 400) {
+            console.log(error);
             this.apiResponse = "Bad Request!";
           }
           this.errors = this.localDataService.display400andEx(error, 'Edit-Job-App');

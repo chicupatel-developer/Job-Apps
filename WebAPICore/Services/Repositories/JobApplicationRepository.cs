@@ -72,11 +72,24 @@ namespace Services.Repositories
         public JobApplication EditJobApp(JobApplicationEditVM jobApplication)
         {
             // check for catch exception @ angular
-            // throw new Exception();
+            // throw new Exception();          
 
             using var transaction = appDbContext.Database.BeginTransaction();
             try
             {
+                // check for appStatus==Closed
+                // user can't edit this job-app
+                var lastAppStatusLog = appDbContext.AppStatusLog
+                                        .Where(x => x.JobApplicationId == jobApplication.JobApplication.JobApplicationId);
+                if (lastAppStatusLog != null && lastAppStatusLog.Count()>0)
+                {
+                    var lastAppStatusLog_ = lastAppStatusLog.ToList().LastOrDefault();
+                    if (lastAppStatusLog_.AppStatus == AppStatusType.Closed)
+                    {
+                        throw new Exception();                
+                    }
+                }
+
                 var jobApp_ = appDbContext.JobApplications
                           .Where(x => x.JobApplicationId == jobApplication.JobApplication.JobApplicationId).FirstOrDefault();
                 if (jobApp_ != null)

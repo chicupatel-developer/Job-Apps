@@ -96,7 +96,7 @@ namespace api_job_apps.Controllers
         {
             _response = new APIResponse();
             try
-            {
+            {         
                 // check for null
                 // jobAppData = null;
                 if (jobAppData == null)

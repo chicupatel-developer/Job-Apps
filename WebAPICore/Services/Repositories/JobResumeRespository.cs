@@ -23,6 +23,19 @@ namespace Services.Repositories
         {
             try
             {
+                // check for appStatus==Closed
+                // user can't edit this job-app
+                var lastAppStatusLog = appDbContext.AppStatusLog
+                                        .Where(x => x.JobApplicationId == jobResume.JobApplicationId);
+                if (lastAppStatusLog != null && lastAppStatusLog.Count() > 0)
+                {
+                    var lastAppStatusLog_ = lastAppStatusLog.ToList().LastOrDefault();
+                    if (lastAppStatusLog_.AppStatus == AppStatusType.Closed)
+                    {
+                        throw new Exception();
+                    }
+                }
+
 
                 // check for exception
                 // throw new Exception();
