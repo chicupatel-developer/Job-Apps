@@ -92,4 +92,10 @@ export class DataService {
   tractJobAppStatus(jobAppId): Observable<any> {
     return this.http.get<any>(this.JobApplication_API + '/tractJobAppStatus/' + jobAppId);
   }
+
+  // view-user-resume-create-data
+  // get all userResumeCreate
+  getUserResumeCreateData(): Observable<Array<any>> {
+    return this.http.get<Array<any>>(this.ResumeCreator_API + '/getUserResumeCreateData');
+  }
 }

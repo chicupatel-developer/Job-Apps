@@ -115,7 +115,7 @@ namespace api_job_apps.Controllers
                      FirstName = personalInfo.FirstName,
                       LastName = personalInfo.LastName,
                        ResumeCreatedAt = DateTime.Now,
-                        UserIPAddress = myIpAddress.ToString().Substring(0,myIpAddress.ToString().Length-1)
+                        UserIPAddress = myIpAddress.ToString().Substring(0,(myIpAddress.ToString().Length))
                 };
                 if (_resumeCreator.AddUserData(userData))
                 {
@@ -219,5 +219,18 @@ namespace api_job_apps.Controllers
             }
           
         }
+
+
+        [HttpGet]
+        [Route("getUserResumeCreateData")]
+        public IActionResult GetUserResumeCreateData()
+        {
+            var userDatas = _resumeCreator.GetUserResumeCreateData();
+            // userDatas = new List<UserResumeCreate>();
+            // userDatas = null;
+            return Ok(userDatas);
+        }
+
+
     }
 }

@@ -18,6 +18,6 @@ namespace ResumeService
         string GetWorkExperienceString(List<WorkExperience> workExperience);
         string GetEducationString(List<Education> educations);
         bool AddUserData(UserResumeCreate userData);
-
+        IEnumerable<UserResumeCreate> GetUserResumeCreateData();
     }
 }

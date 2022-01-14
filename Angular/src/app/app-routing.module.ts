@@ -8,6 +8,7 @@ import { FollowUpComponent } from './components/follow-up/follow-up.component';
 import { UniversityWinnipegComponent } from './components/university-winnipeg/university-winnipeg.component';
 import { JobResumeUploadComponent } from './components/job-resume-upload/job-resume-upload.component';
 import { ResumeCreatorComponent } from './components/resume-creator/resume-creator.component';
+import { ViewUserResumeCreateDataComponent } from './components/view-user-resume-create-data/view-user-resume-create-data.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'uw-work', component: UniversityWinnipegComponent },
   { path: 'job-resume-upload', component: JobResumeUploadComponent },
   { path: 'resume-creator', component: ResumeCreatorComponent },
+  { path: 'view-user-resume-create-data', component: ViewUserResumeCreateDataComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

@@ -24,6 +24,10 @@
                     <mat-icon>account_box</mat-icon>
                     Resume-Creator
                 </a>
+                <a [routerLink]="['/view-user-resume-create-data']" mat-button>
+                    <mat-icon>supervised_user_circle</mat-icon>
+                    User-Data
+                </a>
             </div>
         </mat-toolbar-row>
     </mat-toolbar>
@@ -46,6 +50,10 @@
                 <a [routerLink]="['/resume-creator']" mat-button>
                     <mat-icon>account_box</mat-icon>
                     Resume-Creator
+                </a>
+                <a [routerLink]="['/view-user-resume-create-data']" mat-button>
+                    <mat-icon>supervised_user_circle</mat-icon>
+                    User-Data
                 </a>
                 <a (click)="sidenav.toggle()" mat-list-item>
                     <mat-icon>close</mat-icon> Close

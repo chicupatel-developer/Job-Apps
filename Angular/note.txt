@@ -1,2 +1,2 @@
-ng g c \components\add-education --module app
+ng g c \components\view-user-resume-create-data --module app
 

@@ -287,5 +287,14 @@ namespace ResumeService
                 return false;
             }
         }
+
+        public IEnumerable<UserResumeCreate> GetUserResumeCreateData()
+        {
+            var userDatas = appDbContext.UserResumeCreate;
+            if (userDatas != null)
+                return userDatas;
+            else
+                return new List<UserResumeCreate>();
+        }
     }
 }
