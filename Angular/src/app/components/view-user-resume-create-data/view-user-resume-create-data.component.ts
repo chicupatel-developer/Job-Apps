@@ -14,8 +14,8 @@ export class ViewUserResumeCreateDataComponent implements OnInit {
 
   apiResponse = '';
 
-  displayedColumns = ['userResumeCreateId', 'firstName', 'lastName', 'userIPAddress', 'resumeCreatedAt'];
-  userData = new MatTableDataSource<any>();
+  displayedColumns = ['userResumeCreateId', 'firstName','lastName','resumeCreatedAt','userIPAddress'];
+  dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -26,24 +26,28 @@ export class ViewUserResumeCreateDataComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getUserResumeCreateData();
+    this.getUserData();
   }
 
   ngAfterViewInit(): void {
-    this.userData.paginator = this.paginator;
-    this.userData.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
-  getUserResumeCreateData() {
+  doFilter = (event) => {
+    this.dataSource.filter = event.target.value.trim().toLocaleLowerCase();
+  }
+
+  getUserData() {
     this.dataService.getUserResumeCreateData()
       .subscribe(
-        data => {          
+        data => {
           if (data == null) {
-            this.userData.data = [];
+            this.dataSource.data = [];
             this.apiResponse = 'User-Resume-Create Data Not Found!';
           }
-          else if (data.length==0) {
-            this.userData.data = [];
+          else if (data.length == 0) {
+            this.dataSource.data = [];
             this.apiResponse = 'User-Resume-Create Data is Empty!';
           }
           else {
@@ -52,18 +56,13 @@ export class ViewUserResumeCreateDataComponent implements OnInit {
               var ipAddressArray = ipAddress.split(',');
               element.userIPAddress = ipAddressArray;
             });
-            this.userData.data = data;
-            console.log(this.userData.data);
-          }
+            this.dataSource.data = data as any[];
+          }       
         },
         error => {
           console.log(error);
           this.apiResponse = error.error;
-        });
-  }
-
-  doFilter = (event) => {
-    this.userData.filter = event.target.value.trim().toLocaleLowerCase();
+        });    
   }
 
 }
