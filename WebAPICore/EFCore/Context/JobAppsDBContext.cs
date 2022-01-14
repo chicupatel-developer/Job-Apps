@@ -16,6 +16,7 @@ namespace EFCore.Context
         public DbSet<JobResume> JobResumes { get; set; }
         public DbSet<AppStatusLog> AppStatusLog { get; set; }
         public DbSet<UserResumeCreate> UserResumeCreate { get; set; }
+        public DbSet<UserResumeEmail> UserResumeEmail { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

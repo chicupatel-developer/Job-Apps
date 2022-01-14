@@ -19,5 +19,6 @@ namespace ResumeService
         string GetEducationString(List<Education> educations);
         bool AddUserData(UserResumeCreate userData);
         IEnumerable<UserResumeCreate> GetUserResumeCreateData();
+        bool AddUserDataWhenResumeEmailed(UserResumeEmail userData);
     }
 }

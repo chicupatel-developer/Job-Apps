@@ -101,6 +101,7 @@ namespace api_job_apps.Controllers
                 var pdfBytes = pdf.Save();
 
 
+                // UserResumeCreate db-table
                 // process to add client's ip address and datetime
                 // and PersonalInfo>FirstName and LastName @ db
                 var hostName = System.Net.Dns.GetHostName();
@@ -202,24 +203,45 @@ namespace api_job_apps.Controllers
                 var pdf = converter.ConvertHtmlString(content);
                 var pdfBytes = pdf.Save();
 
-                // convert byte[] to memory-stream
-                MemoryStream stream = new MemoryStream(pdfBytes);
-                // create .pdf and attach it as email attachment, but do not store .pdf file on server
-                // var message = new Message(new string[] { myResume.EmailMyResumeTo }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, stream, "pdf", "myResume.pdf");
-                var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, stream, "pdf", "myResume.pdf");
-                await _emailSender.SendEmailAsync(message);
 
-                return Ok("Resume sent in your Email-Attachment! Please check your Email!");
+                // UserResumeEmail db-table
+                // process to add client's email address and datetime
+                // and PersonalInfo>FirstName and LastName @ db
+                // this will input by user from angular 
+                // myResume.EmailMyResumeTo = "chicupatel202122@gmail.com";
+                myResume.EmailMyResumeTo = "ankitjpatel2007@hotmail.com";
+                UserResumeEmail userData = new UserResumeEmail()
+                {
+                    FirstName = personalInfo.FirstName,
+                    LastName = personalInfo.LastName,
+                    ResumeEmailedAt = DateTime.Now,
+                    UserEmail = myResume.EmailMyResumeTo
+                };
+                if (_resumeCreator.AddUserDataWhenResumeEmailed(userData))
+                {
+                    // convert byte[] to memory-stream
+                    MemoryStream stream = new MemoryStream(pdfBytes);
+                    // create .pdf and attach it as email attachment, but do not store .pdf file on server
+                    var message = new Message(new string[] { myResume.EmailMyResumeTo }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, stream, "pdf", "myResume.pdf");
+                    // var message = new Message(new string[] { "chicupatel202122@gmail.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", null, stream, "pdf", "myResume.pdf");
+                    await _emailSender.SendEmailAsync(message);
+
+                    return Ok("Resume sent in your Email-Attachment! Please check your Email!");
+                }
+                else
+                {
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Server Error!";
+                    return StatusCode(500, _response);
+                }             
             }
             catch(Exception ex)
             {
                 _response.ResponseCode = -1;
                 _response.ResponseMessage = "Server Error!";
                 return StatusCode(500, _response);
-            }
-          
+            }          
         }
-
 
         [HttpGet]
         [Route("getUserResumeCreateData")]

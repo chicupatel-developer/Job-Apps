@@ -296,5 +296,19 @@ namespace ResumeService
             else
                 return new List<UserResumeCreate>();
         }
+
+        public bool AddUserDataWhenResumeEmailed(UserResumeEmail userData)
+        {
+            try
+            {
+                appDbContext.UserResumeEmail.Add(userData);
+                appDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
