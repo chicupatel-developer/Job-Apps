@@ -27,24 +27,6 @@ th.mat-header-cell {
     font-weight: bold;
 }
 
-.mainContainer {
-    padding: 20px;
-}
-
-.pageHeader {
-    text-align: center;
-    vertical-align: middle;
-    margin-top: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    border: 2px solid blueviolet;
-    border-radius: 10px;
-    background-color: lightseagreen;
-    color: black;
-    font-size: x-large;
-}
-
 .spinnerDiv {
     padding: 20px;
 }
@@ -56,4 +38,18 @@ th.mat-header-cell {
 
 .apiResponseDiv {
     margin-bottom: 20px;
+}
+
+.pageSubHeader {
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: lightgoldenrodyellow;
+    color: black;
+    font-size: large;
 }
