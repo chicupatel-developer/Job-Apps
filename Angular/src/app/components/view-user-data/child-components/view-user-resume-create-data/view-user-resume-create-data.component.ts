@@ -1,20 +1,19 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from 'src/app/services/data.service'
+import { DataService } from '../../../../services/data.service';
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-view-user-resume-email-data',
-  templateUrl: './view-user-resume-email-data.component.html',
-  styleUrls: ['./view-user-resume-email-data.component.css']
+  selector: 'app-view-user-resume-create-data',
+  templateUrl: './view-user-resume-create-data.component.html',
+  styleUrls: ['./view-user-resume-create-data.component.css']
 })
-export class ViewUserResumeEmailDataComponent implements OnInit {
-
+export class ViewUserResumeCreateDataComponent implements OnInit {
   apiResponse = '';
 
-  displayedColumns = ['userResumeEmailId', 'firstName', 'lastName', 'resumeEmailedAt', 'userEmail'];
+  displayedColumns = ['userResumeCreateId', 'firstName', 'lastName', 'resumeCreatedAt', 'userIPAddress'];
   dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -39,18 +38,23 @@ export class ViewUserResumeEmailDataComponent implements OnInit {
   }
 
   getUserData() {
-    this.dataService.getUserResumeEmailData()
+    this.dataService.getUserResumeCreateData()
       .subscribe(
         data => {
           if (data == null) {
             this.dataSource.data = [];
-            this.apiResponse = 'User-Resume-Email Data Not Found!';
+            this.apiResponse = 'User-Resume-Create Data Not Found!';
           }
           else if (data.length == 0) {
             this.dataSource.data = [];
-            this.apiResponse = 'User-Resume-Email Data is Empty!';
+            this.apiResponse = 'User-Resume-Create Data is Empty!';
           }
-          else {          
+          else {
+            data.forEach((element) => {
+              var ipAddress = element.userIPAddress;
+              var ipAddressArray = ipAddress.split(',');
+              element.userIPAddress = ipAddressArray;
+            });
             this.dataSource.data = data as any[];
           }
         },
