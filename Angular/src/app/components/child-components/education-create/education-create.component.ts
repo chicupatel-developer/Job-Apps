@@ -18,7 +18,7 @@ export class EducationCreateComponent {
   showAdd = true;
   showEdit = false;
 
-  // store degree's name for future edit of education
+  // store degree's name for future edit/remove of education
   degreeList: string[] = [];
 
   constructor(
@@ -71,5 +71,18 @@ export class EducationCreateComponent {
 
     // send this editEducation to edit-education child component
     this.editEdu = myEdu;
+  }
+
+  removeEducation(removingDegreeName) {
+    this.showEdit = false;
+    this.showAdd = true;
+
+    var afterRemoveEducation = this.localDataService.getEducation().filter(function (edu) {
+      return edu.degreeName != removingDegreeName;
+    });
+    this.localDataService.setEducation(afterRemoveEducation);
+
+    var afterRemoveDegreeList = this.degreeList.filter(function (el) { return el != removingDegreeName; });
+    this.degreeList = afterRemoveDegreeList;
   }
 }

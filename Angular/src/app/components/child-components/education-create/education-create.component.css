@@ -64,13 +64,21 @@ mat-form-field {
     margin: 10px;
 }
 
-.degEditBtn {
-    margin: 10px;
-    padding: 10px;
-}
-
 .degreeHeader {
     color: darkblue;
     font-size: xx-large;
     font-style: italic;
+}
+
+.degEditDiv {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.removeEducationIcon {
+    color: red;
+}
+
+.editEducationIcon {
+    color: blue;
 }

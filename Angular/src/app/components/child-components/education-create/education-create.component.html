@@ -24,15 +24,20 @@
                 </div>
 
                 <div class="degEditSpan" *ngFor="let deg of degreeList">
-                    <button class="degEditBtn" (click)="editEducation(deg)" mat-raised-button color="accent" type="button">
-                                <mat-icon>edit</mat-icon>
-                                <span *ngIf="deg.length>25">
+                    <div class="degEditDiv">
+                        <span class="editEducationIcon" (click)="editEducation(deg)">
+                            <mat-icon>edit</mat-icon>
+                        </span> &nbsp;
+                        <span *ngIf="deg.length>25">
                                     {{deg.substring(0, 25)}},,,
-                                </span>
-                                <span *ngIf="deg.length<=25">
+                        </span>
+                        <span *ngIf="deg.length<=25">
                                     {{deg}}
-                                </span>
-                    </button>
+                        </span> &nbsp;
+                        <span class="removeEducationIcon" (click)=" removeEducation(deg) ">
+                            <mat-icon>delete</mat-icon>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

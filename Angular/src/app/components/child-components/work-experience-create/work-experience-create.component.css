@@ -64,13 +64,21 @@ mat-form-field {
     margin: 10px;
 }
 
-.woEditBtn {
-    margin: 10px;
-    padding: 10px;
-}
-
 .employersHeader {
     color: darkblue;
     font-size: xx-large;
     font-style: italic;
+}
+
+.empEditDiv {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.removeWExpIcon {
+    color: red;
+}
+
+.editWExpIcon {
+    color: blue;
 }

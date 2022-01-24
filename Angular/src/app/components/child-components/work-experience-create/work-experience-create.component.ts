@@ -80,4 +80,17 @@ export class WorkExperienceCreateComponent implements OnInit {
     // send this editingWoExp to edit-work-experience child component
     this.editWoExp = myWoExp;
   }
+
+  removeWorkExperience(removingEmployerName) {
+    this.showEdit = false;
+    this.showAdd = true;
+
+    var afterRemoveWorkExperience = this.localDataService.getWorkExperience().filter(function (emp) {
+      return emp.employerName != removingEmployerName;
+    });
+    this.localDataService.setWorkExperience(afterRemoveWorkExperience);
+
+    var afterRemoveEmployerList = this.employerList.filter(function (el) { return el != removingEmployerName; });
+    this.employerList = afterRemoveEmployerList;
+  }
 }

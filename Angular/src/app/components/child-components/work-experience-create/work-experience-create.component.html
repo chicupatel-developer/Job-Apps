@@ -23,17 +23,20 @@
                         <u>Employers</u>
                     </span>
                 </div>
-
                 <div class="woEditSpan" *ngFor="let emp of employerList">
-                    <button class="woEditBtn" (click)="editWorkExperience(emp)" mat-raised-button color="accent" type="button">
-                                <mat-icon>edit</mat-icon>
-                                <span *ngIf="emp.length>25">
-                                    {{emp.substring(0, 25)}},,,
-                                </span>
-                                <span *ngIf="emp.length<=25">
+                    <div class="empEditDiv">
+                        <span class="editWExpIcon" (click)=" editWorkExperience(emp) ">
+                            <mat-icon>edit</mat-icon>
+                        </span> &nbsp;
+                        <span *ngIf="emp.length>25"> {{emp.substring(0, 25)}},,,
+                        </span>
+                        <span *ngIf="emp.length<=25">
                                     {{emp}}
-                                </span>
-                    </button>
+                        </span> &nbsp;
+                        <span class="removeWExpIcon" (click)="removeWorkExperience(emp)">
+                            <mat-icon>delete</mat-icon>
+                        </span>
+                    </div>
                 </div>
             </div>
 
