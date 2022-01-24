@@ -32,6 +32,7 @@ import { AddEducationComponent } from './components/child-components/add-educati
 import { EditEducationComponent } from './components/child-components/edit-education/edit-education.component';
 import { AppStatusTrackDialogComponent } from './components/app-status-track-dialog/app-status-track-dialog.component';
 import { ViewUserResumeCreateDataComponent } from './components/view-user-resume-create-data/view-user-resume-create-data.component';
+import { ViewUserResumeEmailDataComponent } from './components/view-user-resume-email-data/view-user-resume-email-data.component';
 
 ////////services
 import { LocalDataService } from './services/local-data.service';
@@ -62,7 +63,8 @@ import { MaterialModule } from './material.module';
     AddEducationComponent,
     EditEducationComponent,
     AppStatusTrackDialogComponent,
-    ViewUserResumeCreateDataComponent
+    ViewUserResumeCreateDataComponent,
+    ViewUserResumeEmailDataComponent
   ],
   imports: [
     BrowserModule,

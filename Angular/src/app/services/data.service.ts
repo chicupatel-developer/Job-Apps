@@ -98,4 +98,10 @@ export class DataService {
   getUserResumeCreateData(): Observable<Array<any>> {
     return this.http.get<Array<any>>(this.ResumeCreator_API + '/getUserResumeCreateData');
   }
+
+  // view-user-resume-email-data
+  // get all userResumeEmail
+  getUserResumeEmailData(): Observable<Array<any>> {
+    return this.http.get<Array<any>>(this.ResumeCreator_API + '/getUserResumeEmailData');
+  }
 }

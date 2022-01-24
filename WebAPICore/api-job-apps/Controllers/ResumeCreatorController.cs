@@ -118,7 +118,7 @@ namespace api_job_apps.Controllers
                        ResumeCreatedAt = DateTime.Now,
                         UserIPAddress = myIpAddress.ToString().Substring(0,(myIpAddress.ToString().Length))
                 };
-                if (_resumeCreator.AddUserData(userData))
+                if (_resumeCreator.AddUserDataWhenResumeCreated(userData))
                 {
                     return File(pdfBytes, "application/pdf");
                 }
@@ -253,6 +253,15 @@ namespace api_job_apps.Controllers
             return Ok(userDatas);
         }
 
+        [HttpGet]
+        [Route("getUserResumeEmailData")]
+        public IActionResult GetUserResumeEmailData()
+        {
+            var userDatas = _resumeCreator.GetUserResumeEmailData();
+            // userDatas = new List<UserResumeEmail>();
+            // userDatas = null;
+            return Ok(userDatas);
+        }
 
     }
 }

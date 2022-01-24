@@ -9,6 +9,7 @@ import { UniversityWinnipegComponent } from './components/university-winnipeg/un
 import { JobResumeUploadComponent } from './components/job-resume-upload/job-resume-upload.component';
 import { ResumeCreatorComponent } from './components/resume-creator/resume-creator.component';
 import { ViewUserResumeCreateDataComponent } from './components/view-user-resume-create-data/view-user-resume-create-data.component';
+import { ViewUserResumeEmailDataComponent } from './components/view-user-resume-email-data/view-user-resume-email-data.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'job-resume-upload', component: JobResumeUploadComponent },
   { path: 'resume-creator', component: ResumeCreatorComponent },
   { path: 'view-user-resume-create-data', component: ViewUserResumeCreateDataComponent },
+  { path: 'view-user-resume-email-data', component: ViewUserResumeEmailDataComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

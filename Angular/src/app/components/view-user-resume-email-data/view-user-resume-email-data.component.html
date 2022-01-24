@@ -4,7 +4,7 @@
     </div>
     <div fxFlex="80%">
         <div class="pageHeader">
-            User-Data By Resume-Created
+            User-Data By Resume-Emailed
         </div>
         <p></p>
 
@@ -30,9 +30,9 @@
         </div>
 
         <table mat-table matSort [dataSource]="dataSource">
-            <ng-container matColumnDef="userResumeCreateId">
+            <ng-container matColumnDef="userResumeEmailId">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> #</th>
-                <td mat-cell *matCellDef="let element"> {{element.userResumeCreateId}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.userResumeEmailId}} </td>
             </ng-container>
             <ng-container matColumnDef="firstName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
@@ -42,18 +42,13 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
             </ng-container>
-            <ng-container matColumnDef="resumeCreatedAt">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Resume Created @</th>
-                <td mat-cell *matCellDef="let element"> {{element.resumeCreatedAt | date:"medium"}} </td>
+            <ng-container matColumnDef="resumeEmailedAt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Resume Emailed @</th>
+                <td mat-cell *matCellDef="let element"> {{element.resumeEmailedAt | date:"medium"}} </td>
             </ng-container>
-            <ng-container matColumnDef="userIPAddress">
-                <th mat-header-cell *matHeaderCellDef> IP Address</th>
-                <td mat-cell *matCellDef="let element">
-                    <span *ngFor="let ipAddress of element.userIPAddress">
-                            {{ipAddress}}
-                            <br />
-                        </span>
-                </td>
+            <ng-container matColumnDef="userEmail">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> User Email</th>
+                <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

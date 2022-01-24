@@ -274,7 +274,7 @@ namespace ResumeService
             return educationString.ToString();
         }
 
-        public bool AddUserData(UserResumeCreate userData)
+        public bool AddUserDataWhenResumeCreated(UserResumeCreate userData)
         {
             try
             {
@@ -310,5 +310,15 @@ namespace ResumeService
                 return false;
             }
         }
+
+        public IEnumerable<UserResumeEmail> GetUserResumeEmailData()
+        {
+            var userDatas = appDbContext.UserResumeEmail;
+            if (userDatas != null)
+                return userDatas;
+            else
+                return new List<UserResumeEmail>();
+        }
+
     }
 }

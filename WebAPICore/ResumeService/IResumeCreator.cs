@@ -17,8 +17,9 @@ namespace ResumeService
         string GetPageFooter();
         string GetWorkExperienceString(List<WorkExperience> workExperience);
         string GetEducationString(List<Education> educations);
-        bool AddUserData(UserResumeCreate userData);
+        bool AddUserDataWhenResumeCreated(UserResumeCreate userData);
         IEnumerable<UserResumeCreate> GetUserResumeCreateData();
         bool AddUserDataWhenResumeEmailed(UserResumeEmail userData);
+        IEnumerable<UserResumeEmail> GetUserResumeEmailData();
     }
 }
