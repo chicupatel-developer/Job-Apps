@@ -1,29 +1,26 @@
-.pageHeader {
+.homePageHeader {
     text-align: center;
     vertical-align: middle;
-    margin-top: 20px;
-    padding-top: 10px;
+    color: blue;
+    background-color: lightyellow;
     padding-bottom: 10px;
-    margin-bottom: 20px;
-    border: 2px solid blueviolet;
+    padding-top: 10px;
+    border: 2px solid red;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.titleHeader {
+    text-align: center;
+    vertical-align: middle;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 2px solid green;
     border-radius: 10px;
-    background-color: lightseagreen;
-    color: black;
-    font-size: x-large;
+    background-color: lightskyblue;
 }
 
-.mainContainer {
-    padding: 20px;
-}
-
-.parent {
-    height: 100%;
-}
-
-.mainContentLeft {
-    padding: 10px;
-}
-
-.mainContentRight {
-    padding: 10px;
+.titleBody {
+    font-size: medium;
+    line-height: 0.25in;
 }
