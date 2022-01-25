@@ -17,6 +17,10 @@ Technology
 
 # Database
 
-![Db Dia](https://user-images.githubusercontent.com/26190114/147774692-dd1fe257-4e6a-42bf-a4a6-9b8d982d9ea0.PNG)
+![Db Dia](https://user-images.githubusercontent.com/26190114/150873385-7e62d5cd-ac83-4456-82ed-3b1872bda859.PNG)
 
+
+# System Diagram
+
+![system dia drawio](https://user-images.githubusercontent.com/26190114/151030726-c8f6032f-67b4-452c-8fe0-f45456e67dee.png)
 
