@@ -1,0 +1,10 @@
+C:\JobApps\WebAPICore\CommerceJsService\bin\Debug\netcoreapp3.1\Select.Html.dep
+C:\JobApps\WebAPICore\CommerceJsService\bin\Debug\netcoreapp3.1\CommerceJsService.deps.json
+C:\JobApps\WebAPICore\CommerceJsService\bin\Debug\netcoreapp3.1\CommerceJsService.dll
+C:\JobApps\WebAPICore\CommerceJsService\bin\Debug\netcoreapp3.1\CommerceJsService.pdb
+C:\JobApps\WebAPICore\CommerceJsService\obj\Debug\netcoreapp3.1\CommerceJsService.csproj.AssemblyReference.cache
+C:\JobApps\WebAPICore\CommerceJsService\obj\Debug\netcoreapp3.1\CommerceJsService.AssemblyInfoInputs.cache
+C:\JobApps\WebAPICore\CommerceJsService\obj\Debug\netcoreapp3.1\CommerceJsService.AssemblyInfo.cs
+C:\JobApps\WebAPICore\CommerceJsService\obj\Debug\netcoreapp3.1\CommerceJsService.csproj.CoreCompileInputs.cache
+C:\JobApps\WebAPICore\CommerceJsService\obj\Debug\netcoreapp3.1\CommerceJsService.dll
+C:\JobApps\WebAPICore\CommerceJsService\obj\Debug\netcoreapp3.1\CommerceJsService.pdb

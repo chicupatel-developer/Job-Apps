@@ -7,3 +7,9 @@ C:\JobApps\WebAPICore\EmailService\obj\Debug\netcoreapp3.1\EmailService.csproj.C
 C:\JobApps\WebAPICore\EmailService\obj\Debug\netcoreapp3.1\EmailService.dll
 C:\JobApps\WebAPICore\EmailService\obj\Debug\netcoreapp3.1\EmailService.pdb
 C:\JobApps\WebAPICore\EmailService\obj\Debug\netcoreapp3.1\EmailService.csproj.AssemblyReference.cache
+C:\JobApps\WebAPICore\EmailService\bin\Debug\netcoreapp3.1\Select.Html.dep
+C:\JobApps\WebAPICore\EmailService\bin\Debug\netcoreapp3.1\EFCore.dll
+C:\JobApps\WebAPICore\EmailService\bin\Debug\netcoreapp3.1\ResumeService.dll
+C:\JobApps\WebAPICore\EmailService\bin\Debug\netcoreapp3.1\ResumeService.pdb
+C:\JobApps\WebAPICore\EmailService\bin\Debug\netcoreapp3.1\EFCore.pdb
+C:\JobApps\WebAPICore\EmailService\obj\Debug\netcoreapp3.1\EmailService.csproj.CopyComplete
