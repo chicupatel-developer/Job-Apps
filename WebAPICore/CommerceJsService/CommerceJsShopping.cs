@@ -82,7 +82,15 @@ namespace CommerceJsService
                                             margin-bottom: -20px;
                                             padding-bottom: -20px;
                                         }
-
+                                        .lineItemDiv{                                          
+                                            margin-top: 30px;
+                                            margin-bottom: 30px;
+                                        }
+                                        .lineItemHeader{
+                                            color: green;
+                                            margin-bottom: -30px;
+                                            padding-bottom: -30px;
+                                        }
                                     </style>
                                  </head>
                              <body>
@@ -168,6 +176,30 @@ namespace CommerceJsService
                             ";
 
             return paymentString;
+        }
+
+        public string GetLineItemString(List<LineItem> lineItems, string grandTotal)
+        {
+            StringBuilder lineItemString = new StringBuilder();
+
+            lineItemString.Append(@"<div class='lineItemDiv'> 
+                                        <div class='lineItemHeader'>
+                                            <h3>Line Item(s) <br />Grand Total : " + grandTotal + @"</h3>                                            
+                                        </div><ul>"
+                                );
+
+            foreach (var lineItem in lineItems)
+            {
+                lineItemString.Append(@"<li >");
+                lineItemString.Append(@"<div><b>" + lineItem.ItemName + "</b></div>");
+                lineItemString.Append(@"<div >");
+                lineItemString.Append(@"[" + lineItem.ItemPrice + " * " + lineItem.Qty + "] = " + lineItem.LineItemPrice + "</div>");
+                lineItemString.Append(@"</li>");
+            }
+
+            lineItemString.Append("</ul></div><hr />");
+
+            return lineItemString.ToString();
         }
     }
 }

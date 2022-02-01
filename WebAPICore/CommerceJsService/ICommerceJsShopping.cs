@@ -16,5 +16,6 @@ namespace CommerceJsService
         string GetShopperInfoString(ShopperInfo shopperInfo);
         string GetShippingString(ShippingData shippingData);
         string GetPaymentString(PaymentData paymentData);
+        string GetLineItemString(List<LineItem> lineItems, string grandTotal);
     }
 }

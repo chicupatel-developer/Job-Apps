@@ -10,5 +10,6 @@ namespace CommerceJsService.Models
         public ShippingData ShippingData { get; set; }
         public List<LineItem> LineItems { get; set; }
         public PaymentData PaymentData { get; set; }
+        public string GrandTotal { get; set; }
     }
 }

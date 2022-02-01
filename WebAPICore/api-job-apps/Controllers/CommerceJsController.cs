@@ -61,6 +61,16 @@ namespace api_job_apps.Controllers
                     return StatusCode(400, _response);
                 }
 
+                // LineItem
+                List<LineItem> lineItems = new List<LineItem>();
+                lineItems = myShopping.LineItems;
+                if (lineItems == null)
+                {
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Bad Request!";
+                    return StatusCode(400, _response);
+                }
+
                 // Shipping Data
                 ShippingData shippingData = new ShippingData();
                 shippingData = myShopping.ShippingData;
@@ -81,8 +91,18 @@ namespace api_job_apps.Controllers
                     return StatusCode(400, _response);
                 }
 
-                var content = _commerceJs.GetPageHeader() +
+                // Grand Total                
+                var grandTotal = myShopping.GrandTotal;
+                if (grandTotal == null)
+                {
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Bad Request!";
+                    return StatusCode(400, _response);
+                }
+
+                var content = _commerceJs.GetPageHeader() +                                
                                 _commerceJs.GetShopperInfoString(shopperInfo) +
+                                _commerceJs.GetLineItemString(lineItems, grandTotal) +
                                 _commerceJs.GetShippingString(shippingData) +
                                 _commerceJs.GetPaymentString(paymentData) +
                                 _commerceJs.GetPageFooter();
