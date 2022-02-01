@@ -46,6 +46,7 @@ namespace CommerceJsService
                                  <head> 
                                     <style>
                                         body {
+                                            font-size: xx-large;
                                         }
                                        
                                         .headerDiv{
@@ -53,10 +54,41 @@ namespace CommerceJsService
                                             vertical-align: middle; 
                                             margin-top: 70px;
                                             margin-bottom: 30px;
-                                        }                                    
+                                        }
+                                        .shopperInfoDiv{                                          
+                                            margin-top: 30px;
+                                            margin-bottom: 30px;
+                                        }
+                                        .shoppingHeader{
+                                            color: green;
+                                            margin-bottom: -20px;
+                                            padding-bottom: -20px;
+                                        }
+                                        .shippingDiv{                                          
+                                            margin-top: 30px;
+                                            margin-bottom: 30px;
+                                        }
+                                        .shippingHeader{
+                                            color: green;
+                                            margin-bottom: -20px;
+                                            padding-bottom: -20px;
+                                        }
+                                        .paymentDiv{                                          
+                                            margin-top: 30px;
+                                            margin-bottom: 30px;
+                                        }
+                                        .paymentHeader{
+                                            color: green;
+                                            margin-bottom: -20px;
+                                            padding-bottom: -20px;
+                                        }
+
                                     </style>
                                  </head>
-                             <body>";
+                             <body>
+                                <div class='headerDiv'>
+                                    <h2>Order Confirmation</h2>
+                                </div>";
             return pageHeader;
         }
 
@@ -74,18 +106,68 @@ namespace CommerceJsService
             string shopperInfoString = null;
 
             shopperInfoString = @"
-                                <div class='headerDiv'>
+                                <div class='shopperInfoDiv'>
+                                    <div class='shoppingHeader'>
+                                        <h3>Customer</h3>
+                                    </div>
                                     <div>" +
-                                        "<div>" +
+                                        "<div><b>" +
                                             shopperInfo.FirstName + "&nbsp;" + shopperInfo.LastName +
-                                        "</div>" +
-                                        "Email: " + shopperInfo.Email +
-                                    @"</div>  
+                                        "</b><br />" + shopperInfo.Email +
+                                    @"</div></div>  
                                 </div>
                                 <hr />
                             ";
 
             return shopperInfoString;
+        }
+
+        public string GetShippingString(ShippingData shippingData)
+        {
+            string shippingString = null;
+
+            shippingString = @"
+                                <div class='shippingDiv'>
+                                    <div class='shippingHeader'>
+                                        <h3>Shipping</h3>
+                                    </div>
+                                    <div>" +
+                                        "<div>Shipping Method: " +
+                                            shippingData.ShippingMethod +
+                                        "<br />Shipping Type: " + shippingData.ShippingType +
+                                        "<br />Country: " + shippingData.Country +
+                                        "<br />State: " + shippingData.State +
+                                        "<br />City: " + shippingData.City +
+                                        "<br />Street: " + shippingData.Street +
+                                        "<br />Postal / Zip Code: " + shippingData.PostalZipCode +
+                                    @"</div></div>  
+                                </div>
+                                <hr />
+                            ";
+
+            return shippingString;
+        }
+
+
+        public string GetPaymentString(PaymentData paymentData)
+        {
+            string paymentString = null;
+
+            paymentString = @"
+                                <div class='paymentDiv'>
+                                    <div class='paymentHeader'>
+                                        <h3>Payment</h3>
+                                    </div>
+                                    <div>" +
+                                        "<div>Gateway: " +
+                                            paymentData.Gateway +
+                                        "<br />Payment Method: " + paymentData.PaymentMethodId +                                       
+                                    @"</div></div>  
+                                </div>
+                                <hr />
+                            ";
+
+            return paymentString;
         }
     }
 }

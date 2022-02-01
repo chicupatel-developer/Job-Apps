@@ -59,10 +59,32 @@ namespace api_job_apps.Controllers
                     _response.ResponseCode = -1;
                     _response.ResponseMessage = "Bad Request!";
                     return StatusCode(400, _response);
-                }             
+                }
+
+                // Shipping Data
+                ShippingData shippingData = new ShippingData();
+                shippingData = myShopping.ShippingData;
+                if (shippingData == null)
+                {
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Bad Request!";
+                    return StatusCode(400, _response);
+                }
+
+                // Payment Data
+                PaymentData paymentData = new PaymentData();
+                paymentData = myShopping.PaymentData;
+                if (paymentData == null)
+                {
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Bad Request!";
+                    return StatusCode(400, _response);
+                }
 
                 var content = _commerceJs.GetPageHeader() +
                                 _commerceJs.GetShopperInfoString(shopperInfo) +
+                                _commerceJs.GetShippingString(shippingData) +
+                                _commerceJs.GetPaymentString(paymentData) +
                                 _commerceJs.GetPageFooter();
 
                 // create pdf as byte[] and display @ browser
@@ -79,5 +101,6 @@ namespace api_job_apps.Controllers
                 return StatusCode(500, _response);
             }
         }
+
     }
 }

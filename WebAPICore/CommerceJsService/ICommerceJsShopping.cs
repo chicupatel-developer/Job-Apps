@@ -14,5 +14,7 @@ namespace CommerceJsService
         string GetPageHeader();
         string GetPageFooter();
         string GetShopperInfoString(ShopperInfo shopperInfo);
+        string GetShippingString(ShippingData shippingData);
+        string GetPaymentString(PaymentData paymentData);
     }
 }
