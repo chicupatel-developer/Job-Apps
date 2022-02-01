@@ -37,8 +37,8 @@ namespace api_job_apps.Controllers
 
         // create pdf resume as byte[] and display @ browser
         [HttpPost]
-        [Route("createAndDownloadResume")]
-        public IActionResult CreateAndDownloadResume(ShoppingData myShopping)
+        [Route("shoppingConfirmation")]
+        public IActionResult ShoppingConfirmation(ShoppingData myShopping)
         {
             _response = new APIResponse();
 
