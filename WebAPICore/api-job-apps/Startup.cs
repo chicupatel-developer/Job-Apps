@@ -1,4 +1,3 @@
-using CommerceJsService;
 using EFCore.Context;
 using EFCore.DBFirst_SQLTOLINQ_Models;
 using EmailService;
@@ -36,10 +35,6 @@ namespace api_job_apps
         {
             #region resume-creator
             services.AddScoped<IResumeCreator, ResumeCreator>();
-            #endregion
-
-            #region commerceJs
-            services.AddScoped<ICommerceJsShopping, CommerceJsShopping>();
             #endregion
 
             #region email-service

@@ -87,5 +87,3 @@ C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\Select.HtmlToPdf.dll
 C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\Select.Html.dep
 C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\ResumeService.dll
 C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\ResumeService.pdb
-C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\CommerceJsService.dll
-C:\JobApps\WebAPICore\api-job-apps\bin\Debug\netcoreapp3.1\CommerceJsService.pdb

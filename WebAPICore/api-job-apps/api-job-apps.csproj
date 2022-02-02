@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommerceJsService\CommerceJsService.csproj" />
     <ProjectReference Include="..\EFCore\EFCore.csproj" />
     <ProjectReference Include="..\EmailService\EmailService.csproj" />
     <ProjectReference Include="..\ResumeService\ResumeService.csproj" />
