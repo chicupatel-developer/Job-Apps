@@ -184,7 +184,7 @@ namespace CommerceJsService
 
             lineItemString.Append(@"<div class='lineItemDiv'> 
                                         <div class='lineItemHeader'>
-                                            <h3>Line Item(s) <br />Grand Total : " + grandTotal + @"</h3>                                            
+                                            <h3>Purchased Item(s) <br />Grand Total : " + grandTotal + @"</h3>                                            
                                         </div><ul>"
                                 );
 
