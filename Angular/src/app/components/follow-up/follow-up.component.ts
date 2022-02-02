@@ -236,8 +236,8 @@ export class FollowUpComponent implements OnInit {
     console.log(job);
     const dialogRef = this.dialog.open(JobAppViewDialogComponent, {
       width: '50%',
-      minHeight: '75%',
-      height: '75%',
+      minHeight: '85%',
+      height: '85%',
       data: {
         jobApplicationId: job.jobApplicationId,
         companyName: job.companyName,
