@@ -25,11 +25,15 @@ namespace api_job_apps.Controllers
         private APIResponse _response;
         private readonly IJobResumeRepository _jobResumeRepo;
 
+        // check for file type
+        // pdf
+        private string[] permittedExtensions = { ".pdf" };
+
         public JobResumeController(IConfiguration configuration, IJobResumeRepository jobResumeRepo)
         {
             _jobResumeRepo = jobResumeRepo;
             _configuration = configuration;
-        }
+        }               
 
         // file-upload
         [HttpPost, DisableRequestSizeLimit]
@@ -67,6 +71,16 @@ namespace api_job_apps.Controllers
                 int jobApplicationId = Int32.Parse(resumeUpload.JobApplicationId);
                 // var file = Request.Form.Files[0];
                 var file = resumeUpload.ResumeFile;
+                
+                // check for file type
+                // .pdf
+                var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
+                {
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Invalid File Type!,,, Only .PDF File Is Allowed To Upload!";
+                    return BadRequest(_response);
+                }
 
                 string resumeStoragePath = _configuration.GetSection("ResumeUploadLocation").GetSection("Path").Value;
 
