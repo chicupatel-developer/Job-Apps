@@ -1,18 +1,16 @@
 # Job-Apps MGT.
 
-# DotNet Core API + Angular + Material UI
-
 Technology
 ----------
-- .Net Core Web API
-
-- EF Core - Code First - EF Transaction 
+- Web API Core - 3.1, EF Core [Code First - EF Transaction]
 
 - Repository pattern
 
 - Sql Server
 
-- Angular, Html, CSS, Javascript, Angular-Material UI
+- Client(1) : Angular, Html, CSS, Angular-Material UI
+
+- ### WIP Client(2) : React, Html, Css, Bootstrap
 
 
 # Database
