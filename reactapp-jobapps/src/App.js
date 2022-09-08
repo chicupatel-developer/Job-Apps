@@ -1,25 +1,27 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
-import Button from "@material-ui/core/Button";
-import Bookmarks from "@material-ui/icons/Bookmarks";
-
-import Header from "./components/Header/Header";
-import Home from "./components/Home/Home";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Routes,
+} from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import Home from "./Components/pages/Home";
+import About from "./Components/pages/About";
+import Contact from "./Components/pages/Contact";
+import Faq from "./Components/pages/Faq";
 
 function App() {
   return (
-    <div className="App">
-      <div className="main-wrapper">
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-          </Routes>
-        </Router>
-      </div>
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/faq" element={<Faq />} />
+      </Routes>
+    </Router>
   );
 }
 export default App;
