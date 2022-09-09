@@ -23,7 +23,31 @@ import DateFnsUtils from "@date-io/date-fns";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import moment from "moment";
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+  pageHeader: {},
+  paper: {
+    padding: theme.spacing(1),
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    marginBottom: theme.spacing(2),
+    // textAlign: "center",
+    textAlign: "left",
+    // color: theme.palette.text.secondary,
+  },
+  pageTitle: {
+    textAlign: "center",
+    verticalAlign: "middle",
+    marginTop: "20px",
+    paddingTop: "10px",
+    paddingBottom: "10px",
+    marginBottom: "20px",
+    border: "2px solid blueviolet",
+    borderRadius: "10px",
+    backgroundColor: "lightseagreen",
+    color: "black",
+    fontSize: "x-large; ",
+  },
+}));
 
 const defaultValues = {
   contactPersonName: "",
@@ -38,6 +62,12 @@ const Follow_Up = () => {
   return (
     <div className={classes.pageHeader}>
       <Grid container spacing={1}>
+        <Grid item xs={12} sm={12} md={3}>
+          <div></div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6}>
+          <div className={classes.pageTitle}>Follow-Up</div>
+        </Grid>
         <Grid item xs={12} sm={12} md={3}>
           <div></div>
         </Grid>

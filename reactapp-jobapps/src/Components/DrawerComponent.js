@@ -37,7 +37,12 @@ function DrawerComponent() {
             <ListItemText>
               <Link to="/apply-job">Apply-Job</Link>
             </ListItemText>
-          </ListItem>       
+          </ListItem>
+          <ListItem onClick={() => setOpenDrawer(false)}>
+            <ListItemText>
+              <Link to="/follow-up">Follow-Up</Link>
+            </ListItemText>
+          </ListItem>
         </List>
       </Drawer>
       <IconButton onClick={() => setOpenDrawer(!openDrawer)}>
