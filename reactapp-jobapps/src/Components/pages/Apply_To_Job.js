@@ -12,9 +12,15 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
+
 import { makeStyles } from "@material-ui/core";
 
 import { getProvinces, getCities } from "../../services/local.service";
+
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import { KeyboardDatePicker } from "@material-ui/pickers";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   btn: {
@@ -28,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "x-large",
   },
   pageHeader: {},
+  controlError: {
+    color: "red",
+    fontSize: "medium; ",
+  },
   paper: {
     padding: theme.spacing(1),
     marginLeft: theme.spacing(3),
@@ -64,12 +74,14 @@ const defaultValues = {
   phoneNumber: "",
   province: "",
   city: "",
+  appliedOn: undefined,
 };
 
 const Apply_To_Job = () => {
   const classes = useStyles();
 
   const [formValues, setFormValues] = useState(defaultValues);
+  const [errors, setErrors] = useState({});
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -78,6 +90,7 @@ const Apply_To_Job = () => {
       setCities([]);
     } else if (name === "province" && value !== "") {
       setCities(getCities(value));
+      formValues.city = "";
     }
 
     setFormValues({
@@ -88,7 +101,14 @@ const Apply_To_Job = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formValues);
+
+    const newErrors = findFormErrors();
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+    } else {
+      console.log(formValues);
+    }
   };
 
   const [provinces, setProvinces] = useState([]);
@@ -115,6 +135,44 @@ const Apply_To_Job = () => {
     });
   };
 
+  const findFormErrors = () => {
+    const {
+      companyName,
+      agencyName,
+      webURL,
+      contactPersonName,
+      contactEmail,
+      phoneNumber,
+      province,
+      city,
+      appliedOn,
+    } = formValues;
+    const newErrors = {};
+
+    if (!contactPersonName || contactPersonName === "")
+      newErrors.contactPersonName = "Contact-Person-Name is Required!";
+    if (!contactEmail || contactEmail === "")
+      newErrors.contactEmail = "Contact-Email is Required!";
+    if (!province || province === "")
+      newErrors.province = "Province is Required!";
+    if (!city || city === "") newErrors.city = "City is Required!";
+    if (!appliedOn || appliedOn === "")
+      newErrors.appliedOn = "Applied On is Required!";
+    return newErrors;
+  };
+
+  const [selectedDate, setSelectedDate] = useState(undefined);
+  const handleDateChange = (e) => {
+    console.log(e);
+    let formattedDate = moment(e).format("DD/MM/YYYY");
+    console.log(formattedDate);
+    setSelectedDate(e);
+
+    setFormValues({
+      ...formValues,
+      ["appliedOn"]: e,
+    });
+  };
   return (
     <div className={classes.pageHeader}>
       <Grid container spacing={1}>
@@ -179,6 +237,12 @@ const Apply_To_Job = () => {
                 value={formValues.contactPersonName}
                 onChange={handleInputChange}
               />
+              {!formValues.contactPersonName && errors.contactPersonName && (
+                <FormHelperText className={classes.controlError}>
+                  {" "}
+                  {errors.contactPersonName}
+                </FormHelperText>
+              )}
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
@@ -192,6 +256,12 @@ const Apply_To_Job = () => {
                 value={formValues.contactEmail}
                 onChange={handleInputChange}
               />
+              {!formValues.contactEmail && errors.contactEmail && (
+                <FormHelperText className={classes.controlError}>
+                  {" "}
+                  {errors.contactEmail}
+                </FormHelperText>
+              )}
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
@@ -222,13 +292,21 @@ const Apply_To_Job = () => {
                 </MenuItem>
                 {renderOptionsForProvince()}
               </Select>
-              <FormHelperText>Select Province</FormHelperText>
+              {!formValues.province && errors.province && (
+                <FormHelperText className={classes.controlError}>
+                  {" "}
+                  {errors.province}
+                </FormHelperText>
+              )}
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Paper className={classes.paper}>
               <InputLabel shrink>City</InputLabel>
               <Select
+                renderValue={(value) =>
+                  value ? value : <em>---Select City---</em>
+                }
                 displayEmpty
                 value={formValues.city}
                 name="city"
@@ -240,7 +318,36 @@ const Apply_To_Job = () => {
                 </MenuItem>
                 {renderOptionsForCity()}
               </Select>
-              <FormHelperText>Select City</FormHelperText>
+              {!formValues.city && errors.city && (
+                <FormHelperText className={classes.controlError}>
+                  {" "}
+                  {errors.city}
+                </FormHelperText>
+              )}
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Paper className={classes.paper}>
+              <InputLabel shrink>Applied On</InputLabel>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  fullWidth
+                  variant="inline"
+                  format="MM/dd/yyyy"
+                  margin="normal"
+                  id="date-picker-inline"
+                  label="Date picker inline"
+                  value={formValues.appliedOn}
+                  onChange={handleDateChange}
+                />
+              </MuiPickersUtilsProvider>
+              {!formValues.appliedOn && errors.appliedOn && (
+                <FormHelperText className={classes.controlError}>
+                  {" "}
+                  {errors.appliedOn}
+                </FormHelperText>
+              )}
             </Paper>
           </Grid>
           <p></p>
