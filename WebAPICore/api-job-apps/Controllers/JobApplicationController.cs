@@ -50,7 +50,7 @@ namespace api_job_apps.Controllers
                 // throw new Exception();
 
                 // check for ModelState
-                // ModelState.AddModelError("error", "ModelState Check!");
+                // ModelState.AddModelError("contactPersonName", "ModelState Check!");
                 // ModelState.AddModelError("error", "Another ModelState Check!");
                 // ModelState.AddModelError("error", "One More Another ModelState Check!");
                                 

@@ -15,6 +15,7 @@ import Paper from "@material-ui/core/Paper";
 
 import { makeStyles } from "@material-ui/core";
 
+import JobApplicationService from "../../services/job.application.service";
 import { getProvinces, getCities } from "../../services/local.service";
 
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -23,6 +24,23 @@ import { KeyboardDatePicker } from "@material-ui/pickers";
 import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
+  modelError: {
+    color: "red",
+    fontSize: "medium",
+    fontWeight: "bold",
+  },
+  jobAppCreateError: {
+    color: "red",
+    fontSize: "medium",
+    fontWeight: "bold",
+    paddingBottom: "10px",
+  },
+  jobAppCreateSuccess: {
+    color: "green",
+    fontSize: "medium",
+    fontWeight: "bold",
+    paddingBottom: "10px",
+  },
   btn: {
     textAlign: "center",
     verticalAlign: "middle",
@@ -74,11 +92,14 @@ const defaultValues = {
   phoneNumber: "",
   province: "",
   city: "",
-  appliedOn: undefined,
+  appliedOn: null,
 };
 
 const Apply_To_Job = () => {
   const classes = useStyles();
+
+  const [modelErrors, setModelErrors] = useState([]);
+  const [jobAppCreateResponse, setJobAppCreateResponse] = useState({});
 
   const [formValues, setFormValues] = useState(defaultValues);
   const [errors, setErrors] = useState({});
@@ -99,6 +120,13 @@ const Apply_To_Job = () => {
     });
   };
 
+  const resetForm = (e) => {
+    setErrors({});
+    setFormValues(defaultValues);
+    setJobAppCreateResponse({});
+    setModelErrors([]);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -114,14 +142,77 @@ const Apply_To_Job = () => {
         agencyName: formValues.agencyName,
         webURL: formValues.webURL,
         contactPersonName: formValues.contactPersonName,
+        // contactPersonName: "",
         contactEmail: formValues.contactEmail,
+        // contactEmail: "",
         phoneNumber: formValues.phoneNumber,
         province: formValues.province,
+        // province: "",
         city: formValues.city,
         appliedOn: formValues.appliedOn,
       };
       console.log(jobAppData);
+
+      // api call
+      JobApplicationService.addJobApplication(jobAppData)
+        .then((response) => {
+          console.log(response.data);
+
+          setModelErrors([]);
+          setJobAppCreateResponse({});
+
+          var jobAppCreateResponse = {
+            responseCode: response.data.responseCode,
+            responseMessage: response.data.responseMessage,
+          };
+          if (response.data.responseCode === 0) {
+            resetForm();
+            setJobAppCreateResponse(jobAppCreateResponse);
+          } else if (response.data.responseCode === -1) {
+            setJobAppCreateResponse(jobAppCreateResponse);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          setModelErrors([]);
+          setJobAppCreateResponse({});
+          // 400
+          // ModelState
+          if (error.response.status === 400) {
+            console.log("400 !");
+            var modelErrors = handleModelState(error);
+            setModelErrors(modelErrors);
+          }
+          if (error.code === "ERR_NETWORK") {
+            setJobAppCreateResponse({
+              responseCode: -1,
+              responseMessage: "Network Error !",
+            });
+          }
+        });
     }
+  };
+
+  const handleModelState = (error) => {
+    var errors = [];
+    if (error.response.status === 400) {
+      if (error.response.data.errors !== undefined) {
+        for (let prop in error.response.data.errors) {
+          if (error.response.data.errors[prop].length > 1) {
+            for (let error_ in error.response.data.errors[prop]) {
+              errors.push(error.response.data.errors[prop][error_]);
+            }
+          } else {
+            errors.push(error.response.data.errors[prop]);
+          }
+        }
+      } else {
+        errors.push(error.response.data.title + " !");
+      }
+    } else {
+      console.log(error);
+    }
+    return errors;
   };
 
   const [provinces, setProvinces] = useState([]);
@@ -174,18 +265,25 @@ const Apply_To_Job = () => {
     return newErrors;
   };
 
-  const [selectedDate, setSelectedDate] = useState(undefined);
   const handleDateChange = (e) => {
     console.log(e);
     let formattedDate = moment(e).format("DD/MM/YYYY");
     console.log(formattedDate);
-    setSelectedDate(e);
 
     setFormValues({
       ...formValues,
       ["appliedOn"]: e,
     });
   };
+  let modelErrorList =
+    modelErrors.length > 0 &&
+    modelErrors.map((item, i) => {
+      return (
+        <ul key={i} value={item}>
+          <li style={{ marginTop: -20 }}>{item}</li>
+        </ul>
+      );
+    }, this);
   return (
     <div className={classes.pageHeader}>
       <Grid container spacing={1}>
@@ -194,6 +292,21 @@ const Apply_To_Job = () => {
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
           <div className={classes.pageTitle}>Apply-Job</div>
+          <p></p>
+          {jobAppCreateResponse && jobAppCreateResponse.responseCode === -1 ? (
+            <div className={classes.jobAppCreateError}>
+              {jobAppCreateResponse.responseMessage}
+            </div>
+          ) : (
+            <div className={classes.jobAppCreateSuccess}>
+              {jobAppCreateResponse.responseMessage}
+            </div>
+          )}
+          {modelErrors.length > 0 ? (
+            <div className={classes.modelError}>{modelErrorList}</div>
+          ) : (
+            <span></span>
+          )}
         </Grid>
         <Grid item xs={12} sm={12} md={3}>
           <div></div>
@@ -202,7 +315,8 @@ const Apply_To_Job = () => {
 
       <form onSubmit={handleSubmit}>
         <Grid container spacing={1}>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={12} md={2}></Grid>
+          <Grid item xs={12} sm={12} md={4}>
             <Paper className={classes.paper}>
               <TextField
                 id="companyName-input"
@@ -214,7 +328,7 @@ const Apply_To_Job = () => {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={12} md={4}>
             <Paper className={classes.paper}>
               {" "}
               <TextField
@@ -227,7 +341,9 @@ const Apply_To_Job = () => {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={12} md={2}></Grid>
+          <Grid item xs={12} sm={12} md={2}></Grid>
+          <Grid item xs={12} sm={12} md={4}>
             <Paper className={classes.paper}>
               <TextField
                 id="webURL-input"
@@ -239,7 +355,7 @@ const Apply_To_Job = () => {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={12} md={4}>
             <Paper className={classes.paper}>
               {" "}
               <TextField
@@ -258,7 +374,9 @@ const Apply_To_Job = () => {
               )}
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={12} md={2}></Grid>
+          <Grid item xs={12} sm={12} md={2}></Grid>
+          <Grid item xs={12} sm={12} md={4}>
             <Paper className={classes.paper}>
               {" "}
               <TextField
@@ -277,7 +395,7 @@ const Apply_To_Job = () => {
               )}
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={12} md={4}>
             <Paper className={classes.paper}>
               {" "}
               <TextField
@@ -290,7 +408,9 @@ const Apply_To_Job = () => {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={12} md={2}></Grid>
+          <Grid item xs={12} sm={12} md={2}></Grid>
+          <Grid item xs={12} sm={12} md={4}>
             <Paper className={classes.paper}>
               <InputLabel shrink>Province</InputLabel>
               <Select
@@ -313,7 +433,7 @@ const Apply_To_Job = () => {
               )}
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={12} md={4}>
             <Paper className={classes.paper}>
               <InputLabel shrink>City</InputLabel>
               <Select
@@ -339,9 +459,10 @@ const Apply_To_Job = () => {
               )}
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={12} md={2}></Grid>
+          <Grid item xs={12} sm={12} md={2}></Grid>
+          <Grid item xs={12} sm={12} md={4}>
             <Paper className={classes.paper}>
-              <InputLabel shrink>Applied On</InputLabel>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   disableToolbar
@@ -350,7 +471,7 @@ const Apply_To_Job = () => {
                   format="MM/dd/yyyy"
                   margin="normal"
                   id="date-picker-inline"
-                  label="Date picker inline"
+                  label="Applied On"
                   value={formValues.appliedOn}
                   onChange={handleDateChange}
                 />
@@ -363,6 +484,7 @@ const Apply_To_Job = () => {
               )}
             </Paper>
           </Grid>
+          <Grid item xs={12} sm={12} md={2}></Grid>
           <p></p>
         </Grid>
         <Grid container spacing={1}>
