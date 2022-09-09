@@ -127,6 +127,20 @@ const Apply_To_Job = () => {
     setModelErrors([]);
   };
 
+  const checkForPhoneNumber = (newVal) => {
+    console.log(newVal);
+    // const re = /^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
+    const re = /^(()?\d{3}())?(-|\s)?\d{3}(-|\s)?\d{4}$/;
+    if (re.test(newVal)) return true;
+    else return false;
+  };
+
+  const checkForEmail = (newVal) => {
+    const re = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+    if (re.test(newVal)) return true;
+    else return false;
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -134,6 +148,7 @@ const Apply_To_Job = () => {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      console.log(newErrors);
     } else {
       // console.log(formValues);
 
@@ -255,13 +270,25 @@ const Apply_To_Job = () => {
 
     if (!contactPersonName || contactPersonName === "")
       newErrors.contactPersonName = "Contact-Person-Name is Required!";
+
     if (!contactEmail || contactEmail === "")
       newErrors.contactEmail = "Contact-Email is Required!";
+    if (!(!contactEmail || contactEmail === "")) {
+      if (!checkForEmail(contactEmail))
+        newErrors.contactEmail = "Invalid Email!";
+    }
+
     if (!province || province === "")
       newErrors.province = "Province is Required!";
     if (!city || city === "") newErrors.city = "City is Required!";
     if (!appliedOn || appliedOn === "")
       newErrors.appliedOn = "Applied On is Required!";
+
+    if (!(!phoneNumber || phoneNumber === "")) {
+      if (!checkForPhoneNumber(phoneNumber))
+        newErrors.phoneNumber = "Invalid Phone Number!";
+    }
+
     return newErrors;
   };
 
@@ -393,6 +420,12 @@ const Apply_To_Job = () => {
                   {errors.contactEmail}
                 </FormHelperText>
               )}
+              {formValues.contactEmail && errors.contactEmail && (
+                <FormHelperText className={classes.controlError}>
+                  {" "}
+                  {errors.contactEmail}
+                </FormHelperText>
+              )}
             </Paper>
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
@@ -406,6 +439,12 @@ const Apply_To_Job = () => {
                 value={formValues.phoneNumber}
                 onChange={handleInputChange}
               />
+              {formValues.phoneNumber && errors.phoneNumber && (
+                <FormHelperText className={classes.controlError}>
+                  {" "}
+                  {errors.phoneNumber}
+                </FormHelperText>
+              )}
             </Paper>
           </Grid>
           <Grid item xs={12} sm={12} md={2}></Grid>
