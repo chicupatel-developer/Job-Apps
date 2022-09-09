@@ -107,7 +107,20 @@ const Apply_To_Job = () => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      console.log(formValues);
+      // console.log(formValues);
+
+      var jobAppData = {
+        companyName: formValues.companyName,
+        agencyName: formValues.agencyName,
+        webURL: formValues.webURL,
+        contactPersonName: formValues.contactPersonName,
+        contactEmail: formValues.contactEmail,
+        phoneNumber: formValues.phoneNumber,
+        province: formValues.province,
+        city: formValues.city,
+        appliedOn: formValues.appliedOn,
+      };
+      console.log(jobAppData);
     }
   };
 
