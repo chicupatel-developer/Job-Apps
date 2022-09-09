@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -7,13 +7,17 @@ import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
 import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core";
 
+import { getProvinces, getCities } from "../../services/local.service";
+
 const useStyles = makeStyles((theme) => ({
-  myButton: {
+  btn: {
     textAlign: "center",
     verticalAlign: "middle",
     border: "2px solid green",
@@ -23,9 +27,7 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
     fontSize: "x-large",
   },
-  pageHeader: {
-    margin: "50px",
-  },
+  pageHeader: {},
   paper: {
     padding: theme.spacing(1),
     marginLeft: theme.spacing(3),
@@ -38,6 +40,19 @@ const useStyles = makeStyles((theme) => ({
   buttonPaper: {
     textAlign: "center",
   },
+  pageTitle: {
+    textAlign: "center",
+    verticalAlign: "middle",
+    marginTop: "20px",
+    paddingTop: "10px",
+    paddingBottom: "10px",
+    marginBottom: "20px",
+    border: "2px solid blueviolet",
+    borderRadius: "10px",
+    backgroundColor: "lightseagreen",
+    color: "black",
+    fontSize: "x-large; ",
+  },
 }));
 
 const defaultValues = {
@@ -47,25 +62,24 @@ const defaultValues = {
   contactPersonName: "",
   contactEmail: "",
   phoneNumber: "",
-  os: "",
+  province: "",
+  city: "",
 };
-
-function GridItem({ classes }) {
-  return (
-    // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
-    // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
-    // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
-    <Grid item xs={12} sm={6} md={6}>
-      <Paper className={classes.paper}>item</Paper>
-    </Grid>
-  );
-}
 
 const Apply_To_Job = () => {
   const classes = useStyles();
+
   const [formValues, setFormValues] = useState(defaultValues);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    // console.log(name, value);
+    if (name === "province" && value === "") {
+      setCities([]);
+    } else if (name === "province" && value !== "") {
+      setCities(getCities(value));
+    }
+
     setFormValues({
       ...formValues,
       [name]: value,
@@ -77,11 +91,47 @@ const Apply_To_Job = () => {
     console.log(formValues);
   };
 
+  const [provinces, setProvinces] = useState([]);
+  const [cities, setCities] = useState([]);
+  useEffect(() => {
+    setProvinces(getProvinces());
+  }, []);
+  const renderOptionsForProvince = () => {
+    return provinces.map((dt, i) => {
+      return (
+        <MenuItem value={dt} key={i}>
+          {dt}
+        </MenuItem>
+      );
+    });
+  };
+  const renderOptionsForCity = () => {
+    return cities.map((dt, i) => {
+      return (
+        <MenuItem value={dt} key={i}>
+          {dt}
+        </MenuItem>
+      );
+    });
+  };
+
   return (
     <div className={classes.pageHeader}>
+      <Grid container spacing={1}>
+        <Grid item xs={12} sm={12} md={3}>
+          <div></div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6}>
+          <div className={classes.pageTitle}>Apply-Job</div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={3}>
+          <div></div>
+        </Grid>
+      </Grid>
+
       <form onSubmit={handleSubmit}>
         <Grid container spacing={1}>
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <Paper className={classes.paper}>
               <TextField
                 id="companyName-input"
@@ -93,7 +143,7 @@ const Apply_To_Job = () => {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <Paper className={classes.paper}>
               {" "}
               <TextField
@@ -106,7 +156,7 @@ const Apply_To_Job = () => {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <Paper className={classes.paper}>
               <TextField
                 id="webURL-input"
@@ -118,7 +168,7 @@ const Apply_To_Job = () => {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <Paper className={classes.paper}>
               {" "}
               <TextField
@@ -131,7 +181,7 @@ const Apply_To_Job = () => {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <Paper className={classes.paper}>
               {" "}
               <TextField
@@ -144,7 +194,7 @@ const Apply_To_Job = () => {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <Paper className={classes.paper}>
               {" "}
               <TextField
@@ -157,24 +207,41 @@ const Apply_To_Job = () => {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
-            <FormControl>
+          <Grid item xs={12} sm={6} md={4}>
+            <Paper className={classes.paper}>
+              <InputLabel shrink>Province</InputLabel>
               <Select
-                name="os"
-                value={formValues.os}
+                displayEmpty
+                value={formValues.province}
+                name="province"
                 onChange={handleInputChange}
+                style={{ marginTop: 5 }}
               >
-                <MenuItem key="mac" value="mac">
-                  Mac
+                <MenuItem value="">
+                  <em>---Select Province---</em>
                 </MenuItem>
-                <MenuItem key="windows" value="windows">
-                  Windows
-                </MenuItem>
-                <MenuItem key="linux " value="linux">
-                  Linux
-                </MenuItem>
+                {renderOptionsForProvince()}
               </Select>
-            </FormControl>
+              <FormHelperText>Select Province</FormHelperText>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Paper className={classes.paper}>
+              <InputLabel shrink>City</InputLabel>
+              <Select
+                displayEmpty
+                value={formValues.city}
+                name="city"
+                onChange={handleInputChange}
+                style={{ marginTop: 5 }}
+              >
+                <MenuItem value="">
+                  <em>---Select City---</em>
+                </MenuItem>
+                {renderOptionsForCity()}
+              </Select>
+              <FormHelperText>Select City</FormHelperText>
+            </Paper>
           </Grid>
           <p></p>
         </Grid>
@@ -182,7 +249,7 @@ const Apply_To_Job = () => {
           <Grid item xs={12} sm={12} md={12}>
             <div className={classes.buttonPaper}>
               <Button
-                className={classes.myButton}
+                className={classes.btn}
                 variant="contained"
                 color="primary"
                 type="submit"
