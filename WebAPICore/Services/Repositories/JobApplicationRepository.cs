@@ -171,7 +171,7 @@ namespace Services.Repositories
             }         
         }
 
-        public IEnumerable<AppStatusLog> TractJobAppStatus(int jobAppId)
+        public IEnumerable<AppStatusLog> TrackJobAppStatus(int jobAppId)
         {
             List<AppStatusLog> appStatusLog = new List<AppStatusLog>();
 

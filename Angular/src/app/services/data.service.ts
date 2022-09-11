@@ -89,8 +89,8 @@ export class DataService {
   }
 
   // follow-up-->app-status-track-dialog
-  tractJobAppStatus(jobAppId): Observable<any> {
-    return this.http.get<any>(this.JobApplication_API + '/tractJobAppStatus/' + jobAppId);
+  trackJobAppStatus(jobAppId): Observable<any> {
+    return this.http.get<any>(this.JobApplication_API + '/trackJobAppStatus/' + jobAppId);
   }
 
   // view-user-resume-create-data

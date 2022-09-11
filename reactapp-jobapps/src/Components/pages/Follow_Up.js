@@ -16,12 +16,17 @@ import Paper from "@material-ui/core/Paper";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
-import { CloudDownload, ExpandMore } from "@material-ui/icons";
+import { Autorenew, CloudDownload, ExpandMore } from "@material-ui/icons";
 
 import { makeStyles } from "@material-ui/core";
 
 import JobApplicationService from "../../services/job.application.service";
-import { getProvinces, getCities } from "../../services/local.service";
+import {
+  getProvinces,
+  getCities,
+  getAppStatus,
+  getAppStatusTypeColor,
+} from "../../services/local.service";
 
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -32,6 +37,10 @@ import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import CloudUpload from "@material-ui/icons/CloudUpload";
+import AutorenewIcon from "@material-ui/icons/Autorenew";
+
+import Moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   pageHeader: {},
@@ -78,9 +87,32 @@ const useStyles = makeStyles((theme) => ({
   jobAppDetails: {
     padding: "5px",
   },
-  btn: {
+  btnDownload: {
     color: "black",
     backgroundColor: "lightgreen",
+  },
+  btnView: {
+    color: "black",
+    backgroundColor: "lightpink",
+  },
+  btnEdit: {
+    color: "black",
+    backgroundColor: "lightskyblue",
+  },
+  btnDelete: {
+    color: "black",
+    backgroundColor: "orange",
+  },
+  btnUpload: {
+    color: "black",
+    backgroundColor: "lightseagreen",
+  },
+  btnAppStatus: {
+    color: "black",
+    backgroundColor: "white",
+  },
+  appStatus: {
+    padding: "5px",
   },
 }));
 
@@ -95,6 +127,7 @@ const Follow_Up = () => {
   const classes = useStyles();
 
   const [jobApps, setJobApps] = useState([]);
+  const [appStatusTypes, setAppStatusTypes] = useState([]);
 
   const getAllJobApps = () => {
     JobApplicationService.getAllJobApps()
@@ -106,9 +139,20 @@ const Follow_Up = () => {
         console.log(e);
       });
   };
+  const getAppStatusTypes = () => {
+    JobApplicationService.getAppStatusTypes()
+      .then((response) => {
+        console.log(response.data);
+        setAppStatusTypes(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   useEffect(() => {
     getAllJobApps();
+    getAppStatusTypes();
   }, []);
 
   const downloadResume = (e, jobApplicationId) => {
@@ -123,6 +167,12 @@ const Follow_Up = () => {
   const deleteJobApp = (e, jobApplicationId) => {
     console.log("delete job app,,,", jobApplicationId);
   };
+  const uploadResume = (e, jobApplicationId) => {
+    console.log("upload resume,,,", jobApplicationId);
+  };
+  const viewJobAppStatus = (e, jobApplicationId) => {
+    console.log("view job app status,,,", jobApplicationId);
+  };
   let jobAppsList =
     jobApps.length > 0 &&
     jobApps.map((item, i) => {
@@ -133,6 +183,78 @@ const Follow_Up = () => {
             <Grid item xs={12} sm={12} md={10}>
               <div className={classes.jobAppContainer}>
                 <Grid container spacing={1}>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <Button
+                      className={classes.btnView}
+                      variant="contained"
+                      type="button"
+                      onClick={(e) => {
+                        viewJobApp(e, item.jobApplicationId);
+                      }}
+                    >
+                      <ViewModuleIcon />
+                    </Button>
+                    &nbsp;&nbsp;
+                    <Button
+                      className={classes.btnEdit}
+                      variant="contained"
+                      type="button"
+                      onClick={(e) => {
+                        editJobApp(e, item.jobApplicationId);
+                      }}
+                    >
+                      <EditIcon />
+                    </Button>
+                    &nbsp;&nbsp;
+                    <Button
+                      className={classes.btnDelete}
+                      variant="contained"
+                      type="button"
+                      onClick={(e) => {
+                        deleteJobApp(e, item.jobApplicationId);
+                      }}
+                    >
+                      <DeleteForeverIcon />
+                    </Button>
+                    &nbsp;&nbsp;
+                    <Button
+                      className={classes.btnUpload}
+                      variant="contained"
+                      type="button"
+                      onClick={(e) => {
+                        uploadResume(e, item.jobApplicationId);
+                      }}
+                    >
+                      <CloudUpload /> Resume
+                    </Button>
+                    &nbsp;&nbsp;
+                    <Button
+                      className={classes.btnAppStatus}
+                      variant="contained"
+                      type="button"
+                      onClick={(e) => {
+                        viewJobAppStatus(e, item.jobApplicationId);
+                      }}
+                    >
+                      <Autorenew /> App Status
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <div className={classes.appStatus}>
+                      <span
+                        style={{
+                          color: getAppStatusTypeColor(item.appStatus),
+                          fontWeight: "bold",
+                        }}
+                      >
+                        [{getAppStatus(appStatusTypes, item.appStatus)}] &nbsp;{" "}
+                        {Moment(item.appliedOn).format("MMMM DD, YYYY")}
+                        <span>
+                          &nbsp;&nbsp;@ {item.city}, {item.province}
+                        </span>
+                      </span>
+                    </div>
+                  </Grid>
                   <Grid item xs={12} sm={12} md={6}>
                     <div className={classes.jobAppDetails}>
                       Contact Name : {item.contactPersonName}
@@ -145,7 +267,7 @@ const Follow_Up = () => {
                     </div>
                     <div className={classes.jobAppDetails}>
                       <Button
-                        className={classes.btn}
+                        className={classes.btnDownload}
                         variant="contained"
                         type="button"
                         onClick={(e) => {

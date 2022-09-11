@@ -404,10 +404,10 @@ export class FollowUpComponent implements OnInit {
    }
  */
   // view job-app-status tracking details
-  tractAppStatus(job) {
+  trackAppStatus(job) {
     console.log(job);
-      this.dataService.tractJobAppStatus(Number(job.jobApplicationId))
-      // this.dataService.tractJobAppStatus('badRequest')
+      this.dataService.trackJobAppStatus(Number(job.jobApplicationId))
+      // this.dataService.trackJobAppStatus('badRequest')
       .subscribe(
         data => {
           var data_ = [];

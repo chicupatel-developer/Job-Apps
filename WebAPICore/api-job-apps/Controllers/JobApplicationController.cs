@@ -75,7 +75,7 @@ namespace api_job_apps.Controllers
             }
         }
 
-        // react wip
+        // react ok
         [HttpGet]
         [Route("getAllJobApps")]
         public IActionResult GetAllJobApps()
@@ -84,6 +84,7 @@ namespace api_job_apps.Controllers
             return Ok(allJobApps);        
         }
 
+        // react ok
         [HttpGet]
         [Route("getAppStatusTypes")]
         public IActionResult GetAppStatusTypes()
@@ -197,14 +198,14 @@ namespace api_job_apps.Controllers
         }
 
         [HttpGet]
-        [Route("tractJobAppStatus/{jobAppId}")]
-        public IActionResult TractJobAppStatus(int jobAppId)
+        [Route("trackJobAppStatus/{jobAppId}")]
+        public IActionResult TrackJobAppStatus(int jobAppId)
         {
             try
             {
                 // throw new Exception();
 
-                var appStatusLog = _jobAppRepo.TractJobAppStatus(jobAppId);
+                var appStatusLog = _jobAppRepo.TrackJobAppStatus(jobAppId);
                 return Ok(appStatusLog);
             }
             catch (Exception ex)
