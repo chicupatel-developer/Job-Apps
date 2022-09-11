@@ -13,6 +13,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import { CloudDownload, ExpandMore } from "@material-ui/icons";
+
 import { makeStyles } from "@material-ui/core";
 
 import JobApplicationService from "../../services/job.application.service";
@@ -22,6 +27,11 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import moment from "moment";
+
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
+import ViewModuleIcon from "@material-ui/icons/ViewModule";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 const useStyles = makeStyles((theme) => ({
   pageHeader: {},
@@ -47,6 +57,12 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
     fontSize: "x-large; ",
   },
+  followUpNotes: {
+    textAlign: "left",
+    verticalAlign: "middle",
+    border: "4px solid purple",
+    borderRadius: "10px",
+  },
   jobAppContainer: {
     fontSize: "medium",
     textAlign: "left",
@@ -57,6 +73,14 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "10px",
     marginBottom: "20px",
     paddingLeft: "10px",
+    paddingRight: "10px",
+  },
+  jobAppDetails: {
+    padding: "5px",
+  },
+  btn: {
+    color: "black",
+    backgroundColor: "lightgreen",
   },
 }));
 
@@ -87,6 +111,18 @@ const Follow_Up = () => {
     getAllJobApps();
   }, []);
 
+  const downloadResume = (e, jobApplicationId) => {
+    console.log("download resume,,,", jobApplicationId);
+  };
+  const viewJobApp = (e, jobApplicationId) => {
+    console.log("view job app,,,", jobApplicationId);
+  };
+  const editJobApp = (e, jobApplicationId) => {
+    console.log("edit job app,,,", jobApplicationId);
+  };
+  const deleteJobApp = (e, jobApplicationId) => {
+    console.log("delete job app,,,", jobApplicationId);
+  };
   let jobAppsList =
     jobApps.length > 0 &&
     jobApps.map((item, i) => {
@@ -98,20 +134,49 @@ const Follow_Up = () => {
               <div className={classes.jobAppContainer}>
                 <Grid container spacing={1}>
                   <Grid item xs={12} sm={12} md={6}>
-                    <div>Contact Name : {item.contactPersonName}</div>
-                    <div>Contact Email : {item.contactEmail}</div>
-                    <div>
+                    <div className={classes.jobAppDetails}>
+                      Contact Name : {item.contactPersonName}
+                    </div>
+                    <div className={classes.jobAppDetails}>
+                      Contact Email : {item.contactEmail}
+                    </div>
+                    <div className={classes.jobAppDetails}>
                       Phone : {item.phoneNumber ? item.phoneNumber : "N/A"}
+                    </div>
+                    <div className={classes.jobAppDetails}>
+                      <Button
+                        className={classes.btn}
+                        variant="contained"
+                        type="button"
+                        onClick={(e) => {
+                          downloadResume(e, item.jobApplicationId);
+                        }}
+                      >
+                        <CloudDownload /> Resume
+                      </Button>
                     </div>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6}>
-                    <div>
+                    <div className={classes.jobAppDetails}>
                       Company : {item.companyName ? item.companyName : "N/A"}
                     </div>
-                    <div>
+                    <div className={classes.jobAppDetails}>
                       Agency : {item.agencyName ? item.agencyName : "N/A"}
                     </div>
-                    <div>URL : {item.webURL ? item.webURL : "N/A"}</div>
+                    <div className={classes.jobAppDetails}>
+                      URL : {item.webURL ? item.webURL : "N/A"}
+                    </div>
+                    <div className={classes.followUpNotes}>
+                      <Accordion>
+                        <AccordionSummary expandIcon={<ExpandMore />}>
+                          Follow-Up-Notes!
+                        </AccordionSummary>
+
+                        <AccordionDetails>
+                          {item.followUpNotes ? item.followUpNotes : "N/A"}
+                        </AccordionDetails>
+                      </Accordion>
+                    </div>
                   </Grid>
                 </Grid>
               </div>
@@ -124,23 +189,6 @@ const Follow_Up = () => {
 
   return (
     <div className={classes.pageHeader}>
-      <Grid container spacing={3}>
-        <Grid item xs>
-          <div style={{ background: "red" }}> A</div>
-        </Grid>
-        <Grid item xs={7}>
-          <div style={{ background: "green" }}> B </div>
-        </Grid>
-        <Grid item xs>
-          <div style={{ background: "blue" }}> C </div>
-        </Grid>
-        <Grid item xs>
-          <div style={{ background: "green" }}> D </div>
-        </Grid>
-      </Grid>
-      <p></p>
-      <hr />
-
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={3}>
           <div></div>
