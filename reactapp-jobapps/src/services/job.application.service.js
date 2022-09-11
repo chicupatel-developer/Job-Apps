@@ -4,5 +4,9 @@ class JobApplicationService {
   addJobApplication = async (data) => {
     return await http.post(`/addJobApplication`, data);
   };
+
+  getAllJobApps = async () => {
+    return await http.get(`/getAllJobApps`);
+  };
 }
 export default new JobApplicationService();

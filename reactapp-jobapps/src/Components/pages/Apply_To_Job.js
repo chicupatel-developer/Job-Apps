@@ -27,19 +27,33 @@ const useStyles = makeStyles((theme) => ({
   modelError: {
     color: "red",
     fontSize: "medium",
-    fontWeight: "bold",
+    textAlign: "left",
+    verticalAlign: "middle",
+    border: "2px solid red",
+    borderRadius: "10px",
+    paddingTop: "10px",
   },
   jobAppCreateError: {
     color: "red",
     fontSize: "medium",
     fontWeight: "bold",
     paddingBottom: "10px",
+    paddingTop: "10px",
+    textAlign: "center",
+    verticalAlign: "middle",
+    border: "2px solid red",
+    borderRadius: "10px",
   },
   jobAppCreateSuccess: {
     color: "green",
     fontSize: "medium",
     fontWeight: "bold",
     paddingBottom: "10px",
+    paddingTop: "10px",
+    textAlign: "center",
+    verticalAlign: "middle",
+    border: "2px solid green",
+    borderRadius: "10px",
   },
   btn: {
     textAlign: "center",
@@ -156,10 +170,10 @@ const Apply_To_Job = () => {
         companyName: formValues.companyName,
         agencyName: formValues.agencyName,
         webURL: formValues.webURL,
-        contactPersonName: formValues.contactPersonName,
-        // contactPersonName: "",
-        contactEmail: formValues.contactEmail,
-        // contactEmail: "",
+        // contactPersonName: formValues.contactPersonName,
+        contactPersonName: "",
+        // contactEmail: formValues.contactEmail,
+        contactEmail: "",
         phoneNumber: formValues.phoneNumber,
         province: formValues.province,
         // province: "",
@@ -325,15 +339,23 @@ const Apply_To_Job = () => {
               {jobAppCreateResponse.responseMessage}
             </div>
           ) : (
-            <div className={classes.jobAppCreateSuccess}>
-              {jobAppCreateResponse.responseMessage}
-            </div>
+            <span>
+              {jobAppCreateResponse &&
+              jobAppCreateResponse.responseCode === 0 ? (
+                <div className={classes.jobAppCreateSuccess}>
+                  {jobAppCreateResponse.responseMessage}
+                </div>
+              ) : (
+                <span></span>
+              )}
+            </span>
           )}
           {modelErrors.length > 0 ? (
             <div className={classes.modelError}>{modelErrorList}</div>
           ) : (
             <span></span>
           )}
+          <p></p>
         </Grid>
         <Grid item xs={12} sm={12} md={3}>
           <div></div>

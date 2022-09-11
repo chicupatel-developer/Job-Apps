@@ -31,7 +31,7 @@ namespace api_job_apps.Controllers
             _configuration = configuration;
         }
 
-
+        // react ok
         [HttpPost]
         [Route("addJobApplication")]
         public IActionResult AddJobApplication(JobApplication jobAppData)
@@ -75,6 +75,7 @@ namespace api_job_apps.Controllers
             }
         }
 
+        // react wip
         [HttpGet]
         [Route("getAllJobApps")]
         public IActionResult GetAllJobApps()

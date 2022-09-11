@@ -47,6 +47,17 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
     fontSize: "x-large; ",
   },
+  jobAppContainer: {
+    fontSize: "medium",
+    textAlign: "left",
+    verticalAlign: "middle",
+    border: "2px solid blue",
+    borderRadius: "10px",
+    paddingTop: "10px",
+    paddingBottom: "10px",
+    marginBottom: "20px",
+    paddingLeft: "10px",
+  },
 }));
 
 const defaultValues = {
@@ -59,8 +70,77 @@ const defaultValues = {
 const Follow_Up = () => {
   const classes = useStyles();
 
+  const [jobApps, setJobApps] = useState([]);
+
+  const getAllJobApps = () => {
+    JobApplicationService.getAllJobApps()
+      .then((response) => {
+        console.log(response.data);
+        setJobApps(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    getAllJobApps();
+  }, []);
+
+  let jobAppsList =
+    jobApps.length > 0 &&
+    jobApps.map((item, i) => {
+      return (
+        <div key={i}>
+          <Grid container spacing={0}>
+            <Grid item xs={12} sm={12} md={1}></Grid>
+            <Grid item xs={12} sm={12} md={10}>
+              <div className={classes.jobAppContainer}>
+                <Grid container spacing={1}>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <div>Contact Name : {item.contactPersonName}</div>
+                    <div>Contact Email : {item.contactEmail}</div>
+                    <div>
+                      Phone : {item.phoneNumber ? item.phoneNumber : "N/A"}
+                    </div>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <div>
+                      Company : {item.companyName ? item.companyName : "N/A"}
+                    </div>
+                    <div>
+                      Agency : {item.agencyName ? item.agencyName : "N/A"}
+                    </div>
+                    <div>URL : {item.webURL ? item.webURL : "N/A"}</div>
+                  </Grid>
+                </Grid>
+              </div>
+            </Grid>
+            <Grid item xs={12} sm={12} md={1}></Grid>
+          </Grid>
+        </div>
+      );
+    }, this);
+
   return (
     <div className={classes.pageHeader}>
+      <Grid container spacing={3}>
+        <Grid item xs>
+          <div style={{ background: "red" }}> A</div>
+        </Grid>
+        <Grid item xs={7}>
+          <div style={{ background: "green" }}> B </div>
+        </Grid>
+        <Grid item xs>
+          <div style={{ background: "blue" }}> C </div>
+        </Grid>
+        <Grid item xs>
+          <div style={{ background: "green" }}> D </div>
+        </Grid>
+      </Grid>
+      <p></p>
+      <hr />
+
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={3}>
           <div></div>
@@ -68,8 +148,8 @@ const Follow_Up = () => {
         <Grid item xs={12} sm={12} md={6}>
           <div className={classes.pageTitle}>Follow-Up</div>
         </Grid>
-        <Grid item xs={12} sm={12} md={3}>
-          <div></div>
+        <Grid item xs={12} sm={12} md={12}>
+          <div>{jobAppsList}</div>
         </Grid>
       </Grid>
     </div>
