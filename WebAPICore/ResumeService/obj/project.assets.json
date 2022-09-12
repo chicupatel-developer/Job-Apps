@@ -5229,24 +5229,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ankit_2\\.nuget\\packages\\": {},
+    "C:\\Users\\Satellite\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\JobApps\\WebAPICore\\ResumeService\\ResumeService.csproj",
+      "projectUniqueName": "C:\\Job-Apps\\Job-Apps\\WebAPICore\\ResumeService\\ResumeService.csproj",
       "projectName": "ResumeService",
-      "projectPath": "C:\\JobApps\\WebAPICore\\ResumeService\\ResumeService.csproj",
-      "packagesPath": "C:\\Users\\ankit_2\\.nuget\\packages\\",
-      "outputPath": "C:\\JobApps\\WebAPICore\\ResumeService\\obj\\",
+      "projectPath": "C:\\Job-Apps\\Job-Apps\\WebAPICore\\ResumeService\\ResumeService.csproj",
+      "packagesPath": "C:\\Users\\Satellite\\.nuget\\packages\\",
+      "outputPath": "C:\\Job-Apps\\Job-Apps\\WebAPICore\\ResumeService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\ankit_2\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Satellite\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -5259,8 +5262,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\JobApps\\WebAPICore\\EFCore\\EFCore.csproj": {
-              "projectPath": "C:\\JobApps\\WebAPICore\\EFCore\\EFCore.csproj"
+            "C:\\Job-Apps\\Job-Apps\\WebAPICore\\EFCore\\EFCore.csproj": {
+              "projectPath": "C:\\Job-Apps\\Job-Apps\\WebAPICore\\EFCore\\EFCore.csproj"
             }
           }
         }
@@ -5295,7 +5298,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

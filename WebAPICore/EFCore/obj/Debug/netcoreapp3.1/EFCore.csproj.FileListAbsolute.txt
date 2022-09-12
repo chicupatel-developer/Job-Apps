@@ -19,3 +19,14 @@ C:\JobApps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.runtimeconfig.json
 C:\JobApps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.runtimeconfig.dev.json
 C:\JobApps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.genruntimeconfig.cache
 C:\JobApps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.csproj.AssemblyReference.cache
+C:\Job-Apps\Job-Apps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.deps.json
+C:\Job-Apps\Job-Apps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.runtimeconfig.json
+C:\Job-Apps\Job-Apps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.runtimeconfig.dev.json
+C:\Job-Apps\Job-Apps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.dll
+C:\Job-Apps\Job-Apps\WebAPICore\EFCore\bin\Debug\netcoreapp3.1\EFCore.pdb
+C:\Job-Apps\Job-Apps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.AssemblyInfoInputs.cache
+C:\Job-Apps\Job-Apps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.AssemblyInfo.cs
+C:\Job-Apps\Job-Apps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.csproj.CoreCompileInputs.cache
+C:\Job-Apps\Job-Apps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.dll
+C:\Job-Apps\Job-Apps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.pdb
+C:\Job-Apps\Job-Apps\WebAPICore\EFCore\obj\Debug\netcoreapp3.1\EFCore.genruntimeconfig.cache
