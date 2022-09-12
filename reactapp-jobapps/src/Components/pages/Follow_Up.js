@@ -42,6 +42,8 @@ import AutorenewIcon from "@material-ui/icons/Autorenew";
 
 import Moment from "moment";
 
+import Filter_Job_Apps from "../Child_Components/Filter_Job_Apps";
+
 const useStyles = makeStyles((theme) => ({
   pageHeader: {},
   paper: {
@@ -128,6 +130,10 @@ const Follow_Up = () => {
 
   const [jobApps, setJobApps] = useState([]);
   const [appStatusTypes, setAppStatusTypes] = useState([]);
+
+  const pull_data = (data) => {
+    console.log(data); // LOGS DATA FROM CHILD (My name is Dean Winchester... &)
+  };
 
   const getAllJobApps = () => {
     JobApplicationService.getAllJobApps()
@@ -311,6 +317,11 @@ const Follow_Up = () => {
 
   return (
     <div className={classes.pageHeader}>
+      <div>
+        <Filter_Job_Apps func={pull_data} />
+      </div>
+      <p></p>
+
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={3}>
           <div></div>
